@@ -1,8 +1,5 @@
-# iwa_auction
-IW31ドキュメントです
+# iw_auction
+IW31 - チーム開発リポジトリです
 
-## 外部URL一覧
-チーム開発で使用しているURLまとめ
-
-## 質問シート
-[質問シート](https://docs.google.com/spreadsheets/d/1ifnTcTZfe-7FFfVDQ816XnFiS9k9s_M8GzWUCjNk4as/edit?usp=sharing)
+## チーム開発で使用している外部ファイルURL
+- [質問シート](https://docs.google.com/spreadsheets/d/1ifnTcTZfe-7FFfVDQ816XnFiS9k9s_M8GzWUCjNk4as/edit?usp=sharing)
