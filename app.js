@@ -10,13 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 // DB接続
 const mysql = require("mysql");
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  port: 3306,
-  database: "auction_db",
-});
+// constファイルからDB接続情報を取得
+const db = require("./const.js");
+const connection = mysql.createConnection(db);
+
 connection.connect((error) => {
   if (error) {
     console.log("error connecting:" + error.stack);
