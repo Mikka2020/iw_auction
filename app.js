@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 // DB接続
 const mysql = require("mysql");
 // constファイルからDB接続情報を取得
-const db = require("./const.js");
+const db = require("./database.js");
 const connection = mysql.createConnection(db);
 
 connection.connect((error) => {
