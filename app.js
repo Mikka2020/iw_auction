@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 app.get("/auctionItem", (req, res) => {
   res.render("auctionItem.ejs");
 });
-app.get("/auctionItems/:auctionId", (req, res) => {//auctionId = car.id
+app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
   console.log(auctionId); 
