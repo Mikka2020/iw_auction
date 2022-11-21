@@ -91,7 +91,7 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!'});
         return;
       }
-      res.render("auctionItem.ejs",{values:results});
+      res.render("auctionItem.ejs",{values:results[0]});
     }
   );
 });
