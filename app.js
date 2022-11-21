@@ -24,7 +24,36 @@ app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 app.get("/auctions", (req, res) => {
-  res.render("auctions.ejs");
+  const sql = `
+      SELECT
+        exhibit.start_time,
+        exhibit.endtime_time,
+        manufacturer.manufacture_name,
+        car.model_year,
+        bodytype.bodytype_name,
+        car.number_passengers,
+        car.repair_history,
+        car.car_inspection_expiration_date,
+        car.mileage,
+        exhibit.lowest_winning_bid,
+        MAX(bid.bid_price) AS bid_price
+      FROM
+        exhibit
+      JOIN car ON exhibit.car_id = car.id
+      LEFT JOIN manufacturer ON car.manufacturer_id = manufacturer.id
+      LEFT JOIN color ON car.color_id = color.id
+      LEFT JOIN bodytype ON car.body_type_id = bodytype.id
+      LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
+      LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      GROUP BY exhibit.id
+      ORDER BY
+        exhibit.created_at
+      DESC
+      ;
+    `;
+  connection.query(sql, (error, results) => {
+    res.render("auctionList.ejs", { exhibits: results });
+  });
 });
 app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
 
