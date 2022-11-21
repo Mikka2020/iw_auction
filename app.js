@@ -16,7 +16,6 @@ const connection = mysql.createConnection(db);
 
 connection.connect((error) => {
   if (error) {
-    console.log("error connecting:" + error.stack);
     return;
   }
   console.log("success");
@@ -24,13 +23,12 @@ connection.connect((error) => {
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
-app.get("/auctionItem", (req, res) => {
-  res.render("auctionItem.ejs");
+app.get("/auctions", (req, res) => {
+  res.render("auctions.ejs");
 });
 app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
-  console.log(auctionId); 
 
   const sql = `SELECT*FROM 
   car 
