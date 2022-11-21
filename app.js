@@ -53,7 +53,7 @@ app.get("/auctions", (req, res) => {
       ;
     `;
   connection.query(sql, (error, results) => {
-    res.render("auctions.ejs", { exhibits: results });
+    res.render("auctionList.ejs", { exhibits: results });
   });
 });
 app.get("/auctions/:auctionId", (req, res) => {
