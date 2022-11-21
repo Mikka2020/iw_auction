@@ -16,7 +16,6 @@ const connection = mysql.createConnection(db);
 
 connection.connect((error) => {
   if (error) {
-    console.log("error connecting:" + error.stack);
     return;
   }
   console.log("success");
@@ -27,8 +26,45 @@ app.get("/", (req, res) => {
 app.get("/auctions", (req, res) => {
   res.render("auctions.ejs");
 });
-app.get("/auctions/:auctionId", (req, res) => {
-  res.render("auction.ejs");
+app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
+
+  const auctionId = req.params.auctionId;
+
+  const sql = `SELECT*FROM 
+  car 
+  JOIN 
+  manufacturer 
+  ON 
+  car.manufacturer_id = manufacturer.id 
+  JOIN 
+  color 
+  ON 
+  car.color_id = color.id 
+  JOIN 
+  bodytype 
+  ON 
+  car.body_type_id = bodytype.id 
+  JOIN 
+  exhibit 
+  ON 
+  car.id = exhibit.vehicle_id 
+  JOIN 
+  bid 
+  ON 
+  car.id = bid.exhibit_id 
+  WHERE car.id =`
+  + auctionId;
+  connection.query(
+    sql,
+    (error, results) => {
+      if(error) {
+        console.log('error connecting:' + error.stack);
+        res.status(400).send({ messsage: 'Error!'});
+        return;
+      }
+      res.render("auctionItem.ejs",{values:results});
+    }
+  );
 });
 app.get("/register", (req, res) => {
   res.render("register.ejs");
