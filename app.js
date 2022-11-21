@@ -24,15 +24,38 @@ connection.connect((error) => {
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
-app.get("/auctions", (req, res) => {
-  res.render("auctions.ejs");
+app.get("/auctionItem", (req, res) => {
+  res.render("auctionItem.ejs");
 });
-app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
+app.get("/auctionItem/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
   console.log(auctionId); 
 
-  const sql = "SELECT*FROM car JOIN manufacturer ON car.manufacturer_id = manufacturer.id JOIN color ON car.color_id = color.id JOIN bodytype ON car.body_type_id = bodytype.id JOIN exhibit ON car.id = exhibit.vehicle_id JOIN bid ON car.id = bid.exhibit_id WHERE car.id =" + auctionId;
+  const sql = `SELECT*FROM 
+  car 
+  JOIN 
+  manufacturer 
+  ON 
+  car.manufacturer_id = manufacturer.id 
+  JOIN 
+  color 
+  ON 
+  car.color_id = color.id 
+  JOIN 
+  bodytype 
+  ON 
+  car.body_type_id = bodytype.id 
+  JOIN 
+  exhibit 
+  ON 
+  car.id = exhibit.vehicle_id 
+  JOIN 
+  bid 
+  ON 
+  car.id = bid.exhibit_id 
+  WHERE car.id =`
+  + auctionId;
   connection.query(
     sql,
     (error, results) => {
@@ -41,7 +64,7 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!'});
         return;
       }
-      res.render("auctions.ejs",{values:results});
+      res.render("auctionItem.ejs",{values:results});
     }
   );
 });
