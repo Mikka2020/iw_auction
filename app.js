@@ -26,8 +26,9 @@ app.get("/", (req, res) => {
 app.get("/auctions", (req, res) => {
   const sql = `
       SELECT
+        exhibit.id AS exhibit_id,
         exhibit.start_time,
-        exhibit.endtime_time,
+        exhibit.end_time,
         manufacturer.manufacture_name,
         car.model_year,
         bodytype.bodytype_name,
@@ -36,7 +37,8 @@ app.get("/auctions", (req, res) => {
         car.car_inspection_expiration_date,
         car.mileage,
         exhibit.lowest_winning_bid,
-        MAX(bid.bid_price) AS bid_price
+        MAX(bid.bid_price) AS bid_price,
+        eventdate.event_date
       FROM
         exhibit
       JOIN car ON exhibit.car_id = car.id
@@ -59,28 +61,28 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
 
-  const sql = `SELECT*FROM 
-  car 
-  JOIN 
-  manufacturer 
-  ON 
-  car.manufacturer_id = manufacturer.id 
-  JOIN 
-  color 
-  ON 
-  car.color_id = color.id 
-  JOIN 
-  bodytype 
-  ON 
-  car.body_type_id = bodytype.id 
-  JOIN 
-  exhibit 
-  ON 
-  car.id = exhibit.vehicle_id 
-  JOIN 
-  bid 
-  ON 
-  car.id = bid.exhibit_id 
+  const sql = `SELECT*FROM
+  car
+  JOIN
+  manufacturer
+  ON
+  car.manufacturer_id = manufacturer.id
+  JOIN
+  color
+  ON
+  car.color_id = color.id
+  JOIN
+  bodytype
+  ON
+  car.body_type_id = bodytype.id
+  JOIN
+  exhibit
+  ON
+  car.id = exhibit.vehicle_id
+  JOIN
+  bid
+  ON
+  car.id = bid.exhibit_id
   WHERE car.id =`
   + auctionId;
   connection.query(
@@ -89,8 +91,8 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
       if(error) {
         console.log('error connecting:' + error.stack);
         res.status(400).send({ messsage: 'Error!'});
-        return;
-      }
+      return;
+    }
       res.render("auctionItem.ejs",{values:results[0]});
     }
   );

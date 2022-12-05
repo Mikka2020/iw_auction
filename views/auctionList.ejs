@@ -1,6 +1,6 @@
 <% for (let i = 0; i < exhibits.length; i++) { %>
 <p><%= exhibits[i].start_time %></p>
-<p><%= exhibits[i].endtime_time %></p>
+<p><%= exhibits[i].end_time %></p>
 <p><%= exhibits[i].manufacture_name %></p>
 <p><%= exhibits[i].model_year %></p>
 <p><%= exhibits[i].bodytype_name %></p>
@@ -11,4 +11,14 @@
 <p><%= exhibits[i].mileage %></p>
 <p><%= exhibits[i].lowest_winning_bid %></p>
 <p><%= exhibits[i].bid_price %></p>
-<% } %>
+<p>
+  <%
+  const now_date = new Date();
+  if (now_date < exhibits[i].start_time) { %>
+    <p>開催予定</p>
+  <% } else if (exhibits[i].end_time <= now_date) { %>
+    <p>競売終了</p>
+    <% } else { %>
+      <p><a href="/auctions/<%= exhibits[i].exhibit_id %>">開催中</a></p>
+  <% }} %>
+</p>
