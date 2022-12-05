@@ -64,7 +64,6 @@ app.get('/admin/cars', (req, res) => {
     ON
       c.body_type_id = b.id`,
     (error, results) => {
-      console.log(results);
       res.render('admin/carlist.ejs',{data:results});
     }
   );
