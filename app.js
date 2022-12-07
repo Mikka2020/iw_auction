@@ -20,9 +20,47 @@ connection.connect((error) => {
   }
   console.log("success");
 });
+
+const passport = require("passport");
+app.use(passport.initialize());
+
+const LocalStrategy = require("passport-local").Strategy;
+passport.use(
+  new LocalStrategy(
+    { usernameField: "email", passwordField: "password" },
+    (email, password, done) => {
+      const values = [email, password];
+      connection.query(
+        "SELECT * FROM user WHERE email = ? AND password = ?",
+        values,
+        (err, results) => {
+          if (err) {
+            return done(err);
+          }
+          if (results.length === 0) {
+            return done(null, false);
+          }
+          return done(null, results[0]);
+        }
+      );
+    }
+  )
+);
+
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+app.post(
+  "/auctions",
+  passport.authenticate("local", {
+    successRedirect: "/auctions",
+    failureRedirect: "/login",
+  })
+);
+
 app.get("/auctions", (req, res) => {
   const sql = `
       SELECT
@@ -31,6 +69,8 @@ app.get("/auctions", (req, res) => {
         exhibit.end_time,
         manufacturer.manufacture_name,
         car.model_year,
+        car.grade,
+        car.car_condition,
         bodytype.bodytype_name,
         car.number_passengers,
         car.repair_history,
