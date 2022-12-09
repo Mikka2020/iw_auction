@@ -118,7 +118,7 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
   JOIN
   exhibit
   ON
-  car.id = exhibit.vehicle_id
+  car.id = exhibit.car_id
   JOIN
   bid
   ON
@@ -177,3 +177,5 @@ app.get('/admin/cars', (req, res) => {
 });
 
 app.listen(9000);
+
+
