@@ -48,7 +48,41 @@ passport.use(
 );
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  const sql = `
+    SELECT
+      eventdate.event_date
+    FROM
+      eventdate
+    ORDER BY
+      eventdate.event_date
+    DESC;
+  `;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.log("error connecting:" + error.stack);
+      res.status(400).send({ messsage: "Error!" });
+      return;
+    }
+
+    // resultsの年月をキーにしたオブジェクトを作成。
+    const dateList = {};
+    results.forEach((result) => {
+      const year = result.event_date.getFullYear();
+      const month = result.event_date.getMonth() + 1;
+      const key = `${year}-${month}`;
+      if (dateList[key] === undefined) {
+        dateList[key] = [];
+      }
+      dateList[key].push(result.event_date);
+    });
+    // 日付の昇順にソート
+    Object.keys(dateList).forEach((key) => {
+      dateList[key].sort((a, b) => {
+        return a - b;
+      });
+    });
+    res.render("index.ejs", { dateList: dateList });
+  });
 });
 app.get("/login", (req, res) => {
   res.render("login");
