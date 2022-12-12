@@ -31,7 +31,7 @@ passport.use(
     (email, password, done) => {
       const values = [email, password];
       connection.query(
-        "SELECT * FROM user WHERE email = ? AND password = ?",
+        "SELECT * FROM user WHERE mail_address = ? AND password = ?",
         values,
         (err, results) => {
           if (err) {
@@ -87,13 +87,46 @@ app.get("/", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.post(
-  "/auctions",
-  passport.authenticate("local", {
-    successRedirect: "/auctions",
-    failureRedirect: "/login",
-  })
-);
+
+app.post("/auctions", (req, res) => {
+  const sql = `
+      SELECT
+        exhibit.id AS exhibit_id,
+        exhibit.start_time,
+        exhibit.end_time,
+        manufacturer.manufacture_name,
+        car.model_year,
+        car.grade,
+        car.car_condition,
+        bodytype.bodytype_name,
+        car.number_passengers,
+        car.repair_history,
+        car.car_inspection_expiration_date,
+        car.mileage,
+        exhibit.lowest_winning_bid,
+        MAX(bid.bid_price) AS bid_price,
+        eventdate.event_date
+      FROM
+        exhibit
+      JOIN car ON exhibit.car_id = car.id
+      LEFT JOIN manufacturer ON car.manufacturer_id = manufacturer.id
+      LEFT JOIN color ON car.color_id = color.id
+      LEFT JOIN bodytype ON car.body_type_id = bodytype.id
+      LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
+      LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      GROUP BY exhibit.id
+      ORDER BY
+        exhibit.created_at
+      DESC
+      ;
+    ;
+  `;
+  connection.query(sql,
+    (error, results) => {
+      res.render("auctionList.ejs", { exhibits: results });
+    }
+  );
+});
 
 app.get("/auctions", (req, res) => {
   const sql = `
@@ -158,16 +191,16 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
   ON
   car.id = bid.exhibit_id
   WHERE car.id =`
-  + auctionId;
+    + auctionId;
   connection.query(
     sql,
     (error, results) => {
-      if(error) {
+      if (error) {
         console.log('error connecting:' + error.stack);
-        res.status(400).send({ messsage: 'Error!'});
-      return;
-    }
-      res.render("auctionItem.ejs",{values:results[0]});
+        res.status(400).send({ messsage: 'Error!' });
+        return;
+      }
+      res.render("auctionItem.ejs", { values: results[0] });
     }
   );
 });
@@ -205,7 +238,7 @@ app.get('/admin/cars', (req, res) => {
     ON
       c.body_type_id = b.id`,
     (error, results) => {
-      res.render('admin/carlist.ejs',{data:results});
+      res.render('admin/carlist.ejs', { data: results });
     }
   );
 });
