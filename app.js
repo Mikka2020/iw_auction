@@ -50,6 +50,7 @@ passport.use(
 app.get("/", (req, res) => {
   const sql = `
     SELECT
+      eventdate.id,
       eventdate.event_date
     FROM
       eventdate
@@ -63,22 +64,19 @@ app.get("/", (req, res) => {
       res.status(400).send({ messsage: "Error!" });
       return;
     }
-
-    // resultsの年月をキーにしたオブジェクトを作成。
-    const dateList = {};
-    results.forEach((result) => {
-      const year = result.event_date.getFullYear();
-      const month = result.event_date.getMonth() + 1;
-      const key = `${year}-${month}`;
-      if (dateList[key] === undefined) {
-        dateList[key] = [];
+    // 年月は降順、日付は昇順にソートする。
+    const dateList = results.reduce((acc, cur) => {
+      const yearMonth = cur.event_date.toISOString().slice(0, 7);
+      if (acc[yearMonth]) {
+        acc[yearMonth].push(cur);
+      } else {
+        acc[yearMonth] = [cur];
       }
-      dateList[key].push(result.event_date);
-    });
-    // 日付の昇順にソート
+      return acc;
+    }, {});
     Object.keys(dateList).forEach((key) => {
       dateList[key].sort((a, b) => {
-        return a - b;
+        return a.event_date - b.event_date;
       });
     });
     res.render("index.ejs", { dateList: dateList });
@@ -118,7 +116,6 @@ app.post("/auctions", (req, res) => {
       ORDER BY
         exhibit.created_at
       DESC
-      ;
     ;
   `;
   connection.query(sql,

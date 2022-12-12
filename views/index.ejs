@@ -10,7 +10,7 @@
   <body data-barba="wrapper">
     <header>
       <nav>
-        <div class="logo"><a href="./index.html">UNTITLES</a></div>
+        <div class="logo"><a href="/">UNTITLES</a></div>
         <form class="search">
           <button type="button">
             <svg
@@ -49,24 +49,24 @@
           </p>
           <ul>
             <% for (let eventDate of dateList[month]) { const tmpEventDate = new
-            Date(eventDate); %>
+            Date(eventDate.event_date); %>
             <li>
               <% if (nowDate < tmpEventDate ) { %>
-              <a href="./auctions.html" class="calenderBlock">
+              <a href="auctions/<%= eventDate.id %>" class="calenderBlock">
                 <p class="calenderStatus">開催予定</p>
               <% } else if (tmpEventDate.setDate(tmpEventDate.getDate() + 1) <
               nowDate) { %>
-              <a href="./auctions.html" class="calenderBlock statusClose">
+              <a href="auctions/<%= eventDate.id %>" class="calenderBlock statusClose">
                 <p class="calenderStatus">開催終了</p>
               <% } else { %>
 
-              <a href="./auctions.html" class="calenderBlock statusActive">
+              <a href="auctions/<%= eventDate.id %>" class="calenderBlock statusActive">
                 <p class="calenderStatus">開催中</p>
                 <% } %>
 
                 <div class="calenderHead">
                   <p>MON</p>
-                  <div class="day"><%= eventDate.getDate() %></div>
+                  <div class="day"><%= eventDate.event_date.getDate() %></div>
                 </div>
                 <div class="calenderProduct">
                   <div class="calenderItemName">
