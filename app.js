@@ -86,7 +86,8 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.post("/auctions", (req, res) => {
+app.post("/auctions/:id", (req, res) => {
+  const values = [req.params.id];
   const sql = `
       SELECT
         exhibit.id AS exhibit_id,
@@ -112,6 +113,8 @@ app.post("/auctions", (req, res) => {
       LEFT JOIN bodytype ON car.body_type_id = bodytype.id
       LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
       LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      WHERE
+        exhibit.eventdate_id = ?
       GROUP BY exhibit.id
       ORDER BY
         exhibit.created_at
@@ -119,13 +122,15 @@ app.post("/auctions", (req, res) => {
     ;
   `;
   connection.query(sql,
+    values,
     (error, results) => {
       res.render("auctionList.ejs", { exhibits: results });
     }
   );
 });
 
-app.get("/auctions", (req, res) => {
+app.get("/auctions/:id", (req, res) => {
+  const values = [req.params.id];
   const sql = `
       SELECT
         exhibit.id AS exhibit_id,
@@ -151,17 +156,20 @@ app.get("/auctions", (req, res) => {
       LEFT JOIN bodytype ON car.body_type_id = bodytype.id
       LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
       LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      WHERE
+        exhibit.eventdate_id = ?
       GROUP BY exhibit.id
       ORDER BY
         exhibit.created_at
       DESC
       ;
     `;
-  connection.query(sql, (error, results) => {
-    res.render("auctionList.ejs", { exhibits: results });
+  connection.query(sql, values, (error, results) => {
+    res.render("auctionList", { exhibits: results });
   });
 });
-app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
+
+app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
 

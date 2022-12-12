@@ -1,77 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/destyle.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/swiper@7/swiper-bundle.min.css"
-    />
-    <title>LIST</title>
-  </head>
-  <body data-barba="wrapper">
-    <header>
-      <nav>
-        <div class="logo"><a href="/">UNTITLES</a></div>
-        <form class="search">
-          <button type="button">
-            <svg
-              class="searchIcon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              style="fill: rgba(0, 0, 0, 1)"
-            >
-              <path
-                d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"
-              ></path>
-              <path
-                d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"
-              ></path>
-            </svg>
-          </button>
-          <input type="text" />
-        </form>
-        <div class="profile">
-          <a href="#">Profile-Name</a>
-        </div>
-      </nav>
-    </header>
 
-    <div id="center">
-      <main data-barba="container">
-        <ul class="pan">
-          <li>
-            <a href="/">ホーム</a>
-          </li>
-          <li>
-            <a href="/auctions">タイムテーブル</a>
-          </li>
-        </ul>
-        <h2>タイムテーブル | 2022.09.22</h2>
-        <ul class="tableHead">
-          <li class="c1">残り時間</li>
-          <li class="c2">開始時間</li>
-          <li class="c3">商品名</li>
-          <li class="c4">詳細</li>
-        </ul>
-        <ul class="tableContent">
-          <% for (let i = 0; i < exhibits.length; i++) { %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/destyle.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <title>LIST</title>
+</head>
+
+<body data-barba="wrapper">
+  <header>
+    <nav>
+      <div class="logo"><a href="/">UNTITLES</a></div>
+      <form class="search">
+        <button type="button">
+          <svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            style="fill: rgba(0, 0, 0, 1)">
+            <path
+              d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z">
+            </path>
+            <path
+              d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z">
+            </path>
+          </svg>
+        </button>
+        <input type="text" />
+      </form>
+      <div class="profile">
+        <a href="#">Profile-Name</a>
+      </div>
+    </nav>
+  </header>
+
+  <div id="center">
+    <main data-barba="container">
+      <ul class="pan">
+        <li>
+          <a href="/">ホーム</a>
+        </li>
+        <li>
+          <a href="/auctions">タイムテーブル</a>
+        </li>
+      </ul>
+      <h2>タイムテーブル | <%= exhibits[0] ? exhibits[0].event_date.getFullYear() + "." + (exhibits[0].event_date.getMonth() +
+          1) + "." + exhibits[0].event_date.getDate() : "" %>
+      </h2>
+      <ul class=" tableHead">
+        <li class="c1">残り時間</li>
+        <li class="c2">開始時間</li>
+        <li class="c3">商品名</li>
+        <li class="c4">詳細</li>
+      </ul>
+      <ul class="tableContent">
+        <% for (let i=0; i < exhibits.length; i++) { %>
           <li
-            class="<% if (new Date() < exhibits[i].start_time) { } else if (exhibits[i].end_time <= new Date()) { %> closed <% } else { %> activated <% } %>"
-          >
+            class="<% if (new Date() < exhibits[i].start_time) { } else if (exhibits[i].end_time <= new Date()) { %> closed <% } else { %> activated <% } %>">
             <div class="c1 tableTime">-</div>
             <div class="c2 tableSchedule">
-              <%= exhibits[i].start_time.getHours().toString().padStart(2, '0')
-              %>:<%= exhibits[i].start_time.getMinutes().toString().padStart(2,
-              '0') %><br />
-              -<br />
-              <%= exhibits[i].end_time.getHours().toString().padEnd(2, '0')
-              %>:<%= exhibits[i].end_time.getMinutes().toString().padStart(2,
-              '0') %>
+              <%= exhibits[i].start_time.getHours().toString().padStart(2, '0' ) %>:<%=
+                  exhibits[i].start_time.getMinutes().toString().padStart(2, '0' ) %><br />
+                  -<br />
+                  <%= exhibits[i].end_time.getHours().toString().padEnd(2, '0' ) %>:<%=
+                      exhibits[i].end_time.getMinutes().toString().padStart(2, '0' ) %>
             </div>
             <div class="c3 tableProducts">
               <div class="frame1">
@@ -80,18 +72,19 @@
                   <div class="C3Upper">
                     <div class="tableLogo">
                       <img src="" alt="" />
-                      <p><%= exhibits[i].manufacture_name %></p>
+                      <p>
+                        <%= exhibits[i].manufacture_name %>
+                      </p>
                     </div>
                     <div>
-                      <%= exhibits[i].model_year ?
-                      exhibits[i].model_year.toString() + " - " : "" %><%=
-                      exhibits[i].bodytype_name %>
+                      <%= exhibits[i].model_year ? exhibits[i].model_year.toString() + " - " : "" %>
+                        <%= exhibits[i].bodytype_name %>
                     </div>
                   </div>
                   <div class="C3Under">
                     <div class="productName">
-                      <%= exhibits[i].manufacture_name %> <%= exhibits[i].grade
-                      %>
+                      <%= exhibits[i].manufacture_name %>
+                        <%= exhibits[i].grade %>
                     </div>
                   </div>
                 </div>
@@ -102,11 +95,15 @@
                 <div class="C4Upper">
                   <div class="upContent">
                     <div class="upHead">ボディタイプ</div>
-                    <div class="upItem"><%= exhibits[i].bodytype_name %></div>
+                    <div class="upItem">
+                      <%= exhibits[i].bodytype_name %>
+                    </div>
                   </div>
                   <div class="upContent">
                     <div class="upHead">車両の状態</div>
-                    <div class="upItem"><%= exhibits[i].car_condition %></div>
+                    <div class="upItem">
+                      <%= exhibits[i].car_condition %>
+                    </div>
                   </div>
                   <div class="upContent">
                     <div class="upHead">定員</div>
@@ -116,27 +113,25 @@
                   </div>
                   <div class="upContent">
                     <div class="upHead">修復歴</div>
-                    <div class="upItem"><%= exhibits[i].repair_history %></div>
+                    <div class="upItem">
+                      <%= exhibits[i].repair_history %>
+                    </div>
                   </div>
                   <div class="upContent">
                     <div class="upHead">車検</div>
                     <div class="upItem">
                       <%= exhibits[i].car_inspection_expiration_date ?
-                      exhibits[i].car_inspection_expiration_date.getFullYear().toString()
-                      + "/" : 'なし' %><%=
-                      exhibits[i].car_inspection_expiration_date ?
-                      (exhibits[i].car_inspection_expiration_date.getMonth() +
-                      1).toString() + "/" : '' %><%=
-                      exhibits[i].car_inspection_expiration_date ?
-                      (exhibits[i].car_inspection_expiration_date.getDate() +
-                      1).toString() : '' %>
+                        exhibits[i].car_inspection_expiration_date.getFullYear().toString() + "/" : 'なし' %>
+                        <%= exhibits[i].car_inspection_expiration_date ?
+                          (exhibits[i].car_inspection_expiration_date.getMonth() + 1).toString() + "/" : '' %>
+                          <%= exhibits[i].car_inspection_expiration_date ?
+                            (exhibits[i].car_inspection_expiration_date.getDate() + 1).toString() : '' %>
                     </div>
                   </div>
                   <div class="upContent">
                     <div class="upHead">走行距離</div>
                     <div class="upItem">
-                      <%= exhibits[i].mileage ? exhibits[i].mileage.toString() +
-                      "万km" : "不明" %>
+                      <%= exhibits[i].mileage ? exhibits[i].mileage.toString() + "万km" : "不明" %>
                     </div>
                   </div>
                 </div>
@@ -145,33 +140,31 @@
                 <div class="udContent">
                   <div class="udHead">最高入札額</div>
                   <div class="udItem">
-                    <%= exhibits[i].bid_price?.toLocaleString() %><span
-                      >円</span
-                    >
+                    <%= exhibits[i].bid_price?.toLocaleString() %><span>円</span>
                   </div>
                 </div>
-                <% const now_date = new Date(); if (now_date <
-                exhibits[i].start_time) { %>
-                <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売予定</a>
-                <% } else if (exhibits[i].end_time <= now_date) { %>
-                <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売終了</a>
-                <% } else { %>
-                <a href="/auctions/<%= exhibits[i].exhibit_id %>">入札</a>
-                <% } %>
+                <% const now_date=new Date(); if (now_date < exhibits[i].start_time) { %>
+                  <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売予定</a>
+                  <% } else if (exhibits[i].end_time <=now_date) { %>
+                    <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売終了</a>
+                    <% } else { %>
+                      <a href="/auctions/<%= exhibits[i].exhibit_id %>">入札</a>
+                      <% } %>
               </div>
             </div>
           </li>
           <% } %>
-        </ul>
-      </main>
-    </div>
+      </ul>
+    </main>
+  </div>
 
-    <footer></footer>
+  <footer></footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-    <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <script src="./swiper.js"></script>
-    <script src="./barba.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <script src="./swiper.js"></script>
+  <script src="./barba.js"></script>
+</body>
+
 </html>
