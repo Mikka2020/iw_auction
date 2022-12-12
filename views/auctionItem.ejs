@@ -1,5 +1,14 @@
 <h1>値だけとってきました</h1>
 
+<p>最高入札額:1,500,000</p>
+<p>上乗せする額</p>
+<button id="addPrice1" value="10000">10,000円</button>
+<button id="addPrice2" value="50000">50,000円</button>
+<button id="addPrice3" value="100000">100,000円</button>
+<button id="addPrice4" value="500000">500,000円</button>
+
+<p>入札する額:1,650,000</p>
+<button>入札</button>
 
 <h2>自動車基本情報</h2>
 <p>メーカー名：<%=values.manufacture_name %></p>
@@ -70,3 +79,8 @@
 <p>開始時間：<%=values.start_time %></p>
 <p>終了時間：<%=values.endtime_time %></p>
 <p>最高入札額：<%=values.bid_price %></p>
+
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/auctionItem.js"></script>
