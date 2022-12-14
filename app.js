@@ -101,7 +101,7 @@ app.get("/auctions", (req, res) => {
     res.render("auctionList.ejs", { exhibits: results });
   });
 });
-app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
+app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
 
@@ -180,20 +180,20 @@ app.get('/admin/cars', (req, res) => {
   );
 });
 
-app.listen(9000);
+http_socket.listen(9000);
 
 //サーバー
-// io_socket.on('connection',function(socket){
-//   console.log('connected');
-//   //サーバーからの発信時、ルーム名を付ける。
-//   // socket.on('c2s',function(msg){
-//   //   io_socket.to(msg.chatid).emit('s2c',msg);
-//   // });
-//   //サーバがルーム名を受け取り、参加
-//   socket.on('c2s-join',function(msg){
-//     console.log('c2s-join:'+msg.itemId);
-//     socket.join(msg.itemId);
-//   });
-// });
+io_socket.on('connection',function(socket){
+  console.log('connected');
+  //サーバーからの発信時、ルーム名を付ける。
+  // socket.on('c2s',function(msg){
+  //   io_socket.to(msg.chatid).emit('s2c',msg);
+  // });
+  //サーバがルーム名を受け取り、参加
+  socket.on('c2s-join',function(msg){
+    console.log('c2s-roomJoin:'+msg.auctionId);
+    socket.join(msg.auctionId);
+  });
+});
 
 
