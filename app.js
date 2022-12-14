@@ -212,9 +212,79 @@ app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
+app.post("/register", (req, res) => {
+  const bcrypt = require("bcrypt");
+  const values = [
+    req.body.mail_address,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.user_name,
+    bcrypt.hashSync(req.body.password, 10),
+    req.body.phone_number,
+    req.body.address
+  ];
+  const sql = `
+    INSERT INTO
+      user
+      (
+        mail_address,
+        first_name,
+        last_name,
+        user_name,
+        password,
+        phone_number,
+        address
+      )
+    VALUES
+      (?, ?, ?, ?, ?, ?, ?)
+  `;
+  connection.query(sql, values
+    , (error, results) => {
+      if (error) {
+        console.log('error connecting:' + error.stack);
+        res.status(400).send({ messsage: 'Error!' });
+        return;
+      }
+      res.redirect("/login");
+    });
+});
+
 app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
+app.post("/login", (req, res) => {
+  const bcrypt = require("bcrypt");
+  const values = [req.body.mail_address];
+  connection.query(
+    `
+    SELECT
+      *
+    FROM
+      user
+    WHERE
+      mail_address = ?
+    ;`, values,
+    (error, results) => {
+      if (error) {
+        console.log('error connecting:' + error.stack);
+        res.status(400).send({ messsage: 'Error!' });
+        return;
+      }
+      if (results.length === 0) {
+        res.redirect("/login");
+        return;
+      }
+      if (bcrypt.compareSync(req.body.password, results[0].password)) {
+        // TODO: セッションどうするか問題
+        // req.session.user = results[0];
+        res.redirect("/mypage");
+      } else {
+        res.redirect("/login");
+      }
+    });
+});
+
+
 app.get("/mypage", (req, res) => {
   res.render("mypage.ejs");
 });
