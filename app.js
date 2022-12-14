@@ -14,6 +14,10 @@ const mysql = require("mysql");
 const db = require("./database.js");
 const connection = mysql.createConnection(db);
 
+//scoket通信準備
+const http_socket = require('http').Server(app);
+const io_socket = require('socket.io')(http_socket);
+
 connection.connect((error) => {
   if (error) {
     return;
@@ -97,7 +101,7 @@ app.get("/auctions", (req, res) => {
     res.render("auctionList.ejs", { exhibits: results });
   });
 });
-app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
+app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
 
@@ -118,7 +122,7 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
   JOIN
   exhibit
   ON
-  car.id = exhibit.vehicle_id
+  car.id = exhibit.car_id
   JOIN
   bid
   ON
@@ -133,7 +137,7 @@ app.get("/auctions/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!'});
       return;
     }
-      res.render("auctionItem.ejs",{values:results[0]});
+      res.render("auctionItem.ejs",{values:results[0],auctionId:req.params.auctionId});
     }
   );
 });
@@ -176,4 +180,20 @@ app.get('/admin/cars', (req, res) => {
   );
 });
 
-app.listen(9000);
+http_socket.listen(9000);
+
+//サーバー
+io_socket.on('connection',function(socket){
+  console.log('connected');
+  //サーバーからの発信時、ルーム名を付ける。
+  // socket.on('c2s',function(msg){
+  //   io_socket.to(msg.chatid).emit('s2c',msg);
+  // });
+  //サーバがルーム名を受け取り、参加
+  socket.on('c2s-join',function(msg){
+    console.log('c2s-roomJoin:'+msg.auctionId);
+    socket.join(msg.auctionId);
+  });
+});
+
+
