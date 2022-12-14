@@ -1,7 +1,6 @@
 "use strict";
 const express = require("express");
 const app = express();
-const http = require("http").Server(app);
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public", { index: false }));
@@ -35,7 +34,7 @@ passport.use(
     (email, password, done) => {
       const values = [email, password];
       connection.query(
-        "SELECT * FROM user WHERE email = ? AND password = ?",
+        "SELECT * FROM user WHERE mail_address = ? AND password = ?",
         values,
         (err, results) => {
           if (err) {
@@ -52,20 +51,46 @@ passport.use(
 );
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  const sql = `
+    SELECT
+      eventdate.id,
+      eventdate.event_date
+    FROM
+      eventdate
+    ORDER BY
+      eventdate.event_date
+    DESC;
+  `;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.log("error connecting:" + error.stack);
+      res.status(400).send({ messsage: "Error!" });
+      return;
+    }
+    // 年月は降順、日付は昇順にソートする。
+    const dateList = results.reduce((acc, cur) => {
+      const yearMonth = cur.event_date.toISOString().slice(0, 7);
+      if (acc[yearMonth]) {
+        acc[yearMonth].push(cur);
+      } else {
+        acc[yearMonth] = [cur];
+      }
+      return acc;
+    }, {});
+    Object.keys(dateList).forEach((key) => {
+      dateList[key].sort((a, b) => {
+        return a.event_date - b.event_date;
+      });
+    });
+    res.render("index.ejs", { dateList: dateList });
+  });
 });
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.post(
-  "/auctions",
-  passport.authenticate("local", {
-    successRedirect: "/auctions",
-    failureRedirect: "/login",
-  })
-);
 
-app.get("/auctions", (req, res) => {
+app.post("/auctions/:id", (req, res) => {
+  const values = [req.params.id];
   const sql = `
       SELECT
         exhibit.id AS exhibit_id,
@@ -91,16 +116,62 @@ app.get("/auctions", (req, res) => {
       LEFT JOIN bodytype ON car.body_type_id = bodytype.id
       LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
       LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      WHERE
+        exhibit.eventdate_id = ?
+      GROUP BY exhibit.id
+      ORDER BY
+        exhibit.created_at
+      DESC
+    ;
+  `;
+  connection.query(sql,
+    values,
+    (error, results) => {
+      res.render("auctionList.ejs", { exhibits: results });
+    }
+  );
+});
+
+app.get("/auctions/:id", (req, res) => {
+  const values = [req.params.id];
+  const sql = `
+      SELECT
+        exhibit.id AS exhibit_id,
+        exhibit.start_time,
+        exhibit.end_time,
+        manufacturer.manufacture_name,
+        car.model_year,
+        car.grade,
+        car.car_condition,
+        bodytype.bodytype_name,
+        car.number_passengers,
+        car.repair_history,
+        car.car_inspection_expiration_date,
+        car.mileage,
+        exhibit.lowest_winning_bid,
+        MAX(bid.bid_price) AS bid_price,
+        eventdate.event_date
+      FROM
+        exhibit
+      JOIN car ON exhibit.car_id = car.id
+      LEFT JOIN manufacturer ON car.manufacturer_id = manufacturer.id
+      LEFT JOIN color ON car.color_id = color.id
+      LEFT JOIN bodytype ON car.body_type_id = bodytype.id
+      LEFT JOIN eventdate ON exhibit.eventdate_id = eventdate.id
+      LEFT JOIN bid ON exhibit.id = bid.exhibit_id
+      WHERE
+        exhibit.eventdate_id = ?
       GROUP BY exhibit.id
       ORDER BY
         exhibit.created_at
       DESC
       ;
     `;
-  connection.query(sql, (error, results) => {
-    res.render("auctionList.ejs", { exhibits: results });
+  connection.query(sql, values, (error, results) => {
+    res.render("auctionList", { exhibits: results });
   });
 });
+
 app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
@@ -128,11 +199,11 @@ app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
   ON
   car.id = bid.exhibit_id
   WHERE car.id =`
-  + auctionId;
+    + auctionId;
   connection.query(
     sql,
     (error, results) => {
-      if(error) {
+      if (error) {
         console.log('error connecting:' + error.stack);
         res.status(400).send({ messsage: 'Error!'});
       return;
@@ -144,9 +215,79 @@ app.get("/auctions/items/:auctionId", (req, res) => {//auctionId = car.id
 app.get("/register", (req, res) => {
   res.render("register.ejs");
 });
+app.post("/register", (req, res) => {
+  const bcrypt = require("bcrypt");
+  const values = [
+    req.body.mail_address,
+    req.body.first_name,
+    req.body.last_name,
+    req.body.user_name,
+    bcrypt.hashSync(req.body.password, 10),
+    req.body.phone_number,
+    req.body.address
+  ];
+  const sql = `
+    INSERT INTO
+      user
+      (
+        mail_address,
+        first_name,
+        last_name,
+        user_name,
+        password,
+        phone_number,
+        address
+      )
+    VALUES
+      (?, ?, ?, ?, ?, ?, ?)
+  `;
+  connection.query(sql, values
+    , (error, results) => {
+      if (error) {
+        console.log('error connecting:' + error.stack);
+        res.status(400).send({ messsage: 'Error!' });
+        return;
+      }
+      res.redirect("/login");
+    });
+});
+
 app.get("/login", (req, res) => {
   res.render("login.ejs");
 });
+app.post("/login", (req, res) => {
+  const bcrypt = require("bcrypt");
+  const values = [req.body.mail_address];
+  connection.query(
+    `
+    SELECT
+      *
+    FROM
+      user
+    WHERE
+      mail_address = ?
+    ;`, values,
+    (error, results) => {
+      if (error) {
+        console.log('error connecting:' + error.stack);
+        res.status(400).send({ messsage: 'Error!' });
+        return;
+      }
+      if (results.length === 0) {
+        res.redirect("/login");
+        return;
+      }
+      if (bcrypt.compareSync(req.body.password, results[0].password)) {
+        // TODO: セッションどうするか問題
+        // req.session.user = results[0];
+        res.redirect("/mypage");
+      } else {
+        res.redirect("/login");
+      }
+    });
+});
+
+
 app.get("/mypage", (req, res) => {
   res.render("mypage.ejs");
 });
@@ -175,7 +316,7 @@ app.get('/admin/cars', (req, res) => {
     ON
       c.body_type_id = b.id`,
     (error, results) => {
-      res.render('admin/carlist.ejs',{data:results});
+      res.render('admin/carlist.ejs', { data: results });
     }
   );
 });
@@ -195,5 +336,3 @@ io_socket.on('connection',function(socket){
     socket.join(msg.auctionId);
   });
 });
-
-
