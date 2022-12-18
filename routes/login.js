@@ -2,10 +2,30 @@ const router = require('express').Router();
 const mysql = require("mysql");
 const db = require("./../database.js");
 const connection = mysql.createConnection(db);
-
 const passport = require("passport");
+const session = require("express-session");
+const flash = require('connect-flash');
+router.use(session({
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false
+}));
+router.use(flash());
 router.use(passport.initialize());
+router.use(passport.session());
+
 const LocalStrategy = require("passport-local").Strategy;
+passport.serializeUser((user, done) => {
+  done(null, {
+    id: user.id,
+    mail_address: user.mail_address,
+    user_name: user.user_name
+  });
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
 passport.use(new LocalStrategy(
   {
     usernameField: "mail_address",
@@ -44,10 +64,9 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", passport.authenticate("local", {
-  session: false,
   successRedirect: "/",
-  failureRedirect: "/login"
+  failureRedirect: "/login",
+  failureFlash: true,
+  successFlash: true,
 }));
-
-
 module.exports = router;

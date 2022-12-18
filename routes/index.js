@@ -2,8 +2,18 @@ const router = require('express').Router();
 const mysql = require("mysql");
 const db = require("./../database.js");
 const connection = mysql.createConnection(db);
+const passport = require("passport");
+const session = require("express-session");
+router.use(session({
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false
+}));
+router.use(passport.initialize());
+router.use(passport.session());
 
 router.get("/", (req, res) => {
+  const isAuth = req.isAuthenticated();
   const sql = `
     SELECT
       eventdate.id,
@@ -35,7 +45,13 @@ router.get("/", (req, res) => {
         return a.event_date - b.event_date;
       });
     });
-    res.render("index.ejs", { dateList: dateList });
+    // ログイン情報
+    const user = req.session.passport ? req.session.passport.user : null;
+    res.render("index", {
+      isAuth: isAuth,
+      user: user,
+      dateList: dateList
+    });
   });
 });
 

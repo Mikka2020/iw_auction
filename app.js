@@ -36,6 +36,12 @@ app.use("/login", require("./routes/login"));
 app.use("/register", require("./routes/register"));
 // マイページ
 app.use("/mypage", require("./routes/mypage"));
+app.get("/logout", (req, res, next) => {
+  req.logout(
+    (error) => next(error)
+  );
+  res.redirect("/")
+});
 
 // マスタ
 // 車両一覧
