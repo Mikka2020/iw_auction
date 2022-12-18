@@ -30,7 +30,7 @@
       </form>
       <div class="profile">
         <% if (isAuth) { %>
-          <a href="/users/<%= user.id %>">
+          <a href="/mypage">
             <%= user.user_name %> 様
           </a>
           <% } else { %>
@@ -52,7 +52,7 @@
           <a href="/">ホーム</a>
         </li>
         <li>
-          <a href="/auctions">タイムテーブル</a>
+          <a href="/auctions/<%= exhibits[0]?.exhibit_id %>">タイムテーブル</a>
         </li>
       </ul>
       <h2>タイムテーブル | <%= exhibits[0] ? exhibits[0].event_date.getFullYear() + "." + (exhibits[0].event_date.getMonth() +
