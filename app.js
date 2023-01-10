@@ -45,12 +45,30 @@ http_socket.listen(9000);
 
 // サーバー
 io_socket.on('connection', function (socket) {
-  console.log('connected');
+   console.log('connected');
   //サーバーからの発信時、ルーム名を付ける。
-  // socket.on('c2s',function(msg){
-  //   io_socket.to(msg.chatid).emit('s2c',msg);
-  // });
-  //サーバがルーム名を受け取り、参加
+  socket.on('c2s',function(msg){
+    //DBに更新をかける。
+    const sql = `update
+    bid 
+    set 
+    bid_price=`
+     + msg.value + `
+      where id =`
+     + msg.auctionId;
+    console.log(sql);
+    connection.query(
+      sql,
+      (error, results) => {
+        if (error) {
+          console.log('error connecting:' + error.stack);
+          return;
+        }
+        io_socket.to(msg.auctionId).emit('s2c',msg);
+      }
+    );
+  });
+  //サーバがオークションid名を受け取り、参加
   socket.on('c2s-join', function (msg) {
     console.log('c2s-roomJoin:' + msg.auctionId);
     socket.join(msg.auctionId);
