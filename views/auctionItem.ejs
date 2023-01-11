@@ -1,14 +1,15 @@
 
 <hr>
-<p>最高入札額:1,500,000</p>
+<p>最高入札額:<span id="biggest_bid"><%=values.bid_price %></span></p>
 <p>上乗せする額</p>
 <button id="addPrice1" value="10000">10,000円</button>
 <button id="addPrice2" value="50000">50,000円</button>
 <button id="addPrice3" value="100000">100,000円</button>
 <button id="addPrice4" value="500000">500,000円</button>
 
-<p>入札する額:1,650,000</p>
-<button>入札</button>
+<p>入札する額:<span id="bid_price"><%=values.bid_price %></span></p>
+<button id="clear">クリア</button>
+<button id="bid_submit">入札</button>
 <hr>
 
 <h2>時間</h2>

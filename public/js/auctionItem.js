@@ -12,6 +12,63 @@ var now_date = new Date();
 console.log(now_date);
 console.log(end_date);
 
+//ボタンが押されたときの処理に使う変数の初期値。
+var addPrice1 = document.getElementById("addPrice1");
+var addPrice2 = document.getElementById("addPrice2");
+var addPrice3 = document.getElementById("addPrice3");
+var addPrice4 = document.getElementById("addPrice4");
+var biggest_bid = document.getElementById("biggest_bid");
+var bid_price = document.getElementById("bid_price");
+var clear = document.getElementById("clear");
+var bid_submit = document.getElementById("bid_submit");
+
+
+//1つ目のボタンが押されたとき
+addPrice1.addEventListener('click',function(){
+  bid_price_sum = Number(bid_price.innerText)+Number(addPrice1.value);
+  bid_price.innerHTML = bid_price_sum;
+});
+//2つ目のボタンが押されたとき
+addPrice2.addEventListener('click',function(){
+  bid_price_sum = Number(bid_price.innerText)+Number(addPrice2.value);
+  bid_price.innerHTML = bid_price_sum;
+});
+//3つ目のボタンが押されたとき
+addPrice3.addEventListener('click',function(){
+  bid_price_sum = Number(bid_price.innerText)+Number(addPrice3.value);
+  bid_price.innerHTML = bid_price_sum;
+});
+//4つ目のボタンが押されたとき
+addPrice4.addEventListener('click',function(){
+  bid_price_sum = Number(bid_price.innerText)+Number(addPrice4.value);
+  bid_price.innerHTML = bid_price_sum;
+});
+//クリアボタンが押されたとき
+clear.addEventListener('click',function(){
+  bid_price.innerHTML = biggest_bid.innerText;
+});
+
+//入札ボタンが押されたとき
+bid_submit.addEventListener('click',function(event){
+  event.preventDefault();
+  const sendData = 
+  {
+    auctionId:auctionId,
+    value:Number(bid_price.innerHTML)
+  }
+  //sendDataをサーバーへ排出。
+  socketio.emit('c2s',sendData);
+});
+
+//s2cという宣言名でクライアントとのコネクションが確立したとき
+socketio.on('s2c',function(msg){
+  biggest_bid.innerHTML = msg.value;
+  bid_price.innerHTML = msg.value;
+});
+
+
+
+
 /**
  * 終了時刻に対しての現在時刻をreturnするクラス
  * param end_date :終了時刻
