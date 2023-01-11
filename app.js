@@ -45,7 +45,7 @@ app.get("/logout", (req, res, next) => {
 
 // マスタ
 // 車両一覧
-app.use("/admin", require("./routes/admin/cars"));
+app.use("/admin", require("./routes/admin/index"));
 
 http_socket.listen(9000);
 

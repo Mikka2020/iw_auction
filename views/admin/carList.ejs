@@ -1,13 +1,34 @@
 <p>車両一覧</p>
 <% for (var value of data) { %>
-    <p><%= value.start_time%></p> 
-    <p><%= value.end_time%></p>
-    <p><%= value.car_model_name%></p>
-    <p><%= value.bodytype_name%></p>
-    <p><%= value.mileage_situation%></p>
-    <p><%= value.number_passengers%></p>
-    <p><%= value.repair_history%></p>
-    <p><%= value.car_inspection_expiration_date%></p>
-    <p><%= value.mileage%></p>
-    <p><%= value.lowest_winning_bid%></p>
-<%}%>
+    <p>
+        <%= value.start_time%>
+    </p>
+    <p>
+        <%= value.end_time%>
+    </p>
+    <p>
+        <%= value.car_model_name%>
+    </p>
+    <p>
+        <%= value.bodytype_name%>
+    </p>
+    <p>
+        <%= value.mileage_situation%>
+    </p>
+    <p>
+        <%= value.number_passengers%>
+    </p>
+    <p>
+        <%= value.repair_history%>
+    </p>
+    <p>
+        <%= value.car_inspection_expiration_date%>
+    </p>
+    <p>
+        <%= value.mileage%>
+    </p>
+    <p>
+        <%= value.lowest_winning_bid%>
+    </p>
+    <a href="/admin/cars/<%= value.car_id %>">編集</a>
+    <%}%>

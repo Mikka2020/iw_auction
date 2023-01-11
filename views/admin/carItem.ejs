@@ -1,0 +1,38 @@
+<p>
+  <%= data.start_time%>
+</p>
+<p>
+  <%= data.end_time%>
+</p>
+<p>
+  <%= data.car_model_name%>
+</p>
+<p>
+  <%= data.bodytype_name%>
+</p>
+<p>
+  <%= data.mileage_situation%>
+</p>
+<p>
+  <%= data.number_passengers%>
+</p>
+<p>
+  <%= data.repair_history%>
+</p>
+<p>
+  <%= data.car_inspection_expiration_date%>
+</p>
+<p>
+  <%= data.mileage%>
+</p>
+<p>
+  <%= data.lowest_winning_bid%>
+</p>
+
+<select name="" id="">
+  <% for (let eventDate of eventDateList) { %>
+    <option value="<%= eventDate.id %>">
+      <%= eventDate.event_date.toLocaleDateString() %>
+    </option>
+    <% } %>
+</select>

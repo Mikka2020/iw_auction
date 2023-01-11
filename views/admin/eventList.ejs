@@ -1,0 +1,8 @@
+<% for (let value of data ) {%>
+  <%= value.event_date.toLocaleDateString() %> <button>削除</button> <br>
+    <% } %>
+      <form action="/admin/events/" method="post">
+        <input type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
+          Date().getMonth() + 1) + '-' + new Date().getDate() %>">
+        <button type="submit">新規登録</button>
+      </form
