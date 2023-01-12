@@ -13,7 +13,7 @@
 <body data-barba="wrapper">
   <header>
     <nav>
-      <div class="logo"><a href="/">UNTITLES</a></div>
+      <div class="logo"><a href="/">Kangarooo<span>★</spa></a></div>
       <form class="search">
         <button type="button">
           <svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -29,7 +29,18 @@
         <input type="text" />
       </form>
       <div class="profile">
-        <a href="#">Profile-Name</a>
+        <% if (isAuth) { %>
+          <a href="/mypage">
+            <%= user.user_name %> 様
+          </a>
+          <% } else { %>
+            <a href="/login">ログイン<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                style="fill: rgba(0, 0, 0, 1);">
+                <path
+                  d="M12 3c-4.625 0-8.442 3.507-8.941 8.001H10v-3l5 4-5 4v-3H3.06C3.56 17.494 7.376 21 12 21c4.963 0 9-4.037 9-9s-4.037-9-9-9z">
+                </path>
+              </svg></a>
+            <% } %>
       </div>
     </nav>
   </header>
@@ -41,7 +52,7 @@
           <a href="/">ホーム</a>
         </li>
         <li>
-          <a href="/auctions">タイムテーブル</a>
+          <a href="/auctions/<%= exhibits[0]?.exhibit_id %>">タイムテーブル</a>
         </li>
       </ul>
       <h2>タイムテーブル | <%= exhibits[0] ? exhibits[0].event_date.getFullYear() + "." + (exhibits[0].event_date.getMonth() +
@@ -67,11 +78,11 @@
             </div>
             <div class="c3 tableProducts">
               <div class="frame1">
-                <div class="tableImg"><img src="./bmwx5.png" alt="" /></div>
+                <div class="tableImg"><img src="/img/1/1.png" alt="" /></div>
                 <div class="tableGroup">
                   <div class="C3Upper">
                     <div class="tableLogo">
-                      <img src="" alt="" />
+                      <img src="/img/logo/1.png" alt="" />
                       <p>
                         <%= exhibits[i].manufacture_name %>
                       </p>
@@ -144,11 +155,11 @@
                   </div>
                 </div>
                 <% const now_date=new Date(); if (now_date < exhibits[i].start_time) { %>
-                  <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売予定</a>
+                  <a href="/auctions/items/<%= exhibits[i].exhibit_id %>">競売予定</a>
                   <% } else if (exhibits[i].end_time <=now_date) { %>
-                    <a href="/auctions/<%= exhibits[i].exhibit_id %>">競売終了</a>
+                    <a href="/auctions/items/<%= exhibits[i].exhibit_id %>">競売終了</a>
                     <% } else { %>
-                      <a href="/auctions/<%= exhibits[i].exhibit_id %>">入札</a>
+                      <a href="/auctions/items/<%= exhibits[i].exhibit_id %>">入札</a>
                       <% } %>
               </div>
             </div>

@@ -1,0 +1,11 @@
+<% for (let order of orders) { %>
+  <%= order.successful_bid_created_at.getFullYear() + "." + order.successful_bid_created_at.getMonth() + "." +
+    order.successful_bid_created_at.getDate()%>
+    <%= order.car_id %>
+      <%= order.manufacturer_name %>
+        <%= order.model_year %>
+          <%= order.grade %>
+            <%= order.model %>
+              <%= order.successful_bid_price %>
+                <%= order.payment_status ? "支払済み" : "未払い" %>
+                  <% } %>
