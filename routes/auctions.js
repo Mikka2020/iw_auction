@@ -12,6 +12,7 @@ router.use(session({
 router.use(passport.initialize());
 router.use(passport.session());
 
+// 出品一覧
 router.get("/:id", (req, res) => {
   const values = [req.params.id];
   const isAuth = req.isAuthenticated();
@@ -20,9 +21,12 @@ router.get("/:id", (req, res) => {
         exhibit.id AS exhibit_id,
         exhibit.start_time,
         exhibit.end_time,
+        manufacturer.id AS manufacture_id,
         manufacturer.manufacture_name,
+        car.id AS car_id,
         car.model_year,
         car.grade,
+        car.car_model_name,
         car.car_condition,
         bodytype.bodytype_name,
         car.number_passengers,
