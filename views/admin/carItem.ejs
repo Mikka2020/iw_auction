@@ -32,14 +32,3 @@
 <p>
   <%= data.lowest_winning_bid%>
 </p>
-
-<form action="">
-  <select name="" id="">
-    <% for (let eventDate of eventDateList) { %>
-      <option value="<%= eventDate.id %>">
-        <%= eventDate.event_date.toLocaleDateString() %>
-      </option>
-      <% } %>
-  </select>
-  <button type="submit">出品</button>
-</form>

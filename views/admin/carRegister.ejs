@@ -1,2 +1,19 @@
 <!-- 車両登録画面 -->
 <h1>車両登録</h1>
+<form action="" method="post" enctype="multipart/form-data">
+  <select name="" id="">
+    <option value="">メーカーを選択</option>
+    <% for (let manufacturer of manufacturerList) { %>
+      <option value="<%= manufacturer.id %>">
+        <%= manufacturer.manufacture_name %>
+      </option>
+      <% } %>
+  </select>
+  <input type="text">
+  <input type="text">
+  <input type="text">
+  <input type="checkbox" name="" id="">
+  <input type="checkbox" name="" id="">
+  <input type="checkbox" name="" id="">
+  <button type="submit">登録</button>
+</form>
