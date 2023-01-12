@@ -1,45 +1,60 @@
 <p>出品</p>
-<p>
-  <%= data.start_time?.toLocaleDateString() + " " + data.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
-    data.start_time?.getMinutes().toString().padStart(2, '0' )%>
-</p>
-<p>
-  <%= data.end_time?.toLocaleDateString() + " " + data.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
-    data.end_time?.getMinutes().toString().padStart(2, '0' )%>
-</p>
-<p>
-  <%= data.car_model_name%>
-</p>
-<p>
-  <%= data.bodytype_name%>
-</p>
-<p>
-  <%= data.mileage_situation%>
-</p>
-<p>
-  <%= data.number_passengers%>
-</p>
-<p>
-  <%= data.repair_history%>
-</p>
-<p>
-  <%= data.car_inspection_expiration_date?.toLocaleDateString()%>
-</p>
-<p>
-  <%= data.mileage%>
-</p>
-<p>
-  <%= data.lowest_winning_bid%>
-</p>
-<form action="" onsubmit="return check()">
-  <select name="" id="">
-    <% for (let eventDate of eventDateList) { %>
-      <option value="<%= eventDate.id %>">
-        <%= eventDate.event_date.toLocaleDateString() %>
-      </option>
-      <% } %>
-  </select>
-  <input type="time" name="" id="">
-  <input type="number" name="" id="">円
-  <button type="submit">出品</button>
-</form>
+<% if (data.start_time==null) { %>
+  <p>未出品</p>
+  <% } else { %>
+    <p>
+      <%= data.start_time?.toLocaleDateString() + " " + data.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
+        data.start_time?.getMinutes().toString().padStart(2, '0' )%>
+    </p>
+    <p>
+      <%= data.end_time?.toLocaleDateString() + " " + data.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
+        data.end_time?.getMinutes().toString().padStart(2, '0' )%>
+    </p>
+    <% } %>
+      <p>
+        <%= data.car_model_name%>
+      </p>
+      <p>
+        <%= data.bodytype_name%>
+      </p>
+      <p>
+        <%= data.mileage_situation%>
+      </p>
+      <p>
+        <%= data.number_passengers%>
+      </p>
+      <p>
+        <%= data.repair_history%>
+      </p>
+      <p>
+        <%= data.car_inspection_expiration_date?.toLocaleDateString()%>
+      </p>
+      <p>
+        <%= data.mileage%>
+      </p>
+      <p>
+        <%= data.lowest_winning_bid%>
+      </p>
+      <form action="/admin/cars/<%= data.car_id%>/register/" method="post" onsubmit="return beforeSubmit()">
+        <select name="event_date_id" id="">
+          <% for (let eventDate of eventDateList) { %>
+            <option value="<%= eventDate.id %>">
+              <%= eventDate.event_date.toLocaleDateString() %>
+            </option>
+            <% } %>
+        </select><br>
+        開始時間<input type="time" name="start_time">
+        終了時間<input type="time" name="end_time"><br>
+        開始価格<input type="number" name="lowest_winning_bid">円<br>
+        <button type="submit">出品</button>
+      </form>
+
+      <script>
+        function beforeSubmit() {
+          if (window.confirm('この内容で送信しますがよろしいでしょうか？')) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      </script>
