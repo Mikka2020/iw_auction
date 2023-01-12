@@ -224,16 +224,6 @@ router.get('/cars/:id/register', (req, res) => {
 
 // 車両出品
 router.post('/cars/:id/register', (req, res) => {
-  // const sql = `
-  //   INSERT INTO
-  //     exhibit
-  //   SET
-  //     car_id = ?,
-  //     event_date_id = ?,
-  //     start_time = ?,
-  //     end_time = ?,
-  //     lowest_winning_bid = ?
-  // `;
   async function getEventDate() {
     const eventDate = await new Promise((resolve, reject) => {
       const sql = `
@@ -272,21 +262,43 @@ router.post('/cars/:id/register', (req, res) => {
       end_time,
       req.body.lowest_winning_bid
     ];
-    console.log(eventDate);
     connection.query(
       sql,
       values,
       (error, results) => {
-        console.log(values);
+        console.log(results);
+        // インサートされたexhibitのidを取得
+        insertBid(results.insertId);
         res.redirect('/admin/cars');
+      }
+    );
+  }
+  async function insertBid(insertExhibitId) {
+    const sql = `
+        INSERT INTO
+          bid
+          (user_id, exhibit_id, bid_price)
+        VALUES
+          (?, ?, ?)
+        ;
+        `;
+    const values = [
+      1,
+      insertExhibitId,
+      req.body.lowest_winning_bid
+    ];
+    connection.query(
+      sql,
+      values,
+      (error, results) => {
+        console.log(results);
       }
     );
   }
 
   Promise.all([getEventDate()]).then((results) => {
     insertExhibit(results[0]);
-  }
-  );
+  });
 });
 
 
