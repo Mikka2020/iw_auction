@@ -93,6 +93,84 @@ router.get('/cars/register/', (req, res) => {
     }
   );
 });
+
+router.post('/cars/register/',(req, res) => {
+  console.log(req.body.model_year);
+  res.redirect(307,'/admin/cars/register/confirm');
+});
+
+router.post('/cars/register/confirm/',(req,res) => {
+  
+  async function getCarManufacturer() {
+    const carItem = await new Promise((resolve, reject) => {
+    const sql = `
+    SELECT
+      manufacture_name AS name
+    FROM
+      manufacturer
+    WHERE
+      id = ` + req.body.manufacturer_id + `
+    `;
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results[0]);
+        }
+      );
+    });
+    return carItem;
+  }
+  async function getCarColor() {
+    const carItem = await new Promise((resolve, reject) => {
+    const sql = `
+    SELECT
+      manufacture_name AS name
+    FROM
+      manufacturer
+    WHERE
+      id = ` + req.body.manufacturer_id + `
+    `;
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results[0]);
+        }
+      );
+    });
+    return carItem;
+  }
+  async function getCarBodytype() {
+    const carItem = await new Promise((resolve, reject) => {
+    const sql = `
+    SELECT
+      manufacture_name AS name
+    FROM
+      manufacturer
+    WHERE
+      id = ` + req.body.manufacturer_id + `
+    `;
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results[0]);
+        }
+      );
+    });
+    return carItem;
+  }
+  connection.query(
+    sql,
+    (error, results) => {
+      console.log(results);
+      console.log(req.body.model_year);
+      res.render('admin/carRegisterConfirm', { car: req.body, manufacturer:results});
+    }
+  );
+});
+
 // 車両詳細
 router.get('/cars/:id/', (req, res) => {
   const sql = `
