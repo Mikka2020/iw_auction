@@ -1,10 +1,13 @@
 <p>車両一覧</p>
-<% for (var value of data) { %>
+<a href="/admin/cars/register/">車両登録</a>
+<% for (let value of data) { %>
     <p>
-        <%= value.start_time%>
+        <%= value.start_time.toLocaleDateString() + " " + value.start_time.getHours().toString().padStart(2, '0' ) + ":"
+            + value.start_time.getMinutes().toString().padStart(2, '0' )%>
     </p>
     <p>
-        <%= value.end_time%>
+        <%= value.end_time.toLocaleDateString() + " " + value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
+            value.end_time.getMinutes().toString().padStart(2, '0' )%>
     </p>
     <p>
         <%= value.car_model_name%>
@@ -22,7 +25,11 @@
         <%= value.repair_history%>
     </p>
     <p>
-        <%= value.car_inspection_expiration_date%>
+        <% if (value.car_inspection_expiration_date==null) { %>
+            期限切れ
+            <% } else { %>
+                <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
+                    <% } %>
     </p>
     <p>
         <%= value.mileage%>

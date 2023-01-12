@@ -72,6 +72,10 @@ router.get('/cars', (req, res) => {
   );
 });
 
+router.get('/cars/register/', (req, res) => {
+  res.render('admin/carRegister');
+});
+
 router.get('/cars/:id', (req, res) => {
   const sql = `
     SELECT
@@ -95,13 +99,6 @@ router.get('/cars/:id', (req, res) => {
     ON
       c.body_type_id = b.id
       `;
-  // connection.query(
-  //   sql,
-  //   [req.params.id],
-  //   (error, results) => {
-  //     res.render('admin/carItem', { data: results[0] });
-  //   }
-  // );
   async function getCarItem() {
     const carItem = await new Promise((resolve, reject) => {
       connection.query(
@@ -138,10 +135,10 @@ router.get('/cars/:id', (req, res) => {
   }
 
   Promise.all([getCarItem(), getEventDateList()]).then((results) => {
-    console.log(results);
     res.render('admin/carItem', { data: results[0], eventDateList: results[1] });
   });
 
 });
+
 
 module.exports = router;

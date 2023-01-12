@@ -1,8 +1,12 @@
+<p>車両情報</p>
+<a href="">出品画面</a>
 <p>
-  <%= data.start_time%>
+  <%= data.start_time?.toLocaleDateString() + " " + data.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
+    data.start_time?.getMinutes().toString().padStart(2, '0' )%>
 </p>
 <p>
-  <%= data.end_time%>
+  <%= data.end_time?.toLocaleDateString() + " " + data.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
+    data.end_time?.getMinutes().toString().padStart(2, '0' )%>
 </p>
 <p>
   <%= data.car_model_name%>
@@ -20,7 +24,7 @@
   <%= data.repair_history%>
 </p>
 <p>
-  <%= data.car_inspection_expiration_date%>
+  <%= data.car_inspection_expiration_date?.toLocaleDateString()%>
 </p>
 <p>
   <%= data.mileage%>
@@ -29,10 +33,13 @@
   <%= data.lowest_winning_bid%>
 </p>
 
-<select name="" id="">
-  <% for (let eventDate of eventDateList) { %>
-    <option value="<%= eventDate.id %>">
-      <%= eventDate.event_date.toLocaleDateString() %>
-    </option>
-    <% } %>
-</select>
+<form action="">
+  <select name="" id="">
+    <% for (let eventDate of eventDateList) { %>
+      <option value="<%= eventDate.id %>">
+        <%= eventDate.event_date.toLocaleDateString() %>
+      </option>
+      <% } %>
+  </select>
+  <button type="submit">出品</button>
+</form>
