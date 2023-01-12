@@ -1,0 +1,98 @@
+
+<hr>
+<p>最高入札額:<span id="biggest_bid"><%=values.bid_price %></span></p>
+<p>上乗せする額</p>
+<button id="addPrice1" value="10000">10,000円</button>
+<button id="addPrice2" value="50000">50,000円</button>
+<button id="addPrice3" value="100000">100,000円</button>
+<button id="addPrice4" value="500000">500,000円</button>
+
+<p>入札する額:<span id="bid_price"><%=values.bid_price %></span></p>
+<button id="clear">クリア</button>
+<button id="bid_submit">入札</button>
+<hr>
+
+<h2>時間</h2>
+<p><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></p>
+
+
+<h1>値だけとってきました</h1>
+<h2>自動車基本情報</h2>
+<p>メーカー名：<%=values.manufacture_name %></p>
+<p>車種名：<%=values.car_model_name %></p>
+<p>排気量：<%=values.grade %></p>
+<p>年式：<%=values.model_year %></p>
+<p>輸入車モデル年式：<%=values.imported_model_year %></p>
+<p>走行距離：<%=values.mileage %></p>
+<p>走行距離の状態：<%=values.mileage_situation %></p>
+<p>色系統：<%=values.color_name %></p>
+<p>色の名称：<%=values.color_detail %></p>
+<p>車検有効期限：<%=values.car_inspection_expiration_date %></p>
+<p>ミッション：<%=values.mission %></p>
+<p>ボディタイプ：<%=values.body_type_id %></p>
+<p>型式：<%=values.model %></p>
+
+
+<h2>車両詳細情報</h2>
+<p>ドア数：<%=values.doors %></p>
+<p>乗車定員数：<%=values.drive_system %></p>
+<p>駆動方式：<%=values.drive_system %></p>
+<p>燃料：<%=values.manufacture_name %></p>
+<p>点兼記録簿：<%=values.Inspection_record_book %></p>
+<p>修復歴：<%=values.manufacture_name %></p>
+<p>車台番号（下3桁）：<%=values.chassis_number %></p>
+<p>リサイクル預託金：<%=values.resycling_deposit %></p>
+<p>輸入経路：<%=values.importe_route %></p>
+<p>ハンドル：<%=values.handle %></p>
+<p>車歴：<%=values.history %></p>
+<p>所有者歴：<%=values.owner_history %></p>
+<p>引き渡し条件：<%=values.delivery_conditions %></p>
+
+<h2>装備品</h2>
+<p>エアコン：<%=values.air_conditioner %></p>
+<p>スマートキー：<%=values.smart_key %></p>
+<p>サンルーフ：<%=values.sunroof %></p>
+<p>ローダウン：<%=values.lowdown %></p>
+<p>パワステ：<%=values.power_steering %></p>
+<p>CD：<%=values.cd %></p>
+<p>本革シート：<%=values.genuine_leather_seats %></p>
+<p>禁煙者：<%=values.non_smoking_car %></p>
+<p>パワーウィンドウ：<%=values.power_window %></p>
+<p>MD：<%=values.md %></p>
+<p>純正エアロパーツ：<%=values.genuine_aero_parts %></p>
+<p>ペット同乗なし：<%=values.no_pets %></p>
+<p>集中ドアロック：<%=values.central_door_lock %></p>
+<p>DVDビデオ：<%=values.dvd_video %></p>
+<p>純正アルミホイール：<%=values.genuine_aluminum_wheels %></p>
+<p>限定車：<%=values.limited_edition_car %></p>
+<p>ABS：<%=values.abs %></p>
+<p>テレビ：<%=values.tv %></p>
+<p>横滑り防止装置：<%=values.skid_prevention_device %></p>
+<p>試乗、現車確認可能：<%=values.skid_prevention_device %></p>
+<p>エアバッグ：<%=values.air_bag %></p>
+<p>ナビゲーション：<%=values.navigation %></p>
+<p>トラクションコントロール：<%=values.traction_control %></p>
+<p>取扱説明書：<%=values.instruction_manual %></p>
+<p>ETC：<%=values.etc %></p>
+<p>バックカメラ：<%=values.back_camera %></p>
+<p>寒冷地帯仕様書：<%=values.cold_region_specification_car %></p>
+<p>新車時保証書：<%=values.new_car_warranty %></p>
+<p>キーレスエントリー：<%=values.keyless_entry %></p>
+<p>電動スライドドア：<%=values.electric_sliding_door %></p>
+<p>福祉車両：<%=values.welfare_cars %></p>
+<p>スペアタイヤ：<%=values.spare_tire %></p>
+
+<h2>オークションの開始時間：終了時間</h2>
+<p>開始時間：<%=values.start_time %></p>
+<p>終了時間：<%=values.endtime_time %></p>
+<p>最高入札額：<%=values.bid_price %></p>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+var auctionId ='<%= auctionId %>';
+var start_time ='<%= values.start_time %>';
+var end_time ='<%= values.end_time %>';
+
+</script>
+<script src="/js/auctionItem.js"></script>
