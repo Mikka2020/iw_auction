@@ -62,8 +62,10 @@ router.get("/:id", (req, res) => {
 router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
 
   const auctionId = req.params.auctionId;
+  // ユーザー情報
+  const user = req.session.passport ? req.session.passport.user : null;
 
-  const sql = `SELECT*FROM
+  const sql = `SELECT * FROM
   car
   JOIN
   manufacturer
@@ -86,7 +88,29 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
   ON
   car.id = bid.exhibit_id
   WHERE car.id =`
-    + auctionId;
+    + auctionId + ` && bid.bid_price =(SELECT MAX(bid.bid_price) FROM 
+    car
+  JOIN
+  manufacturer
+  ON
+  car.manufacturer_id = manufacturer.id
+  JOIN
+  color
+  ON
+  car.color_id = color.id
+  JOIN
+  bodytype
+  ON
+  car.body_type_id = bodytype.id
+  JOIN
+  exhibit
+  ON
+  car.id = exhibit.car_id
+  JOIN
+  bid
+  ON
+  car.id = bid.exhibit_id
+  WHERE car.id =`+ auctionId+`)`;
   connection.query(
     sql,
     (error, results) => {
@@ -95,7 +119,7 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!' });
         return;
       }
-      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId });
+      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId,user:user });
     }
   );
 });
