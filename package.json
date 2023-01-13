@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Mikka2020/iw_auction#readme",
   "dependencies": {
+    "@barba/core": "^2.9.7",
+    "boxicons": "^2.1.4",
     "bcrypt": "^5.1.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.8",
@@ -25,6 +27,7 @@
     "mysql": "^2.18.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "swiper": "^8.4.5",
     "socket.io": "^4.5.4"
   }
 }
