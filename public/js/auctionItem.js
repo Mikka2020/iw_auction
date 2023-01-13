@@ -60,10 +60,17 @@ bid_submit.addEventListener('click',function(event){
   socketio.emit('c2s',sendData);
 });
 
+socketio.emit('c2s-bidflg');
+
 //s2cという宣言名でクライアントとのコネクションが確立したとき
 socketio.on('s2c',function(msg){
   biggest_bid.innerHTML = msg.value;
   bid_price.innerHTML = msg.value;
+});
+
+//s2cという宣言名でクライアントとのコネクションが確立したとき
+socketio.on('s2c-bidflg',function(first_results){
+  console.log('a');
 });
 
 

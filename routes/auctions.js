@@ -60,10 +60,80 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
-
+  const isAuth = req.isAuthenticated();
   const auctionId = req.params.auctionId;
   // ユーザー情報
   const user = req.session.passport ? req.session.passport.user : null;
+  
+  //cronで一秒ごとに処理が走るよ！
+  var cron = require('node-cron');
+  cron.schedule('* * * * * *',function(){
+    var sql = `SELECT * FROM
+    bid
+    JOIN
+    exhibit
+    ON
+    bid.exhibit_id = exhibit.id
+    WHERE exhibit.id =`
+      + auctionId+`
+    && bid.bid_price=(SELECT MAX(bid.bid_price) FROM
+    bid
+    JOIN
+    exhibit
+    ON
+    bid.exhibit_id = exhibit.id
+    WHERE exhibit.id =`
+      + auctionId+`)`;
+
+    connection.query(
+      sql,
+      (error, results) => {
+        if (error) {
+          console.log('error connecting:' + error.stack);
+          res.status(400).send({ messsage: 'Error!' });
+          return;
+        }
+        var now_date = new Date;
+        var end_time = results[0].end_time;
+        var first_results = results[0];
+        if(now_date > end_time){//競売が終了しているとき。
+          var sql = `SELECT * FROM successful_bid WHERE exhibit_id =`+ first_results.exhibit_id +`;`
+
+
+          connection.query(
+            sql,
+            (error, results) => {
+              if (error) {
+                console.log('error connecting:' + error.stack);
+                res.status(400).send({ messsage: 'Error!' });
+                return;
+              }
+
+              if(!results[0]){//落札完了処理が施されていない場合
+                //落札完了処理
+                var sql = `INSERT
+                INTO
+                successful_bid(user_id,exhibit_id,successful_bid_price) 
+                values(`+user.id+`,`+first_results.exhibit_id+`,`+first_results.bid_price+`)`;
+                connection.query(
+                  sql,
+                  (error, results) => {
+                    if (error) {
+                      console.log('error connecting:' + error.stack);
+                      res.status(400).send({ messsage: 'Error!' });
+                      return;
+                    }
+                    
+                  }
+                );
+              }
+            }
+          );
+        }
+
+      }
+    );
+  })//cron終了
 
   const sql = `SELECT * FROM
   car
@@ -119,7 +189,7 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!' });
         return;
       }
-      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId,user:user });
+      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId,user:user,isAuth: isAuth, });
     }
   );
 });
