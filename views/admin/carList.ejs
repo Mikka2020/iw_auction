@@ -1,7 +1,7 @@
-<h2>車両一覧</h2>
-<a href="/admin/cars/register/">車両登録</a>
+<h2 style="width: 500px; margin: 0 auto;">車両一覧</h2>
+<a style="width: 500px; margin: 0 auto; display: block;" href="/admin/cars/register/">車両登録</a>
 <% for (let value of data) { %>
-    <div style="border: solid 1px black; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+    <div style="border: solid 1px black; border-radius: 5px; padding: 10px; width: 500px; margin: 15px auto;">
         <% if (value.start_time==null) { %>
             <p>未出品</p>
             <% } else { %>

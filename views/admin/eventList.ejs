@@ -1,7 +1,8 @@
+<h2 style="width: 520px; margin: 0 auto;">開催日管理</h2>
 <% for (let value of data ) {%>
-  <%= value.event_date.toLocaleDateString() %> <button>削除</button> <br>
+  <div style="display: flex; border: 1px solid lightgray; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; width: 500px; height: 40px; border-radius: 5px; margin: 10px auto;"><p><%= value.event_date.toLocaleDateString() %></p><button>削除</button></div>
     <% } %>
-      <form action="/admin/events/" method="post">
+      <form action="/admin/events/" method="post" style="display: flex; justify-content: center; padding-top: 10px;">
         <input type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
           Date().getMonth() + 1) + '-' + new Date().getDate() %>">
         <button type="submit">新規登録</button>
