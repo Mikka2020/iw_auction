@@ -4,7 +4,6 @@ const hour = document.getElementById("hour");//view用の時間
 const min = document.getElementById("min");//view用の分
 const sec = document.getElementById("sec");//view用の秒
 
-
 //開始時間、終了時間をdate型に変換する。
 var start_date = new Date(start_time);
 var end_date = new Date(end_time);
@@ -54,16 +53,24 @@ bid_submit.addEventListener('click',function(event){
   const sendData = 
   {
     auctionId:auctionId,
-    value:Number(bid_price.innerHTML)
+    value:Number(bid_price.innerHTML),
+    user_id:user_id
   }
   //sendDataをサーバーへ排出。
   socketio.emit('c2s',sendData);
 });
 
+socketio.emit('c2s-bidflg');
+
 //s2cという宣言名でクライアントとのコネクションが確立したとき
 socketio.on('s2c',function(msg){
   biggest_bid.innerHTML = msg.value;
   bid_price.innerHTML = msg.value;
+});
+
+//s2cという宣言名でクライアントとのコネクションが確立したとき
+socketio.on('s2c-bidflg',function(first_results){
+  console.log('a');
 });
 
 

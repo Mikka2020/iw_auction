@@ -1,12 +1,13 @@
 "use strict";
 const express = require("express");
-const app = express();
+const app = module.exports = express();
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public", { index: false }));
 app.use(express.static(__dirname + "/views", { index: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 
 // DB接続
 const mysql = require("mysql");
@@ -55,13 +56,11 @@ io_socket.on('connection', function (socket) {
   //サーバーからの発信時、ルーム名を付ける。
   socket.on('c2s',function(msg){
     //DBに更新をかける。
-    const sql = `update
+    const sql = `INSERT 
+    INTO
     bid 
-    set 
-    bid_price=`
-     + msg.value + `
-      where id =`
-     + msg.auctionId;
+    (user_id,exhibit_id,bid_price)
+    values (` + msg.user_id + `,` + msg.auctionId + `,` + msg.value + `)`;
     console.log(sql);
     connection.query(
       sql,
@@ -78,5 +77,10 @@ io_socket.on('connection', function (socket) {
   socket.on('c2s-join', function (msg) {
     console.log('c2s-roomJoin:' + msg.auctionId);
     socket.join(msg.auctionId);
+  });
+
+  var cron = require('node-cron');
+  cron.schedule('* * * * * *',function(){
+    io_socket.to(5).emit('s2c-bidflg','a');
   });
 });
