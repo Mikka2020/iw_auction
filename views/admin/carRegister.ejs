@@ -25,7 +25,16 @@
     </tr>
     <tr>
       <td>グレード名<input type="text" name="grade"></td>
-      <td>色系統<input type="text" name="color_id"></td>
+      <td>色系統
+        <select name="color_id">
+          <option value="">色を選択</option>
+          <% for (let color of colorList) { %>
+            <option value="<%= color.id %>">
+              <%= color.color_name %>
+            </option>
+            <% } %>
+        </select>
+      </td>
       <td>輸入車モデル年式<input type="text" name="imported_model_year"></td>
     </tr>
     <tr>
@@ -67,7 +76,16 @@
       <td>所有者歴<input type="text" name="owner_history"></td>
     </tr>
     <tr>
-      <td>ボディタイプ<input type="text" name="body_type_id"></td>
+      <td>ボディタイプ
+        <select name="body_type_id">
+          <option value="">ボディタイプを選択</option>
+          <% for (let bodytype of bodytypeList) { %>
+            <option value="<%= bodytype.id %>">
+              <%= bodytype.bodytype_name %>
+            </option>
+            <% } %>
+        </select>
+      </td>
       <td>排気量<input type="text" name="displacement"></td>
       <td>ドア数<input type="text" name="doors"></td>
     </tr>
