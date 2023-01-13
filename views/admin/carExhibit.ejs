@@ -1,53 +1,107 @@
-<div style="width: 500px; margin: 0 auto;">
-  <h2>出品</h2>
-  <% if (data.start_time==null) { %>
-    <p>未出品</p>
-    <% } else { %>
-      <div style="display: flex;">
-        <p>
-          <%= data.start_time?.toLocaleDateString() + " " + data.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
-            data.start_time?.getMinutes().toString().padStart(2, '0' )%> - <%= data.end_time?.toLocaleDateString() + " " + data.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
-            data.end_time?.getMinutes().toString().padStart(2, '0' )%>
-        </p>
-      </div>
-      <% } %>
-        <h3>
-          <%= data.car_model_name%>
-        </h3>
-        <p>
-          ボディタイプ : <%= data.bodytype_name%>
-        </p>
-        <p>
-          走行 : <%= data.mileage_situation%>
-        </p>
-        <p>
-          乗客数 : <%= data.number_passengers%>
-        </p>
-        <p>
-          修復歴 : <%= data.repair_history%>
-        </p>
-        <p>
-          車検有効期限 : <%= data.car_inspection_expiration_date?.toLocaleDateString()%>
-        </p>
-        <p>
-          走行距離 : <%= data.mileage%>
-        </p>
-        <p>
-          入札開始額 : <%= data.lowest_winning_bid%>
-        </p>
-        <form action="/admin/cars/<%= data.car_id%>/register/" method="post" onsubmit="return beforeSubmit()">
-          <select name="event_date_id" id="">
-            <% for (let eventDate of eventDateList) { %>
-              <option value="<%= eventDate.id %>">
-                <%= eventDate.event_date.toLocaleDateString() %>
-              </option>
-              <% } %>
-          </select><br>
-          開始時間<input type="time" name="start_time">
-          終了時間<input type="time" name="end_time"><br>
-          開始価格<input type="number" name="lowest_winning_bid">円<br>
-          <button type="submit">出品</button>
-        </form>
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #37358C;
+    color: white;
+  }
+  nav{
+    width: 1000px;
+  }
+  nav h2{
+    font-size: 20px;
+    font-style: italic;
+  }
+  .aaa p{
+    font-size: 16px;
+  }
+  .aaa h3{
+    font-size: 22px;
+  }
+  .ccc{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    padding: 10px 0px;
+  }
+  
+</style>
+<header>
+  <nav>
+    <h2>Kangarooo★</h2>
+  </nav>
+</header>
+<div style="width: 1000px; margin: 0 auto;">
+  <h2 style="padding-bottom: 20px; padding-top: 10px;">出品</h2>
+  <div style="border: 1px solid gray; border-radius: 5px; padding: 20px 20px;">
+    <% if (data.start_time==null) { %>
+      <p>状態 : 未出品</p>
+      <% } else { %>
+        <div style="display: flex; padding-bottom: 10px;">
+          <p style="font-size: 16px;">
+            開始時間<%= data.start_time?.toLocaleDateString() + " " + data.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
+              data.start_time?.getMinutes().toString().padStart(2, '0' )%> <br>
+            終了時間<%= data.end_time?.toLocaleDateString() + " " + data.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
+              data.end_time?.getMinutes().toString().padStart(2, '0' )%> <br>
+          </p>
+        </div>
+        <% } %>
+          <div class="aaa">
+            <h3>
+              <%= data.car_model_name%>
+            </h3>
+            <div class="ccc">
+              <div class="bbb">
+                <p>
+                  ボディタイプ : <%= data.bodytype_name%>
+                </p>
+                <p>
+                  走行 : <%= data.mileage_situation%>
+                </p>
+              </div>
+              <div class="bbb">
+                <p>
+                  乗客数 : <%= data.number_passengers%>
+                </p>
+                <p>
+                  修復歴 : <%= data.repair_history%>
+                </p>
+              </div>
+              <div class="bbb">
+                <p>
+                  車検有効期限 : <%= data.car_inspection_expiration_date?.toLocaleDateString()%>
+                </p>
+                <p>
+                  走行距離 : <%= data.mileage%>
+                </p>
+              </div>
+            </div>
+            <p style="font-weight: 600; font-size: 15px;">
+              入札開始額 : <span style="font-size: 22px;"><%= data.lowest_winning_bid%>円</span>
+            </p>
+          </div>
+          <form action="/admin/cars/<%= data.car_id%>/register/" method="post" onsubmit="return beforeSubmit()">
+            <select name="event_date_id" id="">
+              <% for (let eventDate of eventDateList) { %>
+                <option value="<%= eventDate.id %>">
+                  <%= eventDate.event_date.toLocaleDateString() %>
+                </option>
+                <% } %>
+            </select><br>
+            開始時間<input type="time" name="start_time">
+            終了時間<input type="time" name="end_time"><br>
+            開始価格<input type="number" name="lowest_winning_bid">円<br>
+            <button type="submit">出品</button>
+          </form>
+  </div>
 </div>
 
       <script>
