@@ -1,41 +1,36 @@
-<p>車両一覧</p>
+<h2>車両一覧</h2>
 <a href="/admin/cars/register/">車両登録</a>
 <% for (let value of data) { %>
-    <p>
-        <%= value.start_time.toLocaleDateString() + " " + value.start_time.getHours().toString().padStart(2, '0' ) + ":"
-            + value.start_time.getMinutes().toString().padStart(2, '0' )%>
-    </p>
-    <p>
-        <%= value.end_time.toLocaleDateString() + " " + value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
-            value.end_time.getMinutes().toString().padStart(2, '0' )%>
-    </p>
-    <p>
-        <%= value.car_model_name%>
-    </p>
-    <p>
-        <%= value.bodytype_name%>
-    </p>
-    <p>
-        <%= value.mileage_situation%>
-    </p>
-    <p>
-        <%= value.number_passengers%>
-    </p>
-    <p>
-        <%= value.repair_history%>
-    </p>
-    <p>
-        <% if (value.car_inspection_expiration_date==null) { %>
-            期限切れ
-            <% } else { %>
-                <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
-                    <% } %>
-    </p>
-    <p>
-        <%= value.mileage%>
-    </p>
-    <p>
-        <%= value.lowest_winning_bid%>
-    </p>
-    <a href="/admin/cars/<%= value.car_id %>">編集</a>
+    <div style="border: solid 1px black; border-radius: 5px; margin-bottom: 10px; padding: 10px;">
+        <p>
+            <%= value.start_time.toLocaleDateString() + " " + value.start_time.getHours().toString().padStart(2, '0' ) + ":" + value.start_time.getMinutes().toString().padStart(2, '0' )%> - <%= value.end_time.toLocaleDateString() + " " + value.end_time.getHours().toString().padStart(2, '0' ) + ":" + value.end_time.getMinutes().toString().padStart(2, '0' )%>
+        </p>
+        <h3>
+            <%= value.car_model_name%> - <%= value.bodytype_name%>
+        </h3>
+        <p>
+            走行 : <%= value.mileage_situation%>
+        </p>
+        <p>
+            乗客数 : <%= value.number_passengers%>名
+        </p>
+        <p>
+            修復歴 : <%= value.repair_history%>
+        </p>
+        <p>
+            <% if (value.car_inspection_expiration_date==null) { %>
+                車検有効期限 : 期限切れ
+                <% } else { %>
+                    車検有効期限 : <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
+                        <% } %>
+        </p>
+        <p>
+            走行距離 : <%= value.mileage%>km
+        </p>
+        <p>
+            入札開始額 : <%= value.lowest_winning_bid%>円
+        </p>
+        <a href="/admin/cars/<%= value.car_id %>">編集</a>
+        <a href="/admin/cars/<%= value.car_id %>/register">出品</a>
+    </div>
     <%}%>
