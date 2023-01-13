@@ -13,11 +13,8 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get("/", (req, res) => {
-  res.render("mypage");
-});
-
-router.get("/orders", (req, res) => {
-  const sql = `
+  async function getOrders() {
+    const sql = `
     SELECT
       successful_bid.id AS successful_bid_id,
       successful_bid.created_at AS successful_bid_created_at,
@@ -39,12 +36,45 @@ router.get("/orders", (req, res) => {
       successful_bid.created_at
     DESC;
     `;
+    const result = await new Promise((resolve, reject) => {
+      connection
+        .query(sql, [req.session.passport.user.id], (err, result) => {
+          if (err) throw err;
+          resolve(result);
+        }
+        );
+    });
+    return result;
+  }
+  async function getUserInfo() {
+    const sql = `
+    SELECT
+      *
+    FROM
+      user
+    WHERE
+      id = ?
+    ;
+    `;
+    const result = await new Promise((resolve, reject) => {
+      connection
+        .query(sql, [req.session.passport.user.id], (err, result) => {
+          if (err) throw err;
+          resolve(result);
+        });
+    });
+    return result;
+  }
+  // ordersとuserInfoが取得できたらレンダリング
+  Promise.all([getOrders(), getUserInfo()]).then((values) => {
+    const isAuth = req.isAuthenticated();
+    const user = req.session.passport ? req.session.passport.user : null;
+    console.log(values);
+    res.render("mypage", { orders: values[0], userInfo: values[1], isAuth: isAuth, user: user });
+  });
+});
 
-  connection
-    .query(sql, [req.session.passport.user.id], (err, result) => {
-      if (err) throw err;
-      res.render("orders", { orders: result });
-    })
+router.get("/orders", (req, res) => {
 });
 
 router.get("/notifications", (req, res) => {
