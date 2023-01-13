@@ -160,7 +160,7 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
   JOIN
   bid
   ON
-  car.id = bid.exhibit_id
+  exhibit.id = bid.exhibit_id
   WHERE car.id =`
     + auctionId + ` && bid.bid_price =(SELECT MAX(bid.bid_price) FROM 
     car
@@ -183,7 +183,7 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
   JOIN
   bid
   ON
-  car.id = bid.exhibit_id
+  exhibit.id = bid.exhibit_id
   WHERE car.id =`+ auctionId+`)`;
   connection.query(
     sql,
