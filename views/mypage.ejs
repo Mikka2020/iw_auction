@@ -28,12 +28,18 @@
                 <input type="text">
             </form>
             <div class="profile">
-                <a href="./mypage.html">ログイン<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                        viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
-                        <path
-                            d="M12 3c-4.625 0-8.442 3.507-8.941 8.001H10v-3l5 4-5 4v-3H3.06C3.56 17.494 7.376 21 12 21c4.963 0 9-4.037 9-9s-4.037-9-9-9z">
-                        </path>
-                    </svg></a>
+                <% if (isAuth) { %>
+                    <a href="/mypage">
+                        <%= user.user_name %> 様
+                    </a>
+                    <% } else { %>
+                        <a href="/login">ログイン<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
+                                <path
+                                    d="M12 3c-4.625 0-8.442 3.507-8.941 8.001H10v-3l5 4-5 4v-3H3.06C3.56 17.494 7.376 21 12 21c4.963 0 9-4.037 9-9s-4.037-9-9-9z">
+                                </path>
+                            </svg></a>
+                        <% } %>
             </div>
         </nav>
     </header>
@@ -53,7 +59,7 @@
                     <h2>アカウント</h2>
                     <ul>
                         <li>
-                            <a href="#">
+                            <a href="/mypage">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
                                         d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z">
@@ -101,7 +107,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/logout">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
                                         d="M19.002 3h-14c-1.103 0-2 .897-2 2v4h2V5h14v14h-14v-4h-2v4c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.898-2-2-2z">
@@ -159,11 +165,11 @@
                             </div>
                             <div class="c3 tableProducts">
                                 <div class="frame1">
-                                    <div class="tableImg"><img src="./bmwx5.png" alt=""></div>
+                                    <div class="tableImg"><img src="/img/<%= order.car_id %>/1.png" alt=""></div>
                                     <div class="tableGroup">
                                         <div class="C3Upper">
                                             <div class="tableLogo">
-                                                <img src="" alt="">
+                                                <img src="/img/logo/<%= order.manufacturer_id %>.png" alt="">
                                                 <p>
                                                     <%= order.manufacturer_name %>
                                                 </p>
@@ -171,7 +177,10 @@
                                             <div>2016 - SUV</div>
                                         </div>
                                         <div class="C3Under">
-                                            <div class="productName">BMW X5 . SUV</div>
+                                            <div class="productName">
+                                                <%= order.manufacturer_name %>
+                                                    <%= order.car_model_name %>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +198,9 @@
                                         </div>
                                         <div class="upContent">
                                             <div class="upHead">定員</div>
-                                            <div class="upItem">6名</div>
+                                            <div class="upItem">
+                                                <%= order.number_passengers %>名
+                                            </div>
                                         </div>
                                         <div class="upContent">
                                             <div class="upHead">修復歴</div>
@@ -208,11 +219,19 @@
                                 <div class="C4Under">
                                     <div class="udContent">
                                         <div class="udHead">最高入札額</div>
-                                        <div class="udItem">2560,000<span> 円</span></div>
+                                        <div class="udItem">
+                                            <%= order.successful_bid_price %><span> 円</span>
+                                        </div>
                                     </div>
                                     <div class="udContent">
                                         <div class="udHead">ステータス</div>
-                                        <div class="udItem">支払い済み</div>
+                                        <div class="udItem">
+                                            <% if (order.payment_status==0) { %>
+                                                未払い
+                                                <% } else { %>
+                                                    支払い済み
+                                                    <% } %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

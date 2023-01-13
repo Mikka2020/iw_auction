@@ -19,10 +19,13 @@ router.get("/", (req, res) => {
       successful_bid.id AS successful_bid_id,
       successful_bid.created_at AS successful_bid_created_at,
       car.id AS car_id,
+      manufacturer.id AS manufacturer_id,
       manufacturer.manufacture_name AS manufacturer_name,
       car.model_year,
       car.grade,
       car.model,
+      car.number_passengers,
+      car.car_model_name,
       successful_bid.successful_bid_price,
       successful_bid.payment_status
     FROM
