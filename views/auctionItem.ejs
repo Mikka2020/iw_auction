@@ -34,7 +34,7 @@
                         <div class="bidModalItem">
                             <div class="bidTiny">
                                 <p class="bidSmallHead">最高入札額</p>
-                                <div class="bidModalSum mb">1,650,000 <span class="bidYen">円</span></div>
+                                <div class="bidModalSum mb"><span id="biggest_bid"><%=values.bid_price %></span> <span class="bidYen">円</span></div>
                             </div>
                             <div class="bidTiny">
                                 <p class="bidSmallHead">上乗せした額</p>
@@ -73,20 +73,20 @@
                         <div class="productImg">
                             <div class="mySwiper2">
                                 <ul class="swiper-wrapper">
-                                    <li class="swiper-slide"><img src="bmwx5.png" alt=""></li>
-                                    <li class="swiper-slide"><img src="bmwx5_2.jpg" alt=""></li>
-                                    <li class="swiper-slide"><img src="bmwx5_3.jpg" alt=""></li>
-                                    <li class="swiper-slide"><img src="bmwx5_4.jpg" alt=""></li>
+                                    <li class="swiper-slide"><img src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img src="/img/1/1.png" alt=""></li>
                                 </ul>
                                 <div id="arrowNext" class="swiper-button-prev swiper-button-black"></div>
                                 <div id="arrowPrev" class="swiper-button-next swiper-button-black"></div>
                             </div>
                             <div class="mySwiper">
                                 <ul class="swiper-wrapper">
-                                    <li class="swiper-slide"><img class="cover" src="bmwx5.png" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="bmwx5_2.jpg" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="bmwx5_3.jpg" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="bmwx5_4.jpg" alt=""></li>
+                                    <li class="swiper-slide"><img class="cover" src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img class="cover" src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img class="cover" src="/img/1/1.png" alt=""></li>
+                                    <li class="swiper-slide"><img class="cover" src="/img/1/1.png" alt=""></li>
                                 </ul>
                             </div>
                         </div>
@@ -392,19 +392,19 @@
                     <div class="productBid">
                         <div class="bestBid">
                             <p class="bestHead">最高入札額</p>
-                            <div class="bestPrice">1,650,000 <span>円</span></div>
+                            <div class="bestPrice"><span id="biggest_bid"><%=values.bid_price %></span> <span>円</span></div>
                         </div>
                         <div class="bid">
-                            <p class="bidHead">上乗せする額 <button type="button" class="bidReset">クリア <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M7 11h10v2H7z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg></button></p>
+                            <p class="bidHead">上乗せする額 <button type="button" class="bidReset" id="clear">クリア <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M7 11h10v2H7z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg></button></p>
                             <div class="bidFlex">
-                                <button type="button" class="bidPrice">10,000 <span>円</span> +</button>
-                                <button type="button" class="bidPrice">30,000 <span>円</span> +</button>
-                                <button type="button" class="bidPrice">50,000 <span>円</span> +</button>
-                                <button type="button" class="bidPrice">100,000 <span>円</span> +</button>
+                                <button type="button" class="bidPrice" id="addPrice1" value="10000">10,000 <span>円</span> +</button>
+                                <button type="button" class="bidPrice" id="addPrice2" value="30000">30,000 <span>円</span> +</button>
+                                <button type="button" class="bidPrice" id="addPrice3" value="50000">50,000 <span>円</span> +</button>
+                                <button type="button" class="bidPrice" id="addPrice4" value="100000">100,000 <span>円</span> +</button>
                             </div>
                             <p class="bidHead">入札額 <span> ( + 上乗せした合計額)</span></p>
-                            <div class="bidPriceAdd">1,850,000 <span class="yen">円</span><span class="plus"> + 200,000</span></div>
-                            <button type="button" class="bidButton">入札する</button>
+                            <div class="bidPriceAdd"><span id="bid_price"><%=values.bid_price %></span><span class="yen">円</span></div>
+                            <button type="button" class="bidButton" id="bid_submit">入札する</button>
                         </div>
                         <div class="nextBid">
                             <button type="button">次の競売へ <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M10.296 7.71 14.621 12l-4.325 4.29 1.408 1.42L17.461 12l-5.757-5.71z"></path><path d="M6.704 6.29 5.296 7.71 9.621 12l-4.325 4.29 1.408 1.42L12.461 12z"></path></svg></button>
@@ -420,21 +420,21 @@
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <script src="./swiper.js"></script>
-    <script src="./barba.js"></script>
-    <script src="./bidModal.js"></script>
+    <script src="/js/swiper.js"></script>
+    <script src="/js/barba.js"></script>
+    <script src="/js/bidModal.js"></script>
     
     </body>
 </html>
 
 
 <hr>
-<p>最高入札額:<span id="biggest_bid"><%=values.bid_price %></span></p>
+<p>最高入札額:</p>
 <p>上乗せする額</p>
-<button id="addPrice1" value="10000">10,000円</button>
+<!-- <button id="addPrice1" value="10000">10,000円</button>
 <button id="addPrice2" value="50000">50,000円</button>
 <button id="addPrice3" value="100000">100,000円</button>
-<button id="addPrice4" value="500000">500,000円</button>
+<button id="addPrice4" value="500000">500,000円</button> -->
 
 <p>入札する額:<span id="bid_price"><%=values.bid_price %></span></p>
 <button id="clear">クリア</button>
