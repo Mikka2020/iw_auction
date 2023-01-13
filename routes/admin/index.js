@@ -301,5 +301,22 @@ router.post('/cars/:id/register', (req, res) => {
   });
 });
 
+// 会員管理
+router.get('/users', (req, res) => {
+  const sql = `
+    SELECT
+      *
+    FROM
+      user
+      ;
+  `;
+  connection.query(
+    sql,
+    (error, results) => {
+      res.render('admin/userList', { userList: results });
+    }
+  );
+});
+
 
 module.exports = router;

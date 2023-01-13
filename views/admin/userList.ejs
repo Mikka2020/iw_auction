@@ -1,0 +1,16 @@
+<% for (let user of userList) { %>
+  <p>
+
+  <form action="" method="post">
+    <%= user.last_name %>
+      <%= user.first_name %>
+        <%= user.user_name %>
+          <%= user.mail_address %>
+            <%= user.phone_number %>
+              <%= user.address %>
+                <a href="">購入履歴</a>
+                <input type="hidden" name="userId" value="<%= user.id %>">
+                <button type="submit">削除</button>
+  </form>
+  </p>
+  <% } %>
