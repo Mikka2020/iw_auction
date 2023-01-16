@@ -117,8 +117,8 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
                 //落札完了処理
                 var sql = `INSERT
                 INTO
-                successful_bid(user_id,exhibit_id,successful_bid_price) 
-                values(`+user.id+`,`+first_results.exhibit_id+`,`+first_results.bid_price+`)`;
+                successful_bid(user_id,exhibit_id,successful_bid_price,payment_status) 
+                values(`+user.id+`,`+first_results.exhibit_id+`,`+first_results.bid_price+`,'0')`;
                 connection.query(
                   sql,
                   (error, results) => {
