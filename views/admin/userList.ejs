@@ -1,16 +1,27 @@
 <% for (let user of userList) { %>
   <p>
 
-  <form action="" method="post">
     <%= user.last_name %>
       <%= user.first_name %>
         <%= user.user_name %>
           <%= user.mail_address %>
             <%= user.phone_number %>
               <%= user.address %>
-                <a href="">購入履歴</a>
-                <input type="hidden" name="userId" value="<%= user.id %>">
-                <button type="submit">削除</button>
-  </form>
+                <a href="/admin/users/<%= user.id %>">購入履歴</a>
+                <form action="/admin/users/<%= user.id %>/delete" method="post"
+                  onsubmit="return beforeSubmit(`<%= user.id %>`)">
+                  <button type="submit">退会</button>
+                </form>
   </p>
   <% } %>
+
+
+    <script>
+      function beforeSubmit(userId) {
+        if (window.confirm('ユーザーID' + userId + 'を退会させますがよろしいでしょうか？')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>
