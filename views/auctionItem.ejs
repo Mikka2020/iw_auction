@@ -131,11 +131,11 @@
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">メーカー名</div>
-                                    <div class="productTableCI">BMW</div>
+                                    <div class="productTableCI"><%=values.manufacture_name %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">車種名</div>
-                                    <div class="productTableCI">X5</div>
+                                    <div class="productTableCI"><%=values.car_model_name %></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
@@ -145,37 +145,37 @@
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">排気量</div>
-                                    <div class="productTableCI">1,610 cc</div>
+                                    <div class="productTableCI"><%=values.exhaust %>cc</div>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">年式</div>
-                                    <div class="productTableCI">2012年 12月</div>
+                                    <div class="productTableCI"><%=values.model_year %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">輸入車モデル年式</div>
-                                    <div class="productTableCI">-</div>
+                                    <div class="productTableCI"><%=values.imported_model_year %></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">走行距離</div>
-                                    <div class="productTableCI">59,350 km</div>
+                                    <div class="productTableCI"><%=values.mileage %>km</div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">走行距離の状態</div>
-                                    <div class="productTableCI">実走行</div>
+                                    <div class="productTableCI"><%=values.mileage_situation %></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">色系統</div>
-                                    <div class="productTableCI">ホワイト</div>
+                                    <div class="productTableCI"><%=values.color_name %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">色の名称</div>
-                                    <div class="productTableCI">-</div>
+                                    <div class="productTableCI"><%=values.color_detail %></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
@@ -428,28 +428,30 @@
 </html>
 
 
-<hr>
+<!-- <hr>
 <p>最高入札額:</p>
-<p>上乗せする額</p>
+<p>上乗せする額</p> -->
 <!-- <button id="addPrice1" value="10000">10,000円</button>
 <button id="addPrice2" value="50000">50,000円</button>
 <button id="addPrice3" value="100000">100,000円</button>
 <button id="addPrice4" value="500000">500,000円</button> -->
 
-<p>入札する額:<span id="bid_price"><%=values.bid_price %></span></p>
+<!-- <p>入札する額:<span id="bid_price"><%=values.bid_price %></span></p>
 <button id="clear">クリア</button>
 <button id="bid_submit">入札</button>
 <hr>
 
 <h2>時間</h2>
-<p><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></p>
+<p><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></p> -->
 
 
 <h1>値だけとってきました</h1>
 <h2>自動車基本情報</h2>
 <p>メーカー名：<%=values.manufacture_name %></p>
 <p>車種名：<%=values.car_model_name %></p>
+<p>グレード名：<%=values.grade %></p>
 <p>排気量：<%=values.grade %></p>
+
 <p>年式：<%=values.model_year %></p>
 <p>輸入車モデル年式：<%=values.imported_model_year %></p>
 <p>走行距離：<%=values.mileage %></p>
