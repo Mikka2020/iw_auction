@@ -1,0 +1,14 @@
+<% for (let sale of saleList) { %>
+  <%= sale.created_at.toLocaleDateString() %>
+    <%= sale.last_name %>
+      <%= sale.first_name %>
+        <%= sale.successful_bid_price %>
+          <%= sale.manufacture_name %>
+            <%= sale.car_model_name %>
+              <% if (sale.payment_status) { %>
+                支払い済み
+                <% } else { %>
+                  未払い
+                  <% } %>
+                    <br>
+                    <% } %>

@@ -91,7 +91,7 @@ router.post('/events', (req, res) => {
 });
 
 // 車両一覧
-router.get('/cars', (req, res) => {
+router.get('/events/cars/', (req, res) => {
   const sql = `
     SELECT
       e.start_time,
@@ -113,13 +113,58 @@ router.get('/cars', (req, res) => {
     LEFT JOIN bodytype AS b
     ON
       c.body_type_id = b.id
+    WHERE
+      e.start_time IS NULL
       `;
   connection.query(
     sql,
     (error, results) => {
+      console.log(results);
       res.render('admin/carlist', { data: results });
     }
   );
+});
+
+// イベント詳細
+router.get('/events/:id', (req, res) => {
+  const sql = `
+  SELECT
+    e.start_time,
+    e.end_time,
+    e.lowest_winning_bid,
+    c.car_model_name,
+    m.manufacture_name,
+    c.id AS car_id,
+    c.mileage,
+    c.car_inspection_expiration_date,
+    c.repair_history,
+    c.number_passengers,
+    c.mileage_situation,
+    b.bodytype_name
+  FROM
+    exhibit AS e
+  LEFT JOIN car AS c
+  ON
+    e.car_id = c.id
+  LEFT JOIN bodytype AS b
+  ON
+    c.body_type_id = b.id
+  LEFT JOIN manufacturer AS m
+  ON
+    m.id = c.manufacturer_id
+  WHERE
+    e.eventdate_id = ?
+  ORDER BY
+    e.start_time
+  ASC
+  `;
+  connection.query(
+    sql,
+    [req.params.id],
+    (error, results) => {
+      console.log(results);
+      res.render('admin/carList', { data: results });
+    });
 });
 
 // 車両登録
@@ -432,6 +477,50 @@ router.post('/users/:id/delete', (req, res) => {
   );
 });
 
-
+router.get('/sales', (req, res) => {
+  const sql = `
+    SELECT
+      u.id,
+      u.last_name,
+      u.first_name,
+      sb.successful_bid_price,
+      sb.payment_status,
+      sb.created_at,
+      c.car_model_name,
+      m.manufacture_name
+    FROM
+      successful_bid AS sb
+    LEFT JOIN
+      user AS u
+    ON
+      sb.user_id = u.id
+    LEFT JOIN
+      exhibit AS e
+    ON
+      sb.exhibit_id = e.id
+    LEFT JOIN
+      car AS c
+    ON
+      e.car_id = c.id
+    LEFT JOIN
+      bodytype AS b
+    ON
+      c.body_type_id = b.id
+    LEFT JOIN
+      manufacturer AS m
+    ON
+      m.id = c.manufacturer_id
+    ORDER BY
+      sb.created_at
+    DESC
+    ;
+  `;
+  connection.query(
+    sql,
+    (error, results) => {
+      console.log(results);
+      res.render('admin/salesList', { saleList: results });
+    });
+});
 
 module.exports = router;

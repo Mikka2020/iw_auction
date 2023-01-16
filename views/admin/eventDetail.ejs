@@ -1,0 +1,10 @@
+<% for (let exhibit of exhibitList) { %>
+  <%= exhibit.start_time?.getHours().toString().padStart(2, '0' ) + ":" +
+    exhibit.start_time?.getMinutes().toString().padStart(2, '0' ) %>
+    <%= exhibit.end_time?.getHours().toString().padStart(2, '0' ) + ":" +
+      exhibit.end_time?.getMinutes().toString().padStart(2, '0' ) %>
+      <%= exhibit.lowest_winning_bid %>円
+        <%= exhibit.manufacture_name %>
+          <%= exhibit.car_model_name %>
+            <br>
+            <% } %>
