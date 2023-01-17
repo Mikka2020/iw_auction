@@ -13,7 +13,7 @@
 
     <header>
         <nav>
-            <div class="logo"><a href="./index.html">Kangarooo<span>★</spa></a></div>
+            <div class="logo"><a href="./index">Kangarooo<span>★</spa></a></div>
             <form class="search">
                 <button type="button"><svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path><path d="M11.412 8.586c.379.38.588.882.588 1.414h2a3.977 3.977 0 0 0-1.174-2.828c-1.514-1.512-4.139-1.512-5.652 0l1.412 1.416c.76-.758 2.07-.756 2.826-.002z"></path></svg></button>
                 <input type="text">
@@ -269,101 +269,230 @@
                                     <div class="productTableCI"></div>
                                 </div>
                             </div>
+                            
                             <div class="productTableHead">装備品</div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">エアコン</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.air_conditioner == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.air_conditioner == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">スマートキー</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.smart_key == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.smart_key == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">サンルーフ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.sunroof == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.sunroof == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">ローダウン</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.lowdown == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.lowdown == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">パワステ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.power_steering == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.power_steering == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">CD</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.cd == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.cd == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">本革シート</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
-                                    <div class="productTableCHS">禁煙車</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.genuine_leather_seats == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.genuine_leather_seats == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
+                                    <div class="productTableCHS">禁煙者</div>
+                                    <% if(values.non_smoking_car == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.non_smoking_car == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">パワーウインドウ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.power_window == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.power_window == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">MD</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.md == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.md == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">純正エアロパーツ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.genuine_aero_parts == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.genuine_aero_parts == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">ペット同乗なし</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.no_pets == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.no_pets == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">集中ドアロック</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.central_door_lock == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.central_door_lock == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">DVDビデオ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.dvd_video == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.dvd_video == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">純正アルミホイール</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.genuine_aluminum_wheels == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.genuine_aluminum_wheels == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">限定車</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.limited_edition_car == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.limited_edition_car == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">ABS</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.abs == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.abs == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">テレビ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.tv == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.tv == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">横滑り防止装置</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.skid_prevention_device == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.skid_prevention_device == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">試乗・現車確認可能</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.skid_prevention_device == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.skid_prevention_device == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">エアバッグ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.airbag == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.airbag == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">ナビゲーション</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.navigaiton == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.navigaiton == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">トラクションコントロール</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.traction_control == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.traction_control == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">取扱説明書</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.instruction_manual == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.instruction_manual == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">ETC</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.etc == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.etc == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">バックカメラ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.back_camera == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.back_camera == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">寒冷地帯仕様車</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.cold_region_specification_car == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.cold_region_specification_car == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">新車時保証書</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.new_car_warranty == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.new_car_warranty == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent4flex">
                                     <div class="productTableCHS">キーレスエントリー</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.keyless_entry == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.keyless_entry == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">電動スライドドア</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.electric_sliding_door == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.electric_sliding_door == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">福祉車両</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% if(values.welfare_cars == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.welfare_cars == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                     <div class="productTableCHS">スペアタイヤ</div>
-                                    <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% if(values.spare_tire == 0){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M5 11h14v2H5z"></path></svg></div>
+                                    <% }else if(values.spare_tire == 1){ %>
+                                        <div class="productTableCIS"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M12 2C6.486 2 2 6.486 2 12c.001 5.515 4.487 10.001 10 10.001 5.514 0 10-4.486 10.001-10.001 0-5.514-4.486-10-10.001-10zm0 18.001c-4.41 0-7.999-3.589-8-8.001 0-4.411 3.589-8 8-8 4.412 0 8.001 3.589 8.001 8-.001 4.412-3.59 8.001-8.001 8.001z"></path></svg></div>
+                                    <% } %>
                                 </div>
                             </div>
                         </section>
@@ -414,8 +543,18 @@
             </section>
         </main>
     </div>
+    <h2>時間</h2>
+<p><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></p>
     
     <footer></footer>
+    <script>
+        var auctionId ='<%= auctionId %>';
+        var start_time ='<%= values.start_time %>';
+        var end_time ='<%= values.end_time %>';
+        var user_id ='<%= user.id %>';
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/auctionItem.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -423,6 +562,8 @@
     <script src="/js/swiper.js"></script>
     <script src="/js/barba.js"></script>
     <script src="/js/bidModal.js"></script>
+
+
     
     </body>
 </html>
@@ -440,94 +581,7 @@
 <button id="clear">クリア</button>
 <button id="bid_submit">入札</button>
 <hr>
-
-<h2>時間</h2>
-<p><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></p> -->
-
-
-<h1>値だけとってきました</h1>
-<h2>自動車基本情報</h2>
-<p>メーカー名：<%=values.manufacture_name %></p>
-<p>車種名：<%=values.car_model_name %></p>
-<p>グレード名：<%=values.grade %></p>
-<p>排気量：<%=values.grade %></p>
-
-<p>年式：<%=values.model_year %></p>
-<p>輸入車モデル年式：<%=values.imported_model_year %></p>
-<p>走行距離：<%=values.mileage %></p>
-<p>走行距離の状態：<%=values.mileage_situation %></p>
-<p>色系統：<%=values.color_name %></p>
-<p>色の名称：<%=values.color_detail %></p>
-<p>車検有効期限：<%=values.car_inspection_expiration_date %></p>
-<p>ミッション：<%=values.mission %></p>
-<p>ボディタイプ：<%=values.body_type_id %></p>
-<p>型式：<%=values.model %></p>
-
-
-<h2>車両詳細情報</h2>
-<p>ドア数：<%=values.doors %></p>
-<p>乗車定員数：<%=values.drive_system %></p>
-<p>駆動方式：<%=values.drive_system %></p>
-<p>燃料：<%=values.manufacture_name %></p>
-<p>点兼記録簿：<%=values.Inspection_record_book %></p>
-<p>修復歴：<%=values.manufacture_name %></p>
-<p>車台番号（下3桁）：<%=values.chassis_number %></p>
-<p>リサイクル預託金：<%=values.resycling_deposit %></p>
-<p>輸入経路：<%=values.importe_route %></p>
-<p>ハンドル：<%=values.handle %></p>
-<p>車歴：<%=values.history %></p>
-<p>所有者歴：<%=values.owner_history %></p>
-<p>引き渡し条件：<%=values.delivery_conditions %></p>
-
-<h2>装備品</h2>
-<p>エアコン：<%=values.air_conditioner %></p>
-<p>スマートキー：<%=values.smart_key %></p>
-<p>サンルーフ：<%=values.sunroof %></p>
-<p>ローダウン：<%=values.lowdown %></p>
-<p>パワステ：<%=values.power_steering %></p>
-<p>CD：<%=values.cd %></p>
-<p>本革シート：<%=values.genuine_leather_seats %></p>
-<p>禁煙者：<%=values.non_smoking_car %></p>
-<p>パワーウィンドウ：<%=values.power_window %></p>
-<p>MD：<%=values.md %></p>
-<p>純正エアロパーツ：<%=values.genuine_aero_parts %></p>
-<p>ペット同乗なし：<%=values.no_pets %></p>
-<p>集中ドアロック：<%=values.central_door_lock %></p>
-<p>DVDビデオ：<%=values.dvd_video %></p>
-<p>純正アルミホイール：<%=values.genuine_aluminum_wheels %></p>
-<p>限定車：<%=values.limited_edition_car %></p>
-<p>ABS：<%=values.abs %></p>
-<p>テレビ：<%=values.tv %></p>
-<p>横滑り防止装置：<%=values.skid_prevention_device %></p>
-<p>試乗、現車確認可能：<%=values.skid_prevention_device %></p>
-<p>エアバッグ：<%=values.air_bag %></p>
-<p>ナビゲーション：<%=values.navigation %></p>
-<p>トラクションコントロール：<%=values.traction_control %></p>
-<p>取扱説明書：<%=values.instruction_manual %></p>
-<p>ETC：<%=values.etc %></p>
-<p>バックカメラ：<%=values.back_camera %></p>
-<p>寒冷地帯仕様書：<%=values.cold_region_specification_car %></p>
-<p>新車時保証書：<%=values.new_car_warranty %></p>
-<p>キーレスエントリー：<%=values.keyless_entry %></p>
-<p>電動スライドドア：<%=values.electric_sliding_door %></p>
-<p>福祉車両：<%=values.welfare_cars %></p>
-<p>スペアタイヤ：<%=values.spare_tire %></p>
-
-<h2>オークションの開始時間：終了時間</h2>
-<p>開始時間：<%=values.start_time %></p>
-<p>終了時間：<%=values.endtime_time %></p>
-<p>最高入札額：<%=values.bid_price %></p>
-
-
-<script src="/socket.io/socket.io.js"></script>
-<script>
-var auctionId ='<%= auctionId %>';
-var start_time ='<%= values.start_time %>';
-var end_time ='<%= values.end_time %>';
-var user_id ='<%= user.id %>';
-
-</script>
-<script src="/js/auctionItem.js"></script>
+ -->
 
 
 

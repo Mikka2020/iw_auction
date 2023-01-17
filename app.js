@@ -79,8 +79,4 @@ io_socket.on('connection', function (socket) {
     socket.join(msg.auctionId);
   });
 
-  var cron = require('node-cron');
-  cron.schedule('* * * * * *',function(){
-    io_socket.to(5).emit('s2c-bidflg','a');
-  });
 });

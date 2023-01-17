@@ -60,7 +60,6 @@ bid_submit.addEventListener('click',function(event){
   socketio.emit('c2s',sendData);
 });
 
-socketio.emit('c2s-bidflg');
 
 //s2cという宣言名でクライアントとのコネクションが確立したとき
 socketio.on('s2c',function(msg){
@@ -68,10 +67,6 @@ socketio.on('s2c',function(msg){
   bid_price.innerHTML = msg.value;
 });
 
-//s2cという宣言名でクライアントとのコネクションが確立したとき
-socketio.on('s2c-bidflg',function(first_results){
-  console.log('a');
-});
 
 
 
@@ -93,9 +88,17 @@ function countdown(end_date) {//カウントダウンクラス
   var calcSec = Math.floor(diff / 1000) % 60;
 
   // 取得した時間を表示（2桁表示）
-  hour.innerHTML = calcHour < 10 ? '0' + calcHour : calcHour;
-  min.innerHTML = calcMin < 10 ? '0' + calcMin : calcMin;
-  sec.innerHTML = calcSec < 10 ? '0' + calcSec : calcSec;
+  if(calcHour >= 0 && calcMin >= 0 && calcSec >= 0){
+    hour.innerHTML = calcHour < 10 ? '0' + calcHour : calcHour;
+    min.innerHTML = calcMin < 10 ? '0' + calcMin : calcMin;
+    sec.innerHTML = calcSec < 10 ? '0' + calcSec : calcSec;
+  }
+  else if(calcHour == -1 && calcMin == -1 && calcSec == -1){
+    //目的時刻に到達したとき
+    
+  }else{
+    
+  }
   
 }
 
