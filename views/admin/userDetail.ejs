@@ -1,0 +1,18 @@
+<%= carList[0].first_name %>
+  <%= carList[0].last_name %>様
+    <% for (let car of carList) { %>
+      <div>
+        落札日:<%= car.created_at?.toLocaleDateString() %>
+          落札額:<%= car.successful_bid_price %>円
+            <%= car.manufacture_name %> | <%= car.car_model_name %>
+                <% if (car.payment_status) { %>
+                  <div>
+                    支払い済み
+                  </div>
+                  <% } else { %>
+                    <div>
+                      未払い
+                    </div>
+                    <% } %>
+      </div>
+      <% } %>
