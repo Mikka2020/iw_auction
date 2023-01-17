@@ -38,6 +38,13 @@ var startMinutes = start_time.getMinutes();
 var endHours = end_time.getHours();
 var endMinutes = end_time.getMinutes();
 
+var productStatusLeft = document.getElementById("productStatusLeft");
+var productStatusActive = document.getElementById("productStatusActive");
+var bid = document.getElementById("bid");
+var next_bid = document.getElementById("nextBid");
+var productLimit = document.getElementById("productLimit");
+var productTime = document.getElementById("productTime");
+
 if(startHours == 0){
   startHours = '00';
 }else{
@@ -131,11 +138,22 @@ socketio.on('s2c',function(msg){
 
 //s2c-endtimeという宣言名でクライアントとのコネクションが確立したとき。
 socketio.on('s2c-endtime',function(value){
-  if(user_id == value.user_id){
+  if(user_id == value.user_id){ 
+    bestHead.innerHTML = "最終落札額";
+    productStatusActive.innerHTML = "落札終了";
+    productStatusLeft.style.display ="none";
+    bid.style.display ="none";
+    nextBid.style.display ="none";
     $(function () {
           $('#modalOkArea').fadeIn();
     });
+    
   }else{
+    bestHead.innerHTML = "最終落札額";
+    productStatusActive.innerHTML = "落札終了";
+    productStatusLeft.style.display ="none";
+    bid.style.display ="none";
+    nextBid.style.display ="none";
     $(function () {
       $('#modalNoArea').fadeIn();
     });
@@ -199,10 +217,28 @@ if(start_date <= now_date && now_date <=end_date){//競売中～
 }
 if(now_date < start_date){//競売開始してないよ～
   console.log("まだ開催してないよ");
+  var startYear = start_date.getFullYear();
+  var startMonth = start_date.getMonth()+1;
+  var startDay = start_date.getDate();
 
+  console.log(startMonth);
+
+
+  nextBid.style.display ="none";
+  productLimit.innerHTML ="開催日";
+  productStatusActive.innerHTML = "開催予定";
+  productTime.innerHTML=startYear+"年<br><br>"+startMonth+"月"+startDay+"日";
+  bestHead.innerHTML = "落札開始額";
+  bid.style.display = "none";
 }
 if(end_date < now_date){//競売終了時
   console.log("この競売は終了しました。");
+
+  bestHead.innerHTML = "最終落札額";
+  productStatusActive.innerHTML = "落札終了";
+  productStatusLeft.style.display ="none";
+  bid.style.display ="none";
+  nextBid.style.display ="none";
 }
 
 

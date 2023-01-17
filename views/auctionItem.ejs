@@ -548,11 +548,11 @@
                 </div>
                 <div class="productRight">
                     <div class="productStatus">
-                        <h3 class="productStatusActive">開催中 <span class="productStatusDate">2022.11.30 - 10:18</span></h3>
+                        <h3 class="productStatusActive" id="productStatusActive">開催中</h3>
                         <div class="productStatusFlex">
-                            <div class="productStatusLeft">
-                                <p class="productLimit">残り時間</p>
-                                <div class="productTime"><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></div>
+                            <div class="productStatusLeft" id="productStatusLeft">
+                                <p class="productLimit" id="productLimit">残り時間</p>
+                                <div class="productTime" id="productTime"><span id="hour"></span>：<span id="min"></span>：<span id="sec"></span></div>
                             </div>
                             <div class="productStatusRight">
                                 <div>
@@ -568,10 +568,10 @@
                     </div>
                     <div class="productBid">
                         <div class="bestBid">
-                            <p class="bestHead">最高入札額</p>
+                            <p class="bestHead" id="bestHead">最高入札額</p>
                             <div class="bestPrice"><span id="biggest_bid"><%=values.bid_price %></span><span>円</span></div>
                         </div>
-                        <div class="bid">
+                        <div class="bid" id="bid">
                             <p class="bidHead">上乗せする額 <button type="button" class="bidReset" id="clear">クリア <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M7 11h10v2H7z"></path><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path></svg></button></p>
                             <div class="bidFlex">
                                 <button type="button" class="bidPrice" id="addPrice1" value="10000">10,000 <span>円</span> +</button>
@@ -583,7 +583,7 @@
                             <div class="bidPriceAdd"><span id="bid_price"><%=values.bid_price %></span><span class="yen">円</span><span class="plus">+ <span id="bidPlusPrice">0</span></span></div>
                             <button type="button" class="bidButton" id="bid_submit">入札する</button>
                         </div>
-                        <div class="nextBid">
+                        <div class="nextBid" id="nextBid">
                             <button type="button">次の競売へ <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);"><path d="M10.296 7.71 14.621 12l-4.325 4.29 1.408 1.42L17.461 12l-5.757-5.71z"></path><path d="M6.704 6.29 5.296 7.71 9.621 12l-4.325 4.29 1.408 1.42L12.461 12z"></path></svg></button>
                         </div>
                     </div>
