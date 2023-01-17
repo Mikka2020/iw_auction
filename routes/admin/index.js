@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // イベント一覧
-router.get('/events', (req, res) => {
+router.get('/events/', (req, res) => {
   async function getEventDateList() {
     const sql = `
     SELECT
@@ -75,7 +75,7 @@ router.get('/events', (req, res) => {
 });
 
 // イベント登録
-router.post('/events', (req, res) => {
+router.post('/events/', (req, res) => {
   const sql = `
     INSERT INTO
       eventdate (event_date)
@@ -90,8 +90,8 @@ router.post('/events', (req, res) => {
   );
 });
 
-// 車両一覧
-router.get('/events/cars/', (req, res) => {
+// 未出品の車両一覧
+router.get('/cars/', (req, res) => {
   const sql = `
     SELECT
       e.start_time,
@@ -122,52 +122,84 @@ router.get('/events/cars/', (req, res) => {
   connection.query(
     sql,
     (error, results) => {
-      console.log(results);
-      res.render('admin/carlist', { data: results });
+      res.render('admin/carlist', { eventDate: [], carList: results });
     }
   );
 });
 
-// イベント詳細
-router.get('/events/:id', (req, res) => {
-  const sql = `
-  SELECT
-    e.start_time,
-    e.end_time,
-    e.lowest_winning_bid,
-    c.car_model_name,
-    m.manufacture_name,
-    c.id AS car_id,
-    c.mileage,
-    c.car_inspection_expiration_date,
-    c.repair_history,
-    c.number_passengers,
-    c.mileage_situation,
-    b.bodytype_name
-  FROM
-    exhibit AS e
-  LEFT JOIN car AS c
-  ON
-    e.car_id = c.id
-  LEFT JOIN bodytype AS b
-  ON
-    c.body_type_id = b.id
-  LEFT JOIN manufacturer AS m
-  ON
-    m.id = c.manufacturer_id
-  WHERE
-    e.eventdate_id = ?
-  ORDER BY
-    e.start_time
-  ASC
-  `;
-  connection.query(
-    sql,
-    [req.params.id],
-    (error, results) => {
-      console.log(results);
-      res.render('admin/carList', { data: results });
+// イベント詳細（車両一覧）
+router.get('/events/:id/', (req, res) => {
+  // イベント日付
+  async function getEventDate() {
+    const sql = `
+    SELECT
+      eventdate.id,
+      eventdate.event_date
+    FROM
+      eventdate
+    WHERE
+      eventdate.id = ?
+    `;
+    const eventDate = await new Promise((resolve, reject) => {
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results);
+        }
+      );
     });
+    return eventDate;
+  }
+  // 出品車両一覧
+  async function getExhibitList() {
+    const sql = `
+    SELECT
+      e.start_time,
+      e.end_time,
+      e.lowest_winning_bid,
+      c.car_model_name,
+      m.manufacture_name,
+      c.id AS car_id,
+      c.mileage,
+      c.car_inspection_expiration_date,
+      c.repair_history,
+      c.number_passengers,
+      c.mileage_situation,
+      b.bodytype_name
+    FROM
+      exhibit AS e
+    LEFT JOIN car AS c
+    ON
+      e.car_id = c.id
+    LEFT JOIN bodytype AS b
+    ON
+      c.body_type_id = b.id
+    LEFT JOIN manufacturer AS m
+    ON
+      m.id = c.manufacturer_id
+    WHERE
+      e.eventdate_id = ?
+    ORDER BY
+      e.start_time
+    ASC
+    `;
+
+    const exhibitList = await new Promise((resolve, reject) => {
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results);
+        }
+      );
+    }
+    );
+    return exhibitList;
+  }
+  Promise.all([getEventDate(), getExhibitList()]).then((results) => {
+    res.render('admin/carList', { eventDate: results[0], carList: results[1] });
+  });
 });
 
 // 車両登録
@@ -387,7 +419,7 @@ router.get('/cars/:id/', (req, res) => {
 });
 
 // 車両出品
-router.get('/cars/:id/register', (req, res) => {
+router.get('/cars/:id/register/', (req, res) => {
   const sql = `
     SELECT
       e.start_time,
@@ -452,7 +484,7 @@ router.get('/cars/:id/register', (req, res) => {
 });
 
 // 車両出品
-router.post('/cars/:id/register', (req, res) => {
+router.post('/cars/:id/register/', (req, res) => {
   async function getEventDate() {
     const eventDate = await new Promise((resolve, reject) => {
       const sql = `
@@ -530,8 +562,70 @@ router.post('/cars/:id/register', (req, res) => {
   });
 });
 
+// 車両出品取消し
+router.post('/cars/:id/cancel/', (req, res) => {
+  // exhibitのidを取得
+  async function getExhibitId() {
+    const exhibitId = await new Promise((resolve, reject) => {
+      const sql = `
+        SELECT
+          id
+        FROM
+          exhibit
+        WHERE
+          car_id = ?
+      `;
+      connection.query(
+        sql,
+        [req.params.id],
+        (error, results) => {
+          resolve(results[0]);
+        }
+      );
+    });
+    return exhibitId;
+  }
+  // exhibitのidを元にbidを削除
+  async function deleteBid(exhibitId) {
+    const sql = `
+      DELETE FROM
+        bid
+      WHERE
+        exhibit_id = ?
+      ;
+    `;
+    connection.query(
+      sql,
+      [exhibitId.id],
+      (error, results) => {
+      }
+    );
+  }
+  // exhibitのidを元にexhibitを削除
+  async function deleteExhibit(exhibitId) {
+    const sql = `
+      DELETE FROM
+        exhibit
+      WHERE
+        id = ?
+      ;
+    `;
+    connection.query(
+      sql,
+      [exhibitId.id],
+      (error, results) => {
+      }
+    );
+  }
+  Promise.all([getExhibitId()]).then((results) => {
+    deleteBid(results[0]);
+    deleteExhibit(results[0]);
+    res.redirect('/admin/events/' + req.params.id);
+  });
+});
+
 // 会員管理
-router.get('/users', (req, res) => {
+router.get('/users/', (req, res) => {
   const sql = `
     SELECT
       *
@@ -548,7 +642,7 @@ router.get('/users', (req, res) => {
 });
 
 // 会員の購入履歴
-router.get('/users/:id', (req, res) => {
+router.get('/users/:id/', (req, res) => {
   const sql = `
     SELECT
       u.last_name,
@@ -591,13 +685,12 @@ router.get('/users/:id', (req, res) => {
     sql,
     [req.params.id],
     (error, results) => {
-      console.log(results);
       res.render('admin/userDetail', { carList: results });
     });
 });
 
 // 会員削除
-router.post('/users/:id/delete', (req, res) => {
+router.post('/users/:id/delete/', (req, res) => {
   const sql = `
     DELETE FROM
       user
@@ -614,7 +707,7 @@ router.post('/users/:id/delete', (req, res) => {
   );
 });
 
-router.get('/sales', (req, res) => {
+router.get('/sales/', (req, res) => {
   const sql = `
     SELECT
       u.id,
@@ -655,7 +748,6 @@ router.get('/sales', (req, res) => {
   connection.query(
     sql,
     (error, results) => {
-      console.log(results);
       res.render('admin/salesList', { saleList: results });
     });
 });

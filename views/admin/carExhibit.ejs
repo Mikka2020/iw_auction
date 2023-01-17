@@ -108,12 +108,23 @@
             開始価格<input type="number" name="lowest_winning_bid">円<br>
             <button type="submit">出品</button>
           </form>
+
+          <form action="/admin/cars/<%= data.car_id%>/cancel/" method="post" onsubmit="return beforeCancel()">
+            <button type="submit">出品取り消し</button>
+          </form>
   </div>
 </div>
 
 <script>
   function beforeSubmit() {
-    if (window.confirm('この内容で送信しますがよろしいでしょうか？')) {
+    if (window.confirm('この内容で出品しますがよろしいでしょうか？')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function beforeCancel() {
+    if (window.confirm('出品を取り下げてもよろしいでしょうか？')) {
       return true;
     } else {
       return false;
