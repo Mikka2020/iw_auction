@@ -1,19 +1,168 @@
 <!-- 車両登録画面 -->
 <h1>車両登録</h1>
-<form action="" method="post" enctype="multipart/form-data">
-  <select name="" id="">
-    <option value="">メーカーを選択</option>
-    <% for (let manufacturer of manufacturerList) { %>
-      <option value="<%= manufacturer.id %>">
-        <%= manufacturer.manufacture_name %>
-      </option>
-      <% } %>
-  </select>
-  <input type="text">
-  <input type="text">
-  <input type="text">
-  <input type="checkbox" name="" id="">
-  <input type="checkbox" name="" id="">
-  <input type="checkbox" name="" id="">
+<form action="/admin/cars/register" method="post" enctype="">
+  
+  <table>
+    <tr>
+      <td>メーカー名
+        <select name="manufacturer_id">
+        <option value="">メーカーを選択</option>
+        <% for (let manufacturer of manufacturerList) { %>
+          <option value="<%= manufacturer.id %>">
+            <%= manufacturer.manufacture_name %>
+          </option>
+          <% } %>
+        </select>
+      </td>
+      <td>ミッション
+        <select name="mission">
+          <option value="">ミッションを選択</option>
+          <option value="0">AT</option>
+          <option value="1">MT</option>
+        </select>
+      </td>
+      <td>走行距離の状態<input type="text" name="mileage_situation"></td>
+    </tr>
+    <tr>
+      <td>グレード名<input type="text" name="grade"></td>
+      <td>色系統
+        <select name="color_id">
+          <option value="">色を選択</option>
+          <% for (let color of colorList) { %>
+            <option value="<%= color.id %>">
+              <%= color.color_name %>
+            </option>
+            <% } %>
+        </select>
+      </td>
+      <td>輸入車モデル年式<input type="text" name="imported_model_year"></td>
+    </tr>
+    <tr>
+      <td>年式<input type="text" name="model_year"></td>
+      <td>車歴<input type="text" name="history"></td>
+      <td>色の名称<input type="text" name="color_detail"></td>
+    </tr>
+    <tr>
+      <td>走行距離<input type="text" name="mileage"></td>
+      <td>点検記録簿<input type="text" name="Inspection_record_book"></td>
+      <td>型式<input type="text" name="model"></td>
+    </tr>
+    <tr>
+      <td>輸入経路<input type="text" name="import_route"></td>
+      <td>乗車定員数<input type="text" name="number_passengers"></td>
+      <td>リサイクル預託金<input type="text" name="recycling_deposit"></td>
+    </tr>
+    <tr>
+      <td>車台番号（下３桁）<input type="text" name="chassis_number"></td>
+      <td>燃料
+        <select name="fuel">
+          <option value="">燃料を選択</option>
+          <option value="0">レギュラー</option>
+          <option value="1">ハイオク</option>
+          <option value="2">軽油</option>
+        </select>
+      </td>
+      <td>ハンドル
+        <select name="handle">
+          <option value="">ハンドルを選択</option>
+          <option value="0">右</option>
+          <option value="1">左</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>車検有効期限<input type="text" name="car_inspection_expiration_date"></td>
+      <td>修復歴<input type="text" name="repair_history"></td>
+      <td>所有者歴<input type="text" name="owner_history"></td>
+    </tr>
+    <tr>
+      <td>ボディタイプ
+        <select name="body_type_id">
+          <option value="">ボディタイプを選択</option>
+          <% for (let bodytype of bodytypeList) { %>
+            <option value="<%= bodytype.id %>">
+              <%= bodytype.bodytype_name %>
+            </option>
+            <% } %>
+        </select>
+      </td>
+      <td>排気量<input type="text" name="displacement"></td>
+      <td>ドア数<input type="text" name="doors"></td>
+    </tr>
+    <tr>
+      <td>車種名<input type="text" name="car_model_name"></td>
+      <td>駆動方式
+        <select name="drive_system">
+          <option value="">駆動方式を選択</option>
+          <option value="0">FF</option>
+          <option value="1">FR</option>
+          <option value="2">4WD</option>
+          <option value="3">MR</option>
+          <option value="4">RR</option>
+        </select>
+      </td>
+      <td>引き渡し条件<input type="text" name="delivery_conditions"></td>
+    </tr>
+    <tr>
+      <td>車両の状態<input type="text" name="car_condition"></td>
+    </tr>
+  </table>
+  
+  <table>
+    <tr>
+      <td>エアコン<input type="checkbox" name="air_conditioner" value="1"></td>
+      <td>スマートキー<input type="checkbox" name="smart_key" value="1"></td>
+      <td>サンルーフ<input type="checkbox" name="sunroof" value="1"></td>
+    </tr>
+    <tr>
+      <td>パワステ<input type="checkbox" name="power_steering" value="1"></td>
+      <td>DVDビデオ<input type="checkbox" name="dvd_video" value="1"></td>
+      <td>本革シート<input type="checkbox" name="genuine_leather_seats" value="1"></td>
+    </tr>
+    <tr>
+      <td>パワーウィンドウ<input type="checkbox" name="power_window" value="1"></td>
+      <td>CD<input type="checkbox" name="cd" value="1"></td>
+      <td>純正エアロパーツ<input type="checkbox" name="genuine_aero_parts" value="1"></td>
+    </tr>
+    <tr>
+      <td>集中ドアロック<input type="checkbox" name="central_door_lock" value="1"></td>
+      <td>MD<input type="checkbox" name="md" value="1"></td>
+      <td>純正アルミホイール<input type="checkbox" name="genuine_aluminum_wheels" value="1"></td>
+    </tr>
+    <tr>
+      <td>エアバッグ<input type="checkbox" name="airbag" value="1"></td>
+      <td>テレビ<input type="checkbox" name="tv" value="1"></td>
+      <td>横滑り防止装置<input type="checkbox" name="skid_prevention_device" value="1"></td>
+    </tr>
+    <tr>
+      <td>ABS<input type="checkbox" name="abs" value="1"></td>
+      <td>ナビゲーション<input type="checkbox" name="navigaiton" value="1"></td>
+      <td>トラクションコントロール<input type="checkbox" name="traction_control" value="1"></td>
+    </tr>
+    <tr>
+      <td>キーレスエントリー<input type="checkbox" name="keyless_entry" value="1"></td>
+      <td>バックカメラ<input type="checkbox" name="back_camera" value="1"></td>
+      <td>寒冷地帯仕様車<input type="checkbox" name="cold_region_specification_car" value="1"></td>
+    </tr>
+    <tr>
+      <td>ローダウン<input type="checkbox" name="lowdown" value="1"></td>
+      <td>電動スライドドア<input type="checkbox" name="electric_sliding_door" value="1"></td>
+      <td>福祉車両<input type="checkbox" name="welfare_cars" value="1"></td>
+    </tr>
+    <tr>
+      <td>ETC<input type="checkbox" name="etc" value="1"></td>
+      <td>ペット同乗なし<input type="checkbox" name="no_pets" value="1"></td>
+      <td>限定車<input type="checkbox" name="limited_edition_car" value="1"></td>
+    </tr>
+    <tr>
+      <td>禁煙車<input type="checkbox" name="non_smoking_car" value="1"></td>
+      <td>試乗、現車確認可能<input type="checkbox" name="test_drive_current_company_confirmation_possible" value="1"></td>
+      <td>取扱説明書<input type="checkbox" name="instruction_manual" value="1"></td>
+    </tr>
+    <tr>
+      <td>新車時保証書<input type="checkbox" name="new_car_warranty" value="1"></td>
+      <td>スペアタイヤ<input type="checkbox" name="spare_tire" value="1"></td>
+    </tr>
+  </table>
   <button type="submit">登録</button>
 </form>
