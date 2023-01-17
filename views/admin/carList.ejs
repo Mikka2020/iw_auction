@@ -49,7 +49,13 @@
             href="/admin/cars/register/">車両登録</a>
     </div>
 </div>
-<% for (let value of data) { %>
+<h3>
+    <% if (eventDate.length> 0) { %>
+        <%= eventDate[0].event_date.toLocaleDateString() %>
+            <% } %>
+</h3>
+
+<% for (let value of carList) { %>
     <div style="border: solid 1px black; border-radius: 5px; padding: 10px; width: 1000px; margin: 15px auto;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <h3>
