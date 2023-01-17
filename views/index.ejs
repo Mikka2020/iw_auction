@@ -67,7 +67,11 @@
                             <% } %>
 
                               <div class="calenderHead">
-                                <p>MON</p>
+                                <p>
+                                  <!-- 曜日を英語で表示 -->
+                                  <%= ["SUN", "MON" , "TUE" , "WEN" , "TUR" , "FRI" , "SAT"
+                                    ][eventDate.event_date.getDay()] %>
+                                </p>
                                 <div class="day">
                                   <%= eventDate.event_date.getDate() %>
                                 </div>
@@ -75,7 +79,7 @@
                               <div class="calenderProduct">
                                 <div class="calenderItemName">
                                   <!-- TODO: 商品名を表示 -->
-                                  BMW X5 | SUV
+                                  <!-- BMW X5 | SUV -->
                                 </div>
                               </div>
                               <div class="calenderButton">
@@ -99,6 +103,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
   <script src="./barba.js"></script>
+
 </body>
 
 </html>

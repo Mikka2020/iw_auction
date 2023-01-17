@@ -1,8 +1,36 @@
-<% for (let value of data ) {%>
-  <%= value.event_date.toLocaleDateString() %> <button>削除</button> <br>
-    <% } %>
-      <form action="/admin/events/" method="post">
-        <input type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
+<h2 style="width: 520px; margin: 0 auto;">開催日管理</h2>
+<p><a href="/admin/events/cars">未出品車両一覧</a></p>
+<% for (let event of eventDateList ) {%>
+  <a href="/admin/events/<%= event.id %>">
+    <div
+      style="display: flex; border: 1px solid lightgray; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; width: 500px; height: 40px; border-radius: 5px; margin: 10px auto;">
+      <p>
+        <%= event.event_date.toLocaleDateString() %>
+      </p>
+      <% if (event.event_date> new Date()) { %>
+        <form action="/admin/events/<%= event.id %>" method="POST"
+          onsubmit="return beforeSubmit(`<%= event.event_date.toLocaleDateString() %>`)">
+          <button>削除</button>
+        </form>
+        <% } else { %>
+          開催済み
+          <% } %>
+    </div>
+  </a>
+
+  <% } %>
+    <form action="/admin/events/" method="post" style="display: flex; justify-content: center; padding-top: 10px;">
+      <input type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
           Date().getMonth() + 1) + '-' + new Date().getDate() %>">
-        <button type="submit">新規登録</button>
-      </form
+      <button type="submit">新規登録</button>
+    </form>
+
+    <script>
+      function beforeSubmit(date) {
+        if (window.confirm(date + 'を削除しますがよろしいでしょうか？')) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    </script>

@@ -78,11 +78,11 @@
             </div>
             <div class="c3 tableProducts">
               <div class="frame1">
-                <div class="tableImg"><img src="/img/1/1.png" alt="" /></div>
+                <div class="tableImg"><img src="/img/<%= exhibits[i].car_id %>/1.png" alt="" /></div>
                 <div class="tableGroup">
                   <div class="C3Upper">
                     <div class="tableLogo">
-                      <img src="/img/logo/1.png" alt="" />
+                      <img src="/img/logo/<%= exhibits[i].manufacture_id %>.png" alt="" />
                       <p>
                         <%= exhibits[i].manufacture_name %>
                       </p>
@@ -95,7 +95,7 @@
                   <div class="C3Under">
                     <div class="productName">
                       <%= exhibits[i].manufacture_name %>
-                        <%= exhibits[i].grade %>
+                        <%= exhibits[i]?.car_model_name %>
                     </div>
                   </div>
                 </div>
@@ -174,8 +174,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-  <script src="./swiper.js"></script>
-  <script src="./barba.js"></script>
+  <script src="/js/swiper.js" ></script>
+  <script src="/js/barba.js"></script>
+  <script src="/js/bidModal.js"></script>
 </body>
 
 </html>

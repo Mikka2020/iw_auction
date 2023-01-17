@@ -1,42 +1,111 @@
-<p>車両一覧</p>
-<a href="/admin/cars/register/">車両登録</a>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #37358C;
+        color: white;
+    }
+
+    nav {
+        width: 1000px;
+    }
+
+    nav h2 {
+        font-size: 20px;
+        font-style: italic;
+    }
+
+    .aaa p {
+        font-size: 16px;
+    }
+
+    .aaa h3 {
+        font-size: 22px;
+    }
+
+    .ccc {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0px;
+    }
+</style>
+<header>
+    <nav>
+        <h2>Kangarooo★</h2>
+    </nav>
+</header>
+<div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+    <div style="width: 1000px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+        <h2 style="">車両一覧</h2>
+        <a style="display: block; background-color: #37358C; padding: 7px 30px; color: white; font-size: 16px; border-radius: 5px; font-weight: 600; text-decoration: none;"
+            href="/admin/cars/register/">車両登録</a>
+    </div>
+</div>
 <% for (let value of data) { %>
-    <p>
-        <%= value.start_time.toLocaleDateString() + " " + value.start_time.getHours().toString().padStart(2, '0' ) + ":"
-            + value.start_time.getMinutes().toString().padStart(2, '0' )%>
-    </p>
-    <p>
-        <%= value.end_time.toLocaleDateString() + " " + value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
-            value.end_time.getMinutes().toString().padStart(2, '0' )%>
-    </p>
-    <p>
-        <%= value.car_model_name%>
-    </p>
-    <p>
-        <%= value.bodytype_name%>
-    </p>
-    <p>
-        <%= value.mileage_situation%>
-    </p>
-    <p>
-        <%= value.number_passengers%>
-    </p>
-    <p>
-        <%= value.repair_history%>
-    </p>
-    <p>
-        <% if (value.car_inspection_expiration_date==null) { %>
-            期限切れ
-            <% } else { %>
-                <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
+    <div style="border: solid 1px black; border-radius: 5px; padding: 10px; width: 1000px; margin: 15px auto;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>
+                <%= value.car_model_name%> - <%= value.bodytype_name%>
+            </h3>
+        </div>
+        <div style="font-size: 16px;" class="ccc">
+            <div>
+                <p>
+                    走行 : <%= value.mileage_situation%>
+                </p>
+                <p>
+                    乗客数 : <%= value.number_passengers%>名
+                </p>
+            </div>
+            <div>
+                <p>
+                    修復歴 : <%= value.repair_history%>
+                </p>
+                <p>
+                    <% if (value.car_inspection_expiration_date==null) { %>
+                        車検有効期限 : 期限切れ
+                        <% } else { %>
+                            車検有効期限 : <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
+                                <% } %>
+                </p>
+            </div>
+            <div>
+                <p>
+                    走行距離 : <%= value.mileage%>km
+                </p>
+                <p>
+                    入札開始額 : <%= value.lowest_winning_bid%>円
+                </p>
+            </div>
+        </div>
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid lightgray; padding-top: 5px;">
+            <% if (value.start_time==null) { %>
+                <p style="color: red;">状態 : 未出品</p>
+                <% } else { %>
+                    <p style="font-size: 16px;">
+                        開始 : <%= value.start_time.toLocaleDateString() + " " +
+                            value.start_time.getHours().toString().padStart(2, '0' ) + ":" +
+                            value.start_time.getMinutes().toString().padStart(2, '0' )%> <br>
+                            終了 : <%=value.end_time.toLocaleDateString() + " " +
+                                value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
+                                value.end_time.getMinutes().toString().padStart(2, '0' )%>
+                    </p>
                     <% } %>
-    </p>
-    <p>
-        <%= value.mileage%>
-    </p>
-    <p>
-        <%= value.lowest_winning_bid%>
-    </p>
-    <a href="/admin/cars/<%= value.car_id %>">詳細</a>
-    <a href="/admin/cars/<%= value.car_id %>/register">出品</a>
+                        <div style="display: flex; justify-content: end; align-items: center;">
+                            <a style="font-weight: 600; font-size: 16px; padding: 5px 20px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
+                                href="/admin/cars/<%= value.car_id %>">編集</a>
+                            <a style="font-weight: 600; font-size: 16px; padding: 5px 40px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
+                                href="/admin/cars/<%= value.car_id %>/register">出品</a>
+                        </div>
+        </div>
+    </div>
     <%}%>

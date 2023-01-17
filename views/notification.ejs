@@ -15,7 +15,6 @@
         <nav>
             <div class="logo"><a href="/">Kangarooo<span>★</spa></a></div>
             <form class="search">
-
                 <button type="button"><svg class="searchIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                         viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);">
                         <path
@@ -48,7 +47,7 @@
         <main data-barba="container">
             <ul class="pan">
                 <li>
-                    <a href="/">ホーム</a>
+                    <a href="./index.html">ホーム</a>
                 </li>
                 <li>
                     <p>マイページ</p>
@@ -69,7 +68,7 @@
                             </a>
                         </li>
                         <!-- <li>
-                            <a href="./history.html">
+                            <a href="/mypage/orders">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                     <path
                                         d="M5 22h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2h-2a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1H5c-1.103 0-2 .897-2 2v15c0 1.103.897 2 2 2zM5 5h2v2h10V5h2v15H5V5z">
@@ -116,125 +115,23 @@
                         </li>
                     </ul>
                 </nav>
-                <div class="proRight">
-                    <h3>会員情報</h3>
-                    <div class="proInfoHead">
-                        <p>Personal Information</p>
-                        <a href="">編集</a>
-                    </div>
-                    <ul class="proInfoList">
-                        <li>
-                            <span>ユーザーネーム</span>
-                            <%= userInfo[0].user_name %>
-                        </li>
-                        <!-- <li>
-                            <span>性別</span>
-                            男
-                        </li> -->
-                        <!-- <li>
-                            <span>誕生日</span>
-                            1997.11.30
-                        </li> -->
-                    </ul>
-                    <hr>
-                    <div class="proInfoHead">
-                        <p>Security Information</p>
-                        <a href="">編集</a>
-                    </div>
-                    <ul class="proInfoList">
-                        <li>
-                            <span>E-mail</span>
-                            <%= userInfo[0].mail_address %>
-                        </li>
-                        <li>
-                            <span>携帯電話番号</span>
-                            <%= userInfo[0].phone_number %>
-                        </li>
+                <div class="nofiRight">
+                    <h2>通知</h2>
+                    <ul>
+                        <% for (let notification of notifications) { %>
+                            <li>
+                                <div class="nofiFlex">
+                                    <h4>商品の落札が完了しました。</h4>
+                                    <div class="nofiTime">
+                                        <%= notification.successful_bid_created_at.toLocaleString() %>
+                                    </div>
+                                </div>
+                                <p>一週間以内に購入した<%= notification.manufacturer_name + " | " + notification.model%>
+                                        の支払いを完了させてください。</p>
+                            </li>
+                            <% } %>
                     </ul>
                 </div>
-            </section>
-            <h2 style="margin-top: 20px;">購入履歴</h>
-                <ul class="tableContent">
-                    <% for (let order of orders) { %>
-                        <li>
-                            <div class="c1c2">
-                                <%= order.successful_bid_created_at.toLocaleDateString() %>
-                            </div>
-                            <div class="c3 tableProducts">
-                                <div class="frame1">
-                                    <div class="tableImg"><img src="/img/<%= order.car_id %>/1.png" alt=""></div>
-                                    <div class="tableGroup">
-                                        <div class="C3Upper">
-                                            <div class="tableLogo">
-                                                <img src="/img/logo/<%= order.manufacturer_id %>.png" alt="">
-                                                <p>
-                                                    <%= order.manufacturer_name %>
-                                                </p>
-                                            </div>
-                                            <div>2016 - SUV</div>
-                                        </div>
-                                        <div class="C3Under">
-                                            <div class="productName">
-                                                <%= order.manufacturer_name %>
-                                                    <%= order.car_model_name %>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="c4 tableDetails">
-                                <div class="frame2">
-                                    <div class="C4Upper">
-                                        <div class="upContent">
-                                            <div class="upHead">ボディタイプ</div>
-                                            <div class="upItem">SUV</div>
-                                        </div>
-                                        <div class="upContent">
-                                            <div class="upHead">車両の状態</div>
-                                            <div class="upItem">実地試験済み</div>
-                                        </div>
-                                        <div class="upContent">
-                                            <div class="upHead">定員</div>
-                                            <div class="upItem">
-                                                <%= order.number_passengers %>名
-                                            </div>
-                                        </div>
-                                        <div class="upContent">
-                                            <div class="upHead">修復歴</div>
-                                            <div class="upItem">なし</div>
-                                        </div>
-                                        <div class="upContent">
-                                            <div class="upHead">車検</div>
-                                            <div class="upItem">2023年11月30日</div>
-                                        </div>
-                                        <div class="upContent">
-                                            <div class="upHead">走行距離</div>
-                                            <div class="upItem">5.7万km</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="C4Under">
-                                    <div class="udContent">
-                                        <div class="udHead">落札額</div>
-                                        <div class="udItem">
-                                            <%= order.successful_bid_price %><span> 円</span>
-                                        </div>
-                                    </div>
-                                    <div class="udContent">
-                                        <div class="udHead">ステータス</div>
-                                        <div class="udItem">
-                                            <% if (order.payment_status==0) { %>
-                                                未払い
-                                                <% } else { %>
-                                                    支払い済み
-                                                    <% } %>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <% } %>
-                </ul>
         </main>
     </div>
 
