@@ -61,7 +61,6 @@ io_socket.on('connection', function (socket) {
     bid 
     (user_id,exhibit_id,bid_price)
     values (` + msg.user_id + `,` + msg.auctionId + `,` + msg.value + `)`;
-    console.log(sql);
     connection.query(
       sql,
       (error, results) => {
@@ -73,10 +72,32 @@ io_socket.on('connection', function (socket) {
       }
     );
   });
+  //サーバーがオークションidを受け取って、オークション落札完了者を判定できる値をひっぱってきて、クライアントにemit
+  socket.on('c2s-endtime', function (value) {
+    console.log('オークション終了時刻にemitがしっかりおくれていますよ。' + value.auctionId);
+    //DBから入札情報を引っ張る。
+    const sql = 
+    `SELECT * FROM bid
+    WHERE 
+    exhibit_id =`+ value.auctionId + `&&
+    bid_price = (SELECT MAX(bid.bid_price) FROM
+    bid
+    WHERE exhibit_id =`
+      + value.auctionId+`)`;
+      connection.query(
+        sql,
+        (error, results) => {
+          if (error) {
+            console.log('error connecting:' + error.stack);
+            return;
+          }
+          io_socket.to(value.auctionId).emit('s2c-endtime',results[0]);
+        }
+      );
+  });
   //サーバがオークションid名を受け取り、参加
   socket.on('c2s-join', function (msg) {
     console.log('c2s-roomJoin:' + msg.auctionId);
     socket.join(msg.auctionId);
   });
-
 });
