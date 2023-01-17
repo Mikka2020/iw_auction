@@ -221,8 +221,6 @@ if(now_date < start_date){//競売開始してないよ～
   var startMonth = start_date.getMonth()+1;
   var startDay = start_date.getDate();
 
-  console.log(startMonth);
-
 
   nextBid.style.display ="none";
   productLimit.innerHTML ="開催日";
