@@ -530,7 +530,7 @@ router.post('/cars/:id/register/', (req, res) => {
         console.log(results);
         // インサートされたexhibitのidを取得
         insertBid(results.insertId);
-        res.redirect('/admin/cars');
+        res.redirect('/admin/events/' + req.body.event_date_id);
       }
     );
   }
