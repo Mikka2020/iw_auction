@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
         MAX(bid.bid_price) AS bid_price,
         eventdate.event_date
       FROM
-        exhibit
+      exhibit
       JOIN car ON exhibit.car_id = car.id
       LEFT JOIN manufacturer ON car.manufacturer_id = manufacturer.id
       LEFT JOIN color ON car.color_id = color.id
@@ -193,7 +193,16 @@ router.get("/items/:auctionId", (req, res) => {//auctionId = car.id
         res.status(400).send({ messsage: 'Error!' });
         return;
       }
-      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId,user:user,isAuth: isAuth, });
+      // 出品されている車両のidを取得
+      const carId = results[0].car_id;
+
+      // public/img/carId/のファイルの枚数を取得
+      const fs = require('fs');
+      const dir = 'public/img/' + carId + '/';
+      const files = fs.readdirSync(dir);
+      const fileCount = files.length;
+      console.log(fileCount);
+      res.render("auctionItem.ejs", { values: results[0], auctionId: req.params.auctionId,user:user,isAuth: isAuth,fileCount:fileCount,});
     }
   );
 });

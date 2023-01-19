@@ -36,6 +36,16 @@
         justify-content: space-between;
         padding: 10px 0px;
     }
+    .ddd{
+        font-size: 13px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+    .eee{
+        padding-right: 15px;
+        margin-right: 15px;
+        border-right: 1px solid lightgray;
+    }
 </style>
 <header>
     <nav>
@@ -43,75 +53,78 @@
     </nav>
 </header>
 <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-    <div style="width: 1000px; display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+    <div style="width: 90%; display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
         <h2 style="">車両一覧</h2>
-        <a style="display: block; background-color: #37358C; padding: 7px 30px; color: white; font-size: 16px; border-radius: 5px; font-weight: 600; text-decoration: none;"
-            href="/admin/cars/register/">車両登録</a>
+        <a style="display: block; background-color: #37358C; padding: 7px 30px; color: white; font-size: 16px; border-radius: 5px; font-weight: 600; text-decoration: none;" href="/admin/cars/register/">車両登録</a>
     </div>
 </div>
-<h3>
-    <% if (eventDate.length> 0) { %>
-        <%= eventDate[0].event_date.toLocaleDateString() %>
-            <% } %>
-</h3>
-
-<% for (let value of carList) { %>
-    <div style="border: solid 1px black; border-radius: 5px; padding: 10px; width: 1000px; margin: 15px auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h3>
-                <%= value.car_model_name%> - <%= value.bodytype_name%>
-            </h3>
-        </div>
-        <div style="font-size: 16px;" class="ccc">
-            <div>
-                <p>
-                    走行 : <%= value.mileage_situation%>
-                </p>
-                <p>
-                    乗客数 : <%= value.number_passengers%>名
-                </p>
-            </div>
-            <div>
-                <p>
-                    修復歴 : <%= value.repair_history%>
-                </p>
-                <p>
-                    <% if (value.car_inspection_expiration_date==null) { %>
-                        車検有効期限 : 期限切れ
-                        <% } else { %>
-                            車検有効期限 : <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
-                                <% } %>
-                </p>
-            </div>
-            <div>
-                <p>
-                    走行距離 : <%= value.mileage%>km
-                </p>
-                <p>
-                    入札開始額 : <%= value.lowest_winning_bid%>円
-                </p>
-            </div>
-        </div>
-        <div
-            style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid lightgray; padding-top: 5px;">
-            <% if (value.start_time==null) { %>
-                <p style="color: red;">状態 : 未出品</p>
-                <% } else { %>
-                    <p style="font-size: 16px;">
-                        開始 : <%= value.start_time.toLocaleDateString() + " " +
-                            value.start_time.getHours().toString().padStart(2, '0' ) + ":" +
-                            value.start_time.getMinutes().toString().padStart(2, '0' )%> <br>
-                            終了 : <%=value.end_time.toLocaleDateString() + " " +
-                                value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
-                                value.end_time.getMinutes().toString().padStart(2, '0' )%>
-                    </p>
-                    <% } %>
-                        <div style="display: flex; justify-content: end; align-items: center;">
-                            <a style="font-weight: 600; font-size: 16px; padding: 5px 20px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
-                                href="/admin/cars/<%= value.car_id %>">編集</a>
-                            <a style="font-weight: 600; font-size: 16px; padding: 5px 40px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
-                                href="/admin/cars/<%= value.car_id %>/register">出品</a>
-                        </div>
-        </div>
+<section style="display: flex; justify-content: space-between; margin: 30px 5%; width: 90%;">
+    <div style="width: 20%; border: 1px solid lightgray; border-radius: 5px; box-sizing: border-box; height: 210px;">
+        <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/cars">車両管理</a></p>
+        <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/users">会員管理</a></p>
+        <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/events">開催日管理</a></p>
+        <p><a style="display: flex; align-items: center; padding: 0px 20px; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/sales">販売管理</a></p>
     </div>
-    <%}%>
+    <div style="width: 75%;">        
+    <h3 style="font-size: 18px; padding-bottom: 15px;">
+        <% if (eventDate.length> 0) { %>
+            <%= eventDate[0].event_date.toLocaleDateString() %>
+                <% } %>
+    </h3>
+    <% for (let value of carList) { %>
+        <div style="border: solid 1px rgb(190, 190, 190); border-radius: 5px; padding: 0px 10px; width: 100%; margin-top: 0px; margin-bottom: 10px; margin-left: auto; margin-right: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center;"> 
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <% if (value.start_time==null) { %>
+                        <p style="color: red; font-size: 14px; font-weight: 500; padding-right: 20px;">未出品</p>
+                        <% } else { %>
+                            <p style="font-size: 16px;  text-align: center; padding-right: 20px;">
+                                <%=
+                                    value.start_time.getHours().toString().padStart(2, '0' ) + ":" +
+                                    value.start_time.getMinutes().toString().padStart(2, '0' )%> 
+                                    -
+                                    <%=value.end_time.getHours().toString().padStart(2, '0' ) + ":" +
+                                        value.end_time.getMinutes().toString().padStart(2, '0' )%>
+                            </p>
+                            <% } %>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <p style="font-weight: 600; font-size: 15px; width: 200px;">
+                        <%= value.car_model_name%> - <%= value.bodytype_name%>
+                    </p>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <div style="font-size: 16px;" class="ccc">
+                        <div class="eee">
+                            <p class="ddd">
+                                走行 : <%= value.mileage_situation%>
+                            </p>
+                            <p class="ddd">
+                                乗客数 : <%= value.number_passengers%>名
+                            </p>
+                        </div>
+                        <div class="eee">
+                            <p class="ddd">
+                                <% if (value.car_inspection_expiration_date==null) { %>
+                                    車検有効期限 : 期限切れ
+                                    <% } else { %>
+                                        車検有効期限 : <%= value.car_inspection_expiration_date?.toLocaleDateString() %>
+                                            <% } %>
+                            </p>
+                            <p class="ddd">
+                                入札開始額 : <%= value.lowest_winning_bid%>円
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: end; align-items: center;">
+                        <a style="font-weight: 600; font-size: 14px; padding: 10px 20px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
+                            href="/admin/cars/<%= value.car_id %>">編集</a>
+                        <a style="font-weight: 600; font-size: 14px; padding: 10px 30px; border: 1px solid gray; margin-left: 10px; border-radius: 5px; color: black; text-decoration: none;"
+                            href="/admin/cars/<%= value.car_id %>/register">出品</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%}%>
+    </div>
+</section>

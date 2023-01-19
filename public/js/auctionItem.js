@@ -16,39 +16,102 @@ var addPrice1 = document.getElementById("addPrice1");
 var addPrice2 = document.getElementById("addPrice2");
 var addPrice3 = document.getElementById("addPrice3");
 var addPrice4 = document.getElementById("addPrice4");
+var bidPlusPrice = document.getElementById("bidPlusPrice");
+var plusSumPrice;
+var modalBestPrice = document.getElementById("modalBestPrice");
+var modalPlusPrice = document.getElementById("modalPlusPrice");
+var modalSumPrice = document.getElementById("modalSumPrice");
+
+
 var biggest_bid = document.getElementById("biggest_bid");
 var bid_price = document.getElementById("bid_price");
 var clear = document.getElementById("clear");
 var bid_submit = document.getElementById("bid_submit");
+var bid_confirm = document.getElementById("bid_confirm");
+var startTime = document.getElementById("start_time");
+var endTime = document.getElementById("end_time");
+var start_time = new Date(start_time);
+var end_time = new Date(end_time);
+
+var startHours = start_time.getHours();
+var startMinutes = start_time.getMinutes();
+var endHours = end_time.getHours();
+var endMinutes = end_time.getMinutes();
+
+var productStatusLeft = document.getElementById("productStatusLeft");
+var productStatusActive = document.getElementById("productStatusActive");
+var bid = document.getElementById("bid");
+var next_bid = document.getElementById("nextBid");
+var productLimit = document.getElementById("productLimit");
+var productTime = document.getElementById("productTime");
+
+if(startHours == 0){
+  startHours = '00';
+}else{
+  startHours = startHours.toString();
+}
+if(startMinutes == 0){
+  startMinutes = '00';
+}else{
+  startMinutes = startMinutes.toString();
+}
+if(endHours == 0){
+  endtHours = '00';
+}else{
+  endHours = endHours.toString();
+}
+if(endMinutes == 0){
+  endMinutes = '00';
+}else{
+  endMinutes = endMinutes.toString();
+}
+
+startTime.innerHTML = startHours+':'+startMinutes;
+endTime.innerHTML = endHours+':'+endMinutes;
 
 
 //1つ目のボタンが押されたとき
 addPrice1.addEventListener('click',function(){
   bid_price_sum = Number(bid_price.innerText)+Number(addPrice1.value);
   bid_price.innerHTML = bid_price_sum;
+  plusSumPrice = Number(bidPlusPrice.innerText)+Number(addPrice1.value);
+  bidPlusPrice.innerHTML = plusSumPrice;
 });
 //2つ目のボタンが押されたとき
 addPrice2.addEventListener('click',function(){
   bid_price_sum = Number(bid_price.innerText)+Number(addPrice2.value);
   bid_price.innerHTML = bid_price_sum;
+  plusSumPrice = Number(bidPlusPrice.innerText)+Number(addPrice2.value);
+  bidPlusPrice.innerHTML = plusSumPrice;
 });
 //3つ目のボタンが押されたとき
 addPrice3.addEventListener('click',function(){
   bid_price_sum = Number(bid_price.innerText)+Number(addPrice3.value);
   bid_price.innerHTML = bid_price_sum;
+  plusSumPrice = Number(bidPlusPrice.innerText)+Number(addPrice3.value);
+  bidPlusPrice.innerHTML = plusSumPrice;
 });
 //4つ目のボタンが押されたとき
 addPrice4.addEventListener('click',function(){
   bid_price_sum = Number(bid_price.innerText)+Number(addPrice4.value);
   bid_price.innerHTML = bid_price_sum;
+  plusSumPrice = Number(bidPlusPrice.innerText)+Number(addPrice4.value);
+  bidPlusPrice.innerHTML = plusSumPrice;
 });
 //クリアボタンが押されたとき
 clear.addEventListener('click',function(){
   bid_price.innerHTML = biggest_bid.innerText;
+  bidPlusPrice.innerHTML = '0';
 });
 
-//入札ボタンが押されたとき
+//入札するボタンが押されたとき
 bid_submit.addEventListener('click',function(event){
+  modalPlusPrice.innerHTML = bidPlusPrice.innerText;
+  modalSumPrice.innerHTML = Number(modalBestPrice.innerText)+ Number(modalPlusPrice.innerText);
+});
+
+//モーダルの入札確定ボタンが押されたとき
+bid_confirm.addEventListener('click',function(event){
   event.preventDefault();
   const sendData = 
   {
@@ -60,17 +123,41 @@ bid_submit.addEventListener('click',function(event){
   socketio.emit('c2s',sendData);
 });
 
-socketio.emit('c2s-bidflg');
+
 
 //s2cという宣言名でクライアントとのコネクションが確立したとき
 socketio.on('s2c',function(msg){
   biggest_bid.innerHTML = msg.value;
   bid_price.innerHTML = msg.value;
+  bidPlusPrice.innerHTML = '0';
+  modalBestPrice.innerHTML = msg.value;
+  modalPlusPrice.innerHTML = '0';
+  modalSumPrice.innerHTML = msg.value;
+
 });
 
-//s2cという宣言名でクライアントとのコネクションが確立したとき
-socketio.on('s2c-bidflg',function(first_results){
-  console.log('a');
+//s2c-endtimeという宣言名でクライアントとのコネクションが確立したとき。
+socketio.on('s2c-endtime',function(value){
+  if(user_id == value.user_id){ 
+    bestHead.innerHTML = "最終落札額";
+    productStatusActive.innerHTML = "落札終了";
+    productStatusLeft.style.display ="none";
+    bid.style.display ="none";
+    nextBid.style.display ="none";
+    $(function () {
+          $('#modalOkArea').fadeIn();
+    });
+    
+  }else{
+    bestHead.innerHTML = "最終落札額";
+    productStatusActive.innerHTML = "落札終了";
+    productStatusLeft.style.display ="none";
+    bid.style.display ="none";
+    nextBid.style.display ="none";
+    $(function () {
+      $('#modalNoArea').fadeIn();
+    });
+  }
 });
 
 
@@ -93,11 +180,35 @@ function countdown(end_date) {//カウントダウンクラス
   var calcSec = Math.floor(diff / 1000) % 60;
 
   // 取得した時間を表示（2桁表示）
-  hour.innerHTML = calcHour < 10 ? '0' + calcHour : calcHour;
-  min.innerHTML = calcMin < 10 ? '0' + calcMin : calcMin;
-  sec.innerHTML = calcSec < 10 ? '0' + calcSec : calcSec;
+  if(calcHour >= 0 && calcMin >= 0 && calcSec >= 0){
+    hour.innerHTML = calcHour < 10 ? '0' + calcHour : calcHour;
+    min.innerHTML = calcMin < 10 ? '0' + calcMin : calcMin;
+    sec.innerHTML = calcSec < 10 ? '0' + calcSec : calcSec;
+  }
+  else if(calcHour == -1 && calcMin == -1 && calcSec == -1){
+    //目的時刻に到達したとき
+    const sendData = {
+      auctionId:auctionId
+    }
+  //sendDataをサーバーへ排出。
+  socketio.emit('c2s-endtime',sendData);
+  }else{
+    //使用しない分岐
+  }
   
 }
+
+$(function () {
+  $('#closeOkModal , #modalOkBg').click(function(){
+    $('#modalOkArea').fadeOut();
+  });
+  $('#closeNoModal , #modalNoBg').click(function(){
+    $('#modalNoArea').fadeOut();
+  });
+  $('#linkCloseModal').click(function(){
+    $('#modalOkArea').fadeOut();
+  });
+});
 
 if(start_date <= now_date && now_date <=end_date){//競売中～
   console.log("開催中です");
@@ -106,10 +217,26 @@ if(start_date <= now_date && now_date <=end_date){//競売中～
 }
 if(now_date < start_date){//競売開始してないよ～
   console.log("まだ開催してないよ");
+  var startYear = start_date.getFullYear();
+  var startMonth = start_date.getMonth()+1;
+  var startDay = start_date.getDate();
 
+
+  nextBid.style.display ="none";
+  productLimit.innerHTML ="開催日";
+  productStatusActive.innerHTML = "開催予定";
+  productTime.innerHTML=startYear+"年<br><br>"+startMonth+"月"+startDay+"日";
+  bestHead.innerHTML = "落札開始額";
+  bid.style.display = "none";
 }
 if(end_date < now_date){//競売終了時
   console.log("この競売は終了しました。");
+
+  bestHead.innerHTML = "最終落札額";
+  productStatusActive.innerHTML = "落札終了";
+  productStatusLeft.style.display ="none";
+  bid.style.display ="none";
+  nextBid.style.display ="none";
 }
 
 
