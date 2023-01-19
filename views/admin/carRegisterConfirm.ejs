@@ -1,8 +1,77 @@
-<h1>車両登録確認</h1>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+  }
+
+  header {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #37358C;
+      color: white;
+  }
+
+  nav {
+      width: 90%;
+  }
+
+  nav h2 {
+      font-size: 20px;
+      font-style: italic;
+  }
+
+  .aaa p {
+      font-size: 16px;
+  }
+
+  .aaa h3 {
+      font-size: 22px;
+  }
+
+  .ccc {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0px;
+  }
+  tr{
+    display: flex;
+  }
+  td{
+    padding: 2px;
+    font-size: 15px;
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    padding-right:20px;
+  }
+  span{
+    text-align: right;
+  }
+  button{
+    padding: 5px 40px;
+  }
+</style>
+<header>
+  <nav>
+      <h2>Kangarooo★</h2>
+  </nav>
+</header>
+<section style="display: flex; justify-content: space-between; margin: 30px 5%;">
+  <div style="width: 20%; border: 1px solid lightgray; border-radius: 5px; box-sizing: border-box; height: 210px;">
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/events">開催日管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/cars">未出品車両管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/users">会員管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/sales">販売管理</a></p>
+</div>
+  <div style=" width: 75%;">
+<h1 style="font-size: 20px; margin-bottom: 20px;">車両登録確認</h1>
 <% for (let i=0; i < car.file.length; i++) { %>
-  <img src="/img/tmp/<%= car.file[i].filename %>" alt="" width="350" height="300">
+  <img src="/img/tmp/<%= car.file[i].filename %>" alt="" width="170" height="170" style="object-fit: cover; border-radius: 2px;">
   <% } %>
-    <table>
+    <table style="margin-bottom: 30px;">
       <tr>
         <td>メーカー名:
           <% if(manufacturer){ %>
@@ -119,91 +188,91 @@
     </table>
 
 
-    <table>
+    <table style="margin-bottom: 30px;">
       <tr>
-        <td>エアコン<%= car.air_conditioner ? '◯' : '-' %>
+        <td>エアコン<span><%= car.air_conditioner ? '◯' : '-' %></span>
         </td>
-        <td>スマートキー<%= car.smart_key ? '◯' : '-' %>
+        <td>スマートキー<span><%= car.smart_key ? '◯' : '-' %></span>
         </td>
-        <td>サンルーフ<%= car.sunroof ? '◯' : '-' %>
+        <td>サンルーフ<span><%= car.sunroof ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>パワステ<%= car.power_steering ? '◯' : '-' %>
+        <td>パワステ<span><%= car.power_steering ? '◯' : '-' %></span>
         </td>
-        <td>DVDビデオ<%= car.dvd_video ? '◯' : '-' %>
+        <td>DVDビデオ<span><%= car.dvd_video ? '◯' : '-' %></span>
         </td>
-        <td>本革シート<%= car.genuine_leather_seats ? '◯' : '-' %>
-        </td>
-      </tr>
-      <tr>
-        <td>パワーウィンドウ<%= car.power_window ? '◯' : '-' %>
-        </td>
-        <td>CD<%= car.cd ? '◯' : '-' %>
-        </td>
-        <td>純正エアロパーツ<%= car.genuine_aero_parts ? '◯' : '-' %>
+        <td>本革シート<span><%= car.genuine_leather_seats ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>集中ドアロック<%= car.central_door_lock ? '◯' : '-' %>
+        <td>パワーウィンドウ<span><%= car.power_window ? '◯' : '-' %></span>
         </td>
-        <td>MD<%= car.md ? '◯' : '-' %>
+        <td>CD<span><%= car.cd ? '◯' : '-' %></span>
         </td>
-        <td>純正アルミホイール<%= car.genuine_aluminum_wheels ? '◯' : '-' %>
-        </td>
-      </tr>
-      <tr>
-        <td>エアバッグ<%= car.airbag ? '◯' : '-' %>
-        </td>
-        <td>テレビ<%= car.tv ? '◯' : '-' %>
-        </td>
-        <td>横滑り防止装置<%= car.skid_prevention_device ? '◯' : '-' %>
+        <td>純正エアロパーツ<span><%= car.genuine_aero_parts ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>ABS<%= car.abs ? '◯' : '-' %>
+        <td>集中ドアロック<span><%= car.central_door_lock ? '◯' : '-' %></span>
         </td>
-        <td>ナビゲーション<%= car.navigaiton ? '◯' : '-' %>
+        <td>MD<span><%= car.md ? '◯' : '-' %></span>
         </td>
-        <td>トラクションコントロール<%= car.traction_control ? '◯' : '-' %>
-        </td>
-      </tr>
-      <tr>
-        <td>キーレスエントリー<%= car.keyless_entry ? '◯' : '-' %>
-        </td>
-        <td>バックカメラ<%= car.back_camera ? '◯' : '-' %>
-        </td>
-        <td>寒冷地帯仕様車<%= car.cold_region_specification_car ? '◯' : '-' %>
+        <td>純正アルミホイール<span><%= car.genuine_aluminum_wheels ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>ローダウン<%= car.lowdown ? '◯' : '-' %>
+        <td>エアバッグ<span><%= car.airbag ? '◯' : '-' %></span>
         </td>
-        <td>電動スライドドア<%= car.electric_sliding_door ? '◯' : '-' %>
+        <td>テレビ<span><%= car.tv ? '◯' : '-' %></span>
         </td>
-        <td>福祉車両<%= car.welfare_cars ? '◯' : '-' %>
-        </td>
-      </tr>
-      <tr>
-        <td>ETC<%= car.etc ? '◯' : '-' %>
-        </td>
-        <td>ペット同乗なし<%= car.no_pets ? '◯' : '-' %>
-        </td>
-        <td>限定車<%= car.limited_edition_car ? '◯' : '-' %>
+        <td>横滑り防止装置<span><%= car.skid_prevention_device ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>禁煙車<%= car.non_smoking_car ? '◯' : '-' %>
+        <td>ABS<span><%= car.abs ? '◯' : '-' %></span>
         </td>
-        <td>試乗、現車確認可能<%= car.test_drive_current_company_confirmation_possible ? '◯' : '-' %>
+        <td>ナビゲーション<span><%= car.navigaiton ? '◯' : '-' %></span>
         </td>
-        <td>取扱説明書<%= car.instruction_manual ? '◯' : '-' %>
+        <td>トラクションコントロール<span><%= car.traction_control ? '◯' : '-' %></span>
         </td>
       </tr>
       <tr>
-        <td>新車時保証書<%= car.new_car_warranty ? '◯' : '-' %>
+        <td>キーレスエントリー<span><%= car.keyless_entry ? '◯' : '-' %></span>
         </td>
-        <td>スペアタイヤ<%= car.spare_tire ? '◯' : '-' %>
+        <td>バックカメラ<span><%= car.back_camera ? '◯' : '-' %></span>
+        </td>
+        <td>寒冷地帯仕様車<span><%= car.cold_region_specification_car ? '◯' : '-' %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>ローダウン<span><%= car.lowdown ? '◯' : '-' %></span>
+        </td>
+        <td>電動スライドドア<span><%= car.electric_sliding_door ? '◯' : '-' %></span>
+        </td>
+        <td>福祉車両<span><%= car.welfare_cars ? '◯' : '-' %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>ETC<span><%= car.etc ? '◯' : '-' %></span>
+        </td>
+        <td>ペット同乗なし<span><%= car.no_pets ? '◯' : '-' %></span>
+        </td>
+        <td>限定車<span><%= car.limited_edition_car ? '◯' : '-' %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>禁煙車<span><%= car.non_smoking_car ? '◯' : '-' %></span>
+        </td>
+        <td>試乗、現車確認可能<span><%= car.test_drive_current_company_confirmation_possible ? '◯' : '-' %></span>
+        </td>
+        <td>取扱説明書<span><%= car.instruction_manual ? '◯' : '-' %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>新車時保証書<span><%= car.new_car_warranty ? '◯' : '-' %></span>
+        </td>
+        <td>スペアタイヤ<span><%= car.spare_tire ? '◯' : '-' %></span>
         </td>
       </tr>
     </table>
@@ -274,3 +343,5 @@
 
       <button type="submit" name="submit" value="1">登録</button>
     </form>
+  </div>
+</section>
