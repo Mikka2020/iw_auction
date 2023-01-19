@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
         MAX(bid.bid_price) AS bid_price,
         eventdate.event_date
       FROM
-        exhibit
+      exhibit
       JOIN car ON exhibit.car_id = car.id
       LEFT JOIN manufacturer ON car.manufacturer_id = manufacturer.id
       LEFT JOIN color ON car.color_id = color.id

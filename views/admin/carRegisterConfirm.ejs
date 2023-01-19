@@ -1,220 +1,276 @@
 <h1>車両登録確認</h1>
+<% for (let i=0; i < car.file.length; i++) { %>
+  <img src="/img/tmp/<%= car.file[i].filename %>" alt="" width="350" height="300">
+  <% } %>
+    <table>
+      <tr>
+        <td>メーカー名:
+          <% if(manufacturer){ %>
+            <%= manufacturer[0].manufacture_name %>
+              <% } %>
+        </td>
+        <td>ミッション
+          <% if (car.mission=="0" ) {%>
+            AT
+            <%}else if(car.mission==1){%>
+              MT
+              <%}%>
+        </td>
+        <td>走行距離の状態 <%= car.mileage_situation %>
+        </td>
+      </tr>
+      <tr>
+        <td>グレード名<%= car.grade %>
+        </td>
+        <td>色系統
+          <% if(color){ %>
+            <%= color[0].color_name %>
+              <% } %>
+        </td>
+        <td>輸入車モデル年式<%= car.imported_model_year %>
+        </td>
+      </tr>
+      <tr>
+        <td>年式<%= car.model_year %>
+        </td>
+        <td>車歴<%= car.history %>
+        </td>
+        <td>色の名称<%= car.color_detail %>
+        </td>
+      </tr>
+      <tr>
+        <td>走行距離<%= car.mileage %>
+        </td>
+        <td>点検記録簿<%= car.Inspection_record_book %>
+        </td>
+        <td>型式<%= car.model %>
+        </td>
+      </tr>
+      <tr>
+        <td>輸入経路<%= car.import_route %>
+        </td>
+        <td>乗車定員数<%= car.number_passengers %>
+        </td>
+        <td>リサイクル預託金<%= car.recycling_deposit %>
+        </td>
+      </tr>
+      <tr>
+        <td>車台番号（下３桁）<%= car.chassis_number %>
+        </td>
+        <td>燃料
+          <% if (car.fuel=="0" ) {%>
+            レギュラー
+            <%}else if (car.fuel==1){%>
+              ハイオク
+              <%}else if (car.fuel==2){%>
+                軽油
+                <%} %>
+        </td>
+        <td>ハンドル
+          <% if (car.handle=="0" ) {%>
+            右
+            <%}else if (car.handle==1){%>
+              左
+              <%} %>
+        </td>
+      </tr>
+      <tr>
+        <td>車検有効期限<%= car.car_inspection_expiration_date %>
+        </td>
+        <td>修復歴<%= car.repair_history %>
+        </td>
+        <td>所有者歴<%= car.owner_history %>
+        </td>
+      </tr>
+      <tr>
+        <td>ボディタイプ
+          <% if(bodytype){ %>
+            <%= bodytype[0].bodytype_name %>
+              <% } %>
+        </td>
+        <td>排気量<%= car.displacement %>
+        </td>
+        <td>ドア数<%= car.doors %>
+        </td>
+      </tr>
+      <tr>
+        <td>車種名<%= car.car_model_name %>
+        </td>
+        <td>駆動方式
+          <% if (car.drive_system=="0" ) {%>
+            FF
+            <%}else if (car.drive_system==1){%>
+              FR
+              <%}else if (car.drive_system==2){%>
+                4WD
+                <%}else if (car.drive_system==3){%>
+                  MR
+                  <%}else if (car.drive_system==4){%>
+                    RR
+                    <%} %>
+        </td>
+        <td>引き渡し条件<%= car.delivery_conditions %>
+        </td>
+      </tr>
+      <tr>
+        <td>車両の状態<%= car.car_condition %>
+        </td>
+      </tr>
+    </table>
 
-  <table>
-    <tr>
-      <td>メーカー名:
-        <% if(manufacturer){ %> 
-          <%= manufacturer[0].manufacture_name %>
-        <% } %> 
-      </td>
-      <td>ミッション
-        <% if (car.mission == "0") {%>
-          AT
-        <%}else if(car.mission == 1){%>
-          MT
-        <%}%>
-      </td>
-      <td>走行距離の状態 <%= car.mileage_situation %> </td>
-    </tr>
-    <tr>
-      <td>グレード名<%= car.grade %></td>
-      <td>色系統
-        <% if(color){ %> 
-          <%= color[0].color_name %>
-        <% } %> 
-      </td>
-      <td>輸入車モデル年式<%= car.imported_model_year %></td>
-    </tr>
-    <tr>
-      <td>年式<%= car.model_year %></td>
-      <td>車歴<%= car.history %></td>
-      <td>色の名称<%= car.color_detail %></td>
-    </tr>
-    <tr>
-      <td>走行距離<%= car.mileage %></td>
-      <td>点検記録簿<%= car.Inspection_record_book %></td>
-      <td>型式<%= car.model %></td>
-    </tr>
-    <tr>
-      <td>輸入経路<%= car.import_route %></td>
-      <td>乗車定員数<%= car.number_passengers %></td>
-      <td>リサイクル預託金<%= car.recycling_deposit %> </td>
-    </tr>
-    <tr>
-      <td>車台番号（下３桁）<%= car.chassis_number %></td>
-      <td>燃料
-        <% if (car.fuel == "0") {%>
-          レギュラー
-        <%}else if (car.fuel == 1){%>
-          ハイオク
-        <%}else if (car.fuel == 2){%>
-          軽油
-        <%} %>
-      </td>
-      <td>ハンドル
-        <% if (car.handle == "0") {%>
-          右
-        <%}else if (car.handle == 1){%>
-          左
-        <%} %>
-      </td>
-    </tr>
-    <tr>
-      <td>車検有効期限<%= car.car_inspection_expiration_date %></td>
-      <td>修復歴<%= car.repair_history %></td>
-      <td>所有者歴<%= car.owner_history %></td>
-    </tr>
-    <tr>
-      <td>ボディタイプ
-        <% if(bodytype){ %> 
-          <%= bodytype[0].bodytype_name %>
-        <% } %> 
-      </td>
-      <td>排気量<%= car.displacement %></td>
-      <td>ドア数<%= car.doors %></td>
-    </tr>
-    <tr>
-      <td>車種名<%= car.car_model_name %></td>
-      <td>駆動方式
-        <% if (car.drive_system == "0") {%>
-          FF
-        <%}else if (car.drive_system == 1){%>
-          FR
-        <%}else if (car.drive_system == 2){%>
-          4WD
-        <%}else if (car.drive_system == 3){%>
-          MR
-        <%}else if (car.drive_system == 4){%>
-          RR
-        <%} %>
-      </td>
-      <td>引き渡し条件<%= car.delivery_conditions %> </td>
-    </tr>
-    <tr>
-      <td>車両の状態<%= car.car_condition %></td>
-    </tr>
-  </table>
 
-  
-  <table>
-    <tr>
-      <td>エアコン<%= car.air_conditioner ? '◯' : '-'%></td>
-      <td>スマートキー<%= car.smart_key ? '◯' : '-'%></td>
-      <td>サンルーフ<%= car.sunroof ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>パワステ<%= car.power_steering ? '◯' : '-'%></td>
-      <td>DVDビデオ<%= car.dvd_video ? '◯' : '-'%></td>
-      <td>本革シート<%= car.genuine_leather_seats ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>パワーウィンドウ<%= car.power_window ? '◯' : '-'%></td>
-      <td>CD<%= car.cd ? '◯' : '-'%></td>
-      <td>純正エアロパーツ<%= car.genuine_aero_parts ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>集中ドアロック<%= car.central_door_lock ? '◯' : '-'%></td>
-      <td>MD<%= car.md ? '◯' : '-'%></td>
-      <td>純正アルミホイール<%= car.genuine_aluminum_wheels ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>エアバッグ<%= car.airbag ? '◯' : '-'%></td>
-      <td>テレビ<%= car.tv ? '◯' : '-'%></td>
-      <td>横滑り防止装置<%= car.skid_prevention_device ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>ABS<%= car.abs ? '◯' : '-'%></td>
-      <td>ナビゲーション<%= car.navigaiton ? '◯' : '-'%></td>
-      <td>トラクションコントロール<%= car.traction_control ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>キーレスエントリー<%= car.keyless_entry ? '◯' : '-'%></td>
-      <td>バックカメラ<%= car.back_camera ? '◯' : '-'%></td>
-      <td>寒冷地帯仕様車<%= car.cold_region_specification_car ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>ローダウン<%= car.lowdown ? '◯' : '-'%></td>
-      <td>電動スライドドア<%= car.electric_sliding_door ? '◯' : '-'%></td>
-      <td>福祉車両<%= car.welfare_cars ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>ETC<%= car.etc ? '◯' : '-'%></td>
-      <td>ペット同乗なし<%= car.no_pets ? '◯' : '-'%></td>
-      <td>限定車<%= car.limited_edition_car ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>禁煙車<%= car.non_smoking_car ? '◯' : '-'%></td>
-      <td>試乗、現車確認可能<%= car.test_drive_current_company_confirmation_possible ? '◯' : '-'%></td>
-      <td>取扱説明書<%= car.instruction_manual ? '◯' : '-'%></td>
-    </tr>
-    <tr>
-      <td>新車時保証書<%= car.new_car_warranty ? '◯' : '-'%></td>
-      <td>スペアタイヤ<%= car.spare_tire ? '◯' : '-'%></td>
-    </tr>
-  </table>
-  
-  
-<form action="/admin/cars/register/confirm" method="post" enctype="">
-  <input type="hidden" name="manufacturer_id" value=<%= car.manufacturer_id %> >
-  <input type="hidden" name="mission" value=<%= car.mission %> >
-  <input type="hidden" name="mileage_situation" value=<%= car.mileage_situation %> >
-  <input type="hidden" name="grade" value=<%= car.grade %> >
-  <input type="hidden" name="color_id" value=<%= car.color_id %> >
-  <input type="hidden" name="imported_model_year" value=<%= car.imported_model_year %> >
-  <input type="hidden" name="model_year" value=<%= car.model_year %> >
-  <input type="hidden" name="history" value=<%= car.history %> >
-  <input type="hidden" name="color_detail" value=<%= car.color_detail %> >
-  <input type="hidden" name="mileage" value=<%= car.mileage %> >
-  <input type="hidden" name="Inspection_record_book" value=<%= car.Inspection_record_book %> >
-  <input type="hidden" name="model" value=<%= car.model %> >
-  <input type="hidden" name="import_route" value=<%= car.import_route %> >
-  <input type="hidden" name="number_passengers" value=<%= car.number_passengers %> >
-  <input type="hidden" name="car_condition" value=<%= car.car_condition %> >
-  <input type="hidden" name="recycling_deposit" value=<%= car.recycling_deposit %> >
-  <input type="hidden" name="chassis_number" value=<%= car.chassis_number %> >
-  <input type="hidden" name="fuel" value=<%= car.fuel %> >
-  <input type="hidden" name="handle" value=<%= car.handle %> >
-  <input type="hidden" name="car_inspection_expiration_date" value=<%= car.car_inspection_expiration_date %> >
-  <input type="hidden" name="repair_history" value=<%= car.repair_history %> >
-  <input type="hidden" name="owner_history" value=<%= car.owner_history %> >
-  <input type="hidden" name="body_type_id" value=<%= car.body_type_id %> >
-  <input type="hidden" name="displacement" value=<%= car.displacement %> >
-  <input type="hidden" name="doors" value=<%= car.doors %> >
-  <input type="hidden" name="car_model_name" value=<%= car.car_model_name %> >
-  <input type="hidden" name="drive_system" value=<%= car.drive_system %> >
-  <input type="hidden" name="delivery_conditions" value=<%= car.delivery_conditions %> >
-  <input type="hidden" name="air_conditioner" value=<%= car.air_conditioner %> >
-  <input type="hidden" name="smart_key" value=<%= car.smart_key %> >
-  <input type="hidden" name="sunroof" value=<%= car.sunroof %> >
-  <input type="hidden" name="power_steering" value=<%= car.power_steering %> >
-  <input type="hidden" name="dvd_video" value=<%= car.dvd_video %> >
-  <input type="hidden" name="genuine_leather_seats" value=<%= car.genuine_leather_seats %> >
-  <input type="hidden" name="power_window" value=<%= car.power_window %> >
-  <input type="hidden" name="cd" value=<%= car.cd %> >
-  <input type="hidden" name="genuine_aero_parts" value=<%= car.genuine_aero_parts %> >
-  <input type="hidden" name="central_door_lock" value=<%= car.central_door_lock %> >
-  <input type="hidden" name="md" value=<%= car.md %> >
-  <input type="hidden" name="genuine_aluminum_wheels" value=<%= car.genuine_aluminum_wheels %> >
-  <input type="hidden" name="airbag" value=<%= car.airbag %> >
-  <input type="hidden" name="tv" value=<%= car.tv %> >
-  <input type="hidden" name="skid_prevention_device" value=<%= car.skid_prevention_device %> >
-  <input type="hidden" name="abs" value=<%= car.abs %> >
-  <input type="hidden" name="navigaiton" value=<%= car.navigaiton %> >
-  <input type="hidden" name="traction_control" value=<%= car.traction_control %> >
-  <input type="hidden" name="keyless_entry" value=<%= car.keyless_entry %> >
-  <input type="hidden" name="back_camera" value=<%= car.back_camera %> >
-  <input type="hidden" name="cold_region_specification_car" value=<%= car.cold_region_specification_car %> >
-  <input type="hidden" name="lowdown" value=<%= car.lowdown %> >
-  <input type="hidden" name="electric_sliding_door" value=<%= car.electric_sliding_door %> >
-  <input type="hidden" name="welfare_cars" value=<%= car.welfare_cars %> >
-  <input type="hidden" name="etc" value=<%= car.etc %> >
-  <input type="hidden" name="no_pets" value=<%= car.no_pets %> >
-  <input type="hidden" name="limited_edition_car" value=<%= car.limited_edition_car %> >
-  <input type="hidden" name="non_smoking_car" value=<%= car.non_smoking_car %> >
-  <input type="hidden" name="test_drive_current_company_confirmation_possible" value=<%= car.test_drive_current_company_confirmation_possible	 %> >
-  <input type="hidden" name="instruction_manual" value=<%= car.instruction_manual %> >
-  <input type="hidden" name="new_car_warranty" value=<%= car.new_car_warranty %> >
-  <input type="hidden" name="spare_tire" value=<%= car.spare_tire %> >
+    <table>
+      <tr>
+        <td>エアコン<%= car.air_conditioner ? '◯' : '-' %>
+        </td>
+        <td>スマートキー<%= car.smart_key ? '◯' : '-' %>
+        </td>
+        <td>サンルーフ<%= car.sunroof ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>パワステ<%= car.power_steering ? '◯' : '-' %>
+        </td>
+        <td>DVDビデオ<%= car.dvd_video ? '◯' : '-' %>
+        </td>
+        <td>本革シート<%= car.genuine_leather_seats ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>パワーウィンドウ<%= car.power_window ? '◯' : '-' %>
+        </td>
+        <td>CD<%= car.cd ? '◯' : '-' %>
+        </td>
+        <td>純正エアロパーツ<%= car.genuine_aero_parts ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>集中ドアロック<%= car.central_door_lock ? '◯' : '-' %>
+        </td>
+        <td>MD<%= car.md ? '◯' : '-' %>
+        </td>
+        <td>純正アルミホイール<%= car.genuine_aluminum_wheels ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>エアバッグ<%= car.airbag ? '◯' : '-' %>
+        </td>
+        <td>テレビ<%= car.tv ? '◯' : '-' %>
+        </td>
+        <td>横滑り防止装置<%= car.skid_prevention_device ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>ABS<%= car.abs ? '◯' : '-' %>
+        </td>
+        <td>ナビゲーション<%= car.navigaiton ? '◯' : '-' %>
+        </td>
+        <td>トラクションコントロール<%= car.traction_control ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>キーレスエントリー<%= car.keyless_entry ? '◯' : '-' %>
+        </td>
+        <td>バックカメラ<%= car.back_camera ? '◯' : '-' %>
+        </td>
+        <td>寒冷地帯仕様車<%= car.cold_region_specification_car ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>ローダウン<%= car.lowdown ? '◯' : '-' %>
+        </td>
+        <td>電動スライドドア<%= car.electric_sliding_door ? '◯' : '-' %>
+        </td>
+        <td>福祉車両<%= car.welfare_cars ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>ETC<%= car.etc ? '◯' : '-' %>
+        </td>
+        <td>ペット同乗なし<%= car.no_pets ? '◯' : '-' %>
+        </td>
+        <td>限定車<%= car.limited_edition_car ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>禁煙車<%= car.non_smoking_car ? '◯' : '-' %>
+        </td>
+        <td>試乗、現車確認可能<%= car.test_drive_current_company_confirmation_possible ? '◯' : '-' %>
+        </td>
+        <td>取扱説明書<%= car.instruction_manual ? '◯' : '-' %>
+        </td>
+      </tr>
+      <tr>
+        <td>新車時保証書<%= car.new_car_warranty ? '◯' : '-' %>
+        </td>
+        <td>スペアタイヤ<%= car.spare_tire ? '◯' : '-' %>
+        </td>
+      </tr>
+    </table>
 
-  <button type="submit" name="submit" value="1">登録</button>
-</form>
+
+    <form action="/admin/cars/register/confirm" method="post" enctype="">
+      <input type="hidden" name="manufacturer_id" value=<%=car.manufacturer_id %> >
+      <input type="hidden" name="mission" value=<%=car.mission %> >
+      <input type="hidden" name="mileage_situation" value=<%=car.mileage_situation %> >
+      <input type="hidden" name="grade" value=<%=car.grade %> >
+      <input type="hidden" name="color_id" value=<%=car.color_id %> >
+      <input type="hidden" name="imported_model_year" value=<%=car.imported_model_year %> >
+      <input type="hidden" name="model_year" value=<%=car.model_year %> >
+      <input type="hidden" name="history" value=<%=car.history %> >
+      <input type="hidden" name="color_detail" value=<%=car.color_detail %> >
+      <input type="hidden" name="mileage" value=<%=car.mileage %> >
+      <input type="hidden" name="Inspection_record_book" value=<%=car.Inspection_record_book %> >
+      <input type="hidden" name="model" value=<%=car.model %> >
+      <input type="hidden" name="import_route" value=<%=car.import_route %> >
+      <input type="hidden" name="number_passengers" value=<%=car.number_passengers %> >
+      <input type="hidden" name="car_condition" value=<%=car.car_condition %> >
+      <input type="hidden" name="recycling_deposit" value=<%=car.recycling_deposit %> >
+      <input type="hidden" name="chassis_number" value=<%=car.chassis_number %> >
+      <input type="hidden" name="fuel" value=<%=car.fuel %> >
+      <input type="hidden" name="handle" value=<%=car.handle %> >
+      <input type="hidden" name="car_inspection_expiration_date" value=<%=car.car_inspection_expiration_date %> >
+      <input type="hidden" name="repair_history" value=<%=car.repair_history %> >
+      <input type="hidden" name="owner_history" value=<%=car.owner_history %> >
+      <input type="hidden" name="body_type_id" value=<%=car.body_type_id %> >
+      <input type="hidden" name="displacement" value=<%=car.displacement %> >
+      <input type="hidden" name="doors" value=<%=car.doors %> >
+      <input type="hidden" name="car_model_name" value=<%=car.car_model_name %> >
+      <input type="hidden" name="drive_system" value=<%=car.drive_system %> >
+      <input type="hidden" name="delivery_conditions" value=<%=car.delivery_conditions %> >
+      <input type="hidden" name="air_conditioner" value=<%=car.air_conditioner %> >
+      <input type="hidden" name="smart_key" value=<%=car.smart_key %> >
+      <input type="hidden" name="sunroof" value=<%=car.sunroof %> >
+      <input type="hidden" name="power_steering" value=<%=car.power_steering %> >
+      <input type="hidden" name="dvd_video" value=<%=car.dvd_video %> >
+      <input type="hidden" name="genuine_leather_seats" value=<%=car.genuine_leather_seats %> >
+      <input type="hidden" name="power_window" value=<%=car.power_window %> >
+      <input type="hidden" name="cd" value=<%=car.cd %> >
+      <input type="hidden" name="genuine_aero_parts" value=<%=car.genuine_aero_parts %> >
+      <input type="hidden" name="central_door_lock" value=<%=car.central_door_lock %> >
+      <input type="hidden" name="md" value=<%=car.md %> >
+      <input type="hidden" name="genuine_aluminum_wheels" value=<%=car.genuine_aluminum_wheels %> >
+      <input type="hidden" name="airbag" value=<%=car.airbag %> >
+      <input type="hidden" name="tv" value=<%=car.tv %> >
+      <input type="hidden" name="skid_prevention_device" value=<%=car.skid_prevention_device %> >
+      <input type="hidden" name="abs" value=<%=car.abs %> >
+      <input type="hidden" name="navigaiton" value=<%=car.navigaiton %> >
+      <input type="hidden" name="traction_control" value=<%=car.traction_control %> >
+      <input type="hidden" name="keyless_entry" value=<%=car.keyless_entry %> >
+      <input type="hidden" name="back_camera" value=<%=car.back_camera %> >
+      <input type="hidden" name="cold_region_specification_car" value=<%=car.cold_region_specification_car %> >
+      <input type="hidden" name="lowdown" value=<%=car.lowdown %> >
+      <input type="hidden" name="electric_sliding_door" value=<%=car.electric_sliding_door %> >
+      <input type="hidden" name="welfare_cars" value=<%=car.welfare_cars %> >
+      <input type="hidden" name="etc" value=<%=car.etc %> >
+      <input type="hidden" name="no_pets" value=<%=car.no_pets %> >
+      <input type="hidden" name="limited_edition_car" value=<%=car.limited_edition_car %> >
+      <input type="hidden" name="non_smoking_car" value=<%=car.non_smoking_car %> >
+      <input type="hidden" name="test_drive_current_company_confirmation_possible"
+        value=<%=car.test_drive_current_company_confirmation_possible %> >
+      <input type="hidden" name="instruction_manual" value=<%=car.instruction_manual %> >
+      <input type="hidden" name="new_car_warranty" value=<%=car.new_car_warranty %> >
+      <input type="hidden" name="spare_tire" value=<%=car.spare_tire %> >
+
+      <button type="submit" name="submit" value="1">登録</button>
+    </form>

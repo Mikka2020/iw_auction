@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/destyle.css" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+    <script src="/socket.io/socket.io.js"></script>
     <title><%=values.car_model_name %></title>
 </head>
 
@@ -593,20 +594,20 @@
     </div>
     
     <footer></footer>
+
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
         var auctionId ='<%= auctionId %>';
         var start_time ='<%= values.start_time %>';
         var end_time ='<%= values.end_time %>';
         var user_id ='<%= user.id %>';
-
     </script>
     <script src="/js/auctionItem.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/@barba/core"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
-    <script src="/js/swiper.js"></script>
+    <script src="/js/swiper.js" ></script>
     <script src="/js/barba.js"></script>
     <script src="/js/bidModal.js"></script>
     </body>

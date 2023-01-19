@@ -263,12 +263,28 @@ router.get('/cars/register/', (req, res) => {
   });
 });
 
-router.post('/cars/register/', (req, res) => {
+const multer = require('multer');
+const upload = multer({ dest: 'public/img/tmp/' });
+router.post('/cars/register/', upload.array('files', 4), (req, res) => {
+  req.session.carRegisterData = req.body;
+
+  // 画像ファイルをtmpフォルダに保存
+  console.log(req.files);
+  if (req.files) {
+    req.session.carRegisterData.file = req.files;
+  }
   res.redirect(307, '/admin/cars/register/confirm');
 });
 
+// fs
+const fs = require('fs');
 //車両登録確認
 router.post('/cars/register/confirm/', (req, res) => {
+  // セッションに保存されたデータを取得
+  const carRegisterData = req.session.carRegisterData;
+  // セッションに保存されたデータを削除
+  req.session.carRegisterData = null;
+
   if (req.body.submit == true) {
     //登録
     const sql = `
@@ -277,15 +293,113 @@ router.post('/cars/register/confirm/', (req, res) => {
     VALUES
       (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
     `;
-    console.log(sql);
+
+    const values = [
+      carRegisterData.manufacturer_id,
+      carRegisterData.mission,
+      carRegisterData.mileage_situation,
+      carRegisterData.grade,
+      carRegisterData.color_id,
+      carRegisterData.imported_model_year,
+      carRegisterData.model_year,
+      carRegisterData.history,
+      carRegisterData.color_detail,
+      carRegisterData.mileage,
+      carRegisterData.Inspection_record_book,
+      carRegisterData.model,
+      carRegisterData.import_route,
+      carRegisterData.number_passengers,
+      carRegisterData.car_condition,
+      carRegisterData.recycling_deposit,
+      carRegisterData.chassis_number,
+      carRegisterData.fuel,
+      carRegisterData.handle,
+      carRegisterData.car_inspection_expiration_date,
+      carRegisterData.repair_history,
+      carRegisterData.owner_history,
+      carRegisterData.body_type_id,
+      carRegisterData.displacement,
+      carRegisterData.doors,
+      carRegisterData.car_model_name,
+      carRegisterData.drive_system,
+      carRegisterData.delivery_conditions,
+      carRegisterData.air_conditioner || 0,
+      carRegisterData.smart_key || 0,
+      carRegisterData.sunroof || 0,
+      carRegisterData.power_steering || 0,
+      carRegisterData.dvd_video || 0,
+      carRegisterData.genuine_leather_seats || 0,
+      carRegisterData.power_window || 0,
+      carRegisterData.cd || 0,
+      carRegisterData.genuine_aero_parts || 0,
+      carRegisterData.central_door_lock || 0,
+      carRegisterData.md || 0,
+      carRegisterData.genuine_aluminum_wheels || 0,
+      carRegisterData.airbag || 0,
+      carRegisterData.tv || 0,
+      carRegisterData.skid_prevention_device || 0,
+      carRegisterData.abs || 0,
+      carRegisterData.navigaiton || 0,
+      carRegisterData.traction_control || 0,
+      carRegisterData.keyless_entry || 0,
+      carRegisterData.back_camera || 0,
+      carRegisterData.cold_region_specification_car || 0,
+      carRegisterData.lowdown || 0,
+      carRegisterData.electric_sliding_door || 0,
+      carRegisterData.welfare_cars || 0,
+      carRegisterData.etc || 0,
+      carRegisterData.no_pets || 0,
+      carRegisterData.limited_edition_car || 0,
+      carRegisterData.non_smoking_car || 0,
+      carRegisterData.test_drive_current_company_confirmation_possible || 0,
+      carRegisterData.instruction_manual || 0,
+      carRegisterData.new_car_warranty || 0,
+      carRegisterData.spare_tire || 0,
+    ];
     connection.query(
       sql,
-      [req.body.manufacturer_id, req.body.mission, req.body.mileage_situation, req.body.grade, req.body.color_id, req.body.imported_model_year, req.body.model_year, req.body.history, req.body.color_detail, req.body.mileage, req.body.Inspection_record_book, req.body.model, req.body.import_route, req.body.number_passengers, req.body.car_condition, req.body.recycling_deposit, req.body.chassis_number, req.body.fuel, req.body.handle, req.body.car_inspection_expiration_date, req.body.repair_history, req.body.owner_history, req.body.body_type_id, req.body.displacement, req.body.doors, req.body.car_model_name, req.body.drive_system, req.body.delivery_conditions, req.body.air_conditioner, req.body.smart_key, req.body.sunroof, req.body.power_steering, req.body.dvd_video, req.body.genuine_leather_seats, req.body.power_window, req.body.cd, req.body.genuine_aero_parts, req.body.central_door_lock, req.body.md, req.body.genuine_aluminum_wheels, req.body.airbag, req.body.tv, req.body.skid_prevention_device, req.body.abs, req.body.navigaiton, req.body.traction_control, req.body.keyless_entry, req.body.back_camera, req.body.cold_region_specification_car, req.body.lowdown, req.body.electric_sliding_door, req.body.welfare_cars, req.body.etc, req.body.no_pets, req.body.limited_edition_car, req.body.non_smoking_car, req.body.test_drive_current_company_confirmation_possible, req.body.instruction_manual, req.body.new_car_warranty, req.body.spare_tire,],
+      values,
       (error, results) => {
         console.log(error);
+        // 画像ファイルをpublic/img/carId/に移動
+        if (carRegisterData.file) {
+          // インサートした車両のidを取得
+          connection.query(
+            `
+            SELECT id FROM car ORDER BY id DESC LIMIT 1
+            `,
+            (error, results) => {
+              if (error) {
+                console.log(error);
+              }
+              const carId = results[0].id;
+              const dir = 'public/img/' + carId;
+              if (!fs.existsSync(dir)) {
+                fs.mkdirSync(dir);
+              }
+              for (let i = 0; i < carRegisterData.file.length; i++) {
+                const file = carRegisterData.file[i];
+                const filePath = dir + '/' + (i + 1) + '.jpg';
+                fs.renameSync(file.path, filePath);
+              }
+              // tmpフォルダの画像を削除
+              const tmpDir = 'public/img/tmp';
+              fs.readdir(tmpDir, (err, files) => {
+                if (err) throw err;
+                for (const file of files) {
+                  fs.unlink(path.join
+                    (tmpDir, file), err => {
+                      if (err) throw err;
+                    });
+                }
+              });
+            }
+          )
+        }
       }
     );
-    res.redirect('/admin');
+
+    res.redirect('/admin/cars/');
     console.log("insert");
   } else {
     //idと一致するメーカー、色、ボディタイプ取得
@@ -297,7 +411,7 @@ router.post('/cars/register/confirm/', (req, res) => {
       FROM
         manufacturer
       WHERE
-        id = ` + req.body.manufacturer_id + `
+        id = ` + carRegisterData.manufacturer_id + `
       `;
         connection.query(
           sql,
@@ -316,7 +430,7 @@ router.post('/cars/register/confirm/', (req, res) => {
       FROM
         color
       WHERE
-        id = ` + req.body.color_id + `
+        id = ` + carRegisterData.color_id + `
       `;
         connection.query(
           sql,
@@ -335,7 +449,7 @@ router.post('/cars/register/confirm/', (req, res) => {
       FROM
         bodytype
       WHERE
-        id = ` + req.body.body_type_id + `
+        id = ` + carRegisterData.body_type_id + `
       `;
         connection.query(
           sql,
@@ -347,7 +461,9 @@ router.post('/cars/register/confirm/', (req, res) => {
       return carBodytype;
     }
     Promise.all([getCarManufacturer(), getCarColor(), getCarBodytype()]).then((results) => {
-      res.render('admin/carRegisterConfirm', { car: req.body, manufacturer: results[0], color: results[1], bodytype: results[2] });
+      // carRegisterDataをセッションに保存
+      req.session.carRegisterData = carRegisterData;
+      res.render('admin/carRegisterConfirm', { car: carRegisterData, manufacturer: results[0], color: results[1], bodytype: results[2] });
     });
   }
 
@@ -420,32 +536,32 @@ router.get('/cars/:id/', (req, res) => {
 
 // 車両出品
 router.get('/cars/:id/register/', (req, res) => {
-  const sql = `
-    SELECT
-      e.start_time,
-      e.end_time,
-      c.car_model_name,
-      b.bodytype_name,
-      c.id AS car_id,
-      c.mileage_situation,
-      c.number_passengers,
-      c.repair_history,
-      c.car_inspection_expiration_date,
-      c.mileage,
-      e.lowest_winning_bid
-    FROM
-      car AS c
-    LEFT JOIN  exhibit AS e
-    ON
-      e.car_id = c.id
-    LEFT JOIN bodytype AS b
-    ON
-      c.body_type_id = b.id
-    WHERE
-      c.id = ?
-      `;
   async function getCarItem() {
     const carItem = await new Promise((resolve, reject) => {
+      const sql = `
+      SELECT
+        e.start_time,
+        e.end_time,
+        c.car_model_name,
+        b.bodytype_name,
+        c.id AS car_id,
+        c.mileage_situation,
+        c.number_passengers,
+        c.repair_history,
+        c.car_inspection_expiration_date,
+        c.mileage,
+        e.lowest_winning_bid
+      FROM
+        car AS c
+      LEFT JOIN  exhibit AS e
+      ON
+        e.car_id = c.id
+      LEFT JOIN bodytype AS b
+      ON
+        c.body_type_id = b.id
+      WHERE
+        c.id = ?
+        `;
       connection.query(
         sql,
         [req.params.id],
@@ -468,7 +584,7 @@ router.get('/cars/:id/register/', (req, res) => {
           event_date >= CURDATE()
         ORDER BY
           eventdate.event_date
-        DESC`;
+        ASC`;
       connection.query(
         sql,
         (error, results) => {
@@ -530,7 +646,7 @@ router.post('/cars/:id/register/', (req, res) => {
         console.log(results);
         // インサートされたexhibitのidを取得
         insertBid(results.insertId);
-        res.redirect('/admin/cars');
+        res.redirect('/admin/events/' + req.body.event_date_id + '/');
       }
     );
   }

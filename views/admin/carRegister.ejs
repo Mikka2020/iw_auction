@@ -69,7 +69,7 @@
   <div style=" width: 75%;">
     <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px;">
 
-<form action="/admin/cars/register" method="post" enctype="">
+<form action="/admin/cars/register" method="post" enctype="multipart/form-data">
   <h1>車両登録</h1>
   <table>
     <tr>
@@ -109,7 +109,7 @@
       <td>輸入車モデル年式<br><input type="text" name="imported_model_year" value="2001"></td>
     </tr>
     <tr>
-      <td>年式<br><input type="text" name="model_year"></td>
+      <td>年式<br><input type="text" name="model_year" value="2001"></td>
       <td>車歴<br><input type="text" name="history" value="自家用"></td>
       <td>色の名称<br><input type="text" name="color_detail"></td>
     </tr>
@@ -236,6 +236,7 @@
       <td>スペアタイヤ<br><input type="checkbox" name="spare_tire" value="1"></td>
     </tr>
   </table>
+  <input type="file" name="files" id="upload" multiple>
   <button type="submit" style="margin-top: 20px; width: 200px; font-size: 16px; padding-top: 5px; padding-bottom: 5px; padding-left: 20px; padding-right: 20px;">登録</button>
   </form>
   </div>
