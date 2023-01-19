@@ -367,6 +367,26 @@ main .tableHead{
     color: white;
     font-weight: 600;
     background-color: rgb(29, 29, 29);
+}
+.tableContent .tableDetails .C4Under form{
+    width: 50%;
+    margin-top: 5px;
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    border-radius: 3px;
+    margin-right: 5px;
+    font-size: 10px;
+    color: white;
+    font-weight: 600;
+    background-color: rgb(29, 29, 29);
+} 
+.tableContent .tableDetails .C4Under form button{
+    width: 100%;
+    height:100%;
+    text-align: center;
 } 
 .tableContent .tableDetails .C4Under p{
     width: 50%;
@@ -380,6 +400,9 @@ main .tableHead{
     font-size: 14px;
 }
 .tableContent .activated .tableDetails .C4Under a{
+    background-color: var(--main-color);
+}
+.tableContent .activated .tableDetails .C4Under form{
     background-color: var(--main-color);
 }
 
