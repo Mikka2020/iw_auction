@@ -1,6 +1,6 @@
 <!-- 車両登録画面 -->
 <h1>車両登録</h1>
-<form action="/admin/cars/register" method="post" enctype="">
+<form action="/admin/cars/register" method="post" enctype="multipart/form-data">
 
   <table>
     <tr>
@@ -40,7 +40,7 @@
       <td>輸入車モデル年式<input type="text" name="imported_model_year" value="2001"></td>
     </tr>
     <tr>
-      <td>年式<input type="text" name="model_year"></td>
+      <td>年式<input type="text" name="model_year" value="2001"></td>
       <td>車歴<input type="text" name="history" value="自家用"></td>
       <td>色の名称<input type="text" name="color_detail"></td>
     </tr>
@@ -167,5 +167,6 @@
       <td>スペアタイヤ<input type="checkbox" name="spare_tire" value="1"></td>
     </tr>
   </table>
+  <input type="file" name="files" id="upload" multiple>
   <button type="submit">登録</button>
 </form>
