@@ -50,22 +50,24 @@
     <p><a style="display: flex; align-items: center; padding: 0px 20px; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/sales">販売管理</a></p>
   </div>
   <div style=" width: 75%;">
-    <%= carList[0].last_name %> <%= carList[0].first_name %>様
-    <% for (let car of carList) { %>
-      <div>
-        落札日:<%= car.created_at?.toLocaleDateString() %>
-          落札額:<%= car.successful_bid_price %>円
-            <%= car.manufacture_name %> | <%= car.car_model_name %>
-                <% if (car.payment_status) { %>
-                  <div>
-                    支払い済み
-                  </div>
-                  <% } else { %>
-                    <div>
-                      未払い
+    <div style="box-sizing: border-box; border: 1px solid lightgray; border-radius: 5px; padding: 15px; position: relative;">
+      <p style="font-weight: 600;"><%= carList[0].last_name %> <%= carList[0].first_name %>様</p>
+      <% for (let car of carList) { %>
+        <div style="font-size: 15px; padding-top: 20px;padding-bottom: 20px;">
+          <p style="padding-top: 3px; padding-bottom: 3px;">落札日:<%= car.created_at?.toLocaleDateString() %></p>
+            <p style="padding-top: 3px; padding-bottom: 3px;">落札額:<%= car.successful_bid_price %>円</p>
+              <p style="padding-top: 3px; padding-bottom: 3px;"><%= car.manufacture_name %> | <%= car.car_model_name %></p>
+                  <% if (car.payment_status) { %>
+                    <div style="color: rgb(59, 217, 38); font-weight: 600;">
+                      支払い済み
                     </div>
-                    <% } %>
-      </div>
-      <% } %>
+                    <% } else { %>
+                      <div style="color: red; font-weight: 600;">
+                        未払い
+                      </div>
+                      <% } %>
+        </div>
+        <% } %>
+    </div>
     </div>
   </section>
