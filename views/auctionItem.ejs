@@ -548,7 +548,13 @@
                     </div>
                 </div>
                 <div class="productRight">
-                    <div class="productStatus">
+                        <% if (new Date() < values.start_time) { %>
+                            <div class="productStatusSchedule">
+                        <% } else if(values.end_time < new Date()) { %>
+                            <div class="productStatusEnd">
+                        <% } else { %>
+                            <div class="productStatus">
+                        <% } %>
                         <h3 class="productStatusActive" id="productStatusActive">開催中</h3>
                         <div class="productStatusFlex">
                             <div class="productStatusLeft" id="productStatusLeft">
