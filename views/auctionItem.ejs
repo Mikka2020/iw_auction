@@ -122,20 +122,20 @@
                         <div class="productImg">
                             <div class="mySwiper2">
                                 <ul class="swiper-wrapper">
-                                    <li class="swiper-slide"><img src="/img/1/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img src="/img/2/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img src="/img/3/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img src="/img/4/1.png" alt=""></li>
+                                    <% for (let i=1; i <= fileCount; i++) { %>
+                                        <li class="swiper-slide"><img src="/img/<%=values.car_id %>/<%= i %>.png" alt=""></li>
+                                        <%=console.log(values.car_id);%>
+                                    <% } %>
                                 </ul>
                                 <div id="arrowNext" class="swiper-button-prev swiper-button-black"></div>
                                 <div id="arrowPrev" class="swiper-button-next swiper-button-black"></div>
                             </div>
                             <div class="mySwiper">
                                 <ul class="swiper-wrapper">
-                                    <li class="swiper-slide"><img class="cover" src="/img/1/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="/img/2/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="/img/3/1.png" alt=""></li>
-                                    <li class="swiper-slide"><img class="cover" src="/img/4/1.png" alt=""></li>
+                                    <% for (let i=1; i <= fileCount; i++) { %>
+                                        <li class="swiper-slide"><img src="/img/<%=values.car_id %>/<%= i %>.png" alt=""></li>
+                                        <%=console.log(values.car_id);%>
+                                    <% } %>
                                 </ul>
                             </div>
                         </div>
@@ -601,6 +601,8 @@
         var start_time ='<%= values.start_time %>';
         var end_time ='<%= values.end_time %>';
         var user_id ='<%= user.id %>';
+        var fileCount = '<%= fileCount %>';
+        console.log(fileCount);
     </script>
     <script src="/js/auctionItem.js"></script>
 
