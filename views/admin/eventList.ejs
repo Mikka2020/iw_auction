@@ -1,31 +1,84 @@
-<h2 style="width: 520px; margin: 0 auto;">開催日管理</h2>
-<p><a href="/admin/cars/register">車両登録</a></p>
-<p><a href="/admin/cars/">未出品車両一覧</a></p>
-<% for (let event of eventDateList ) {%>
-  <a href="/admin/events/<%= event.id %>">
-    <div
-      style="display: flex; border: 1px solid lightgray; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; width: 500px; height: 40px; border-radius: 5px; margin: 10px auto;">
-      <p>
-        <%= event.event_date.toLocaleDateString() %>
-      </p>
-      <% if (event.event_date> new Date()) { %>
-        <form action="/admin/events/<%= event.id %>" method="POST"
-          onsubmit="return beforeSubmit(`<%= event.event_date.toLocaleDateString() %>`)">
-          <button>削除</button>
-        </form>
-        <% } else { %>
-          開催済み
-          <% } %>
+<style>
+  * {
+      margin: 0;
+      padding: 0;
+  }
+
+  header {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #37358C;
+      color: white;
+  }
+
+  nav {
+      width: 90%;
+  }
+
+  nav h2 {
+      font-size: 20px;
+      font-style: italic;
+  }
+
+  .aaa p {
+      font-size: 16px;
+  }
+
+  .aaa h3 {
+      font-size: 22px;
+  }
+
+  .ccc {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0px;
+  }
+</style>
+<header>
+  <nav>
+      <h2>Kangarooo★</h2>
+  </nav>
+</header>
+<section style="display: flex; justify-content: space-between; margin: 30px 5%;">
+  <div style="width: 20%; border: 1px solid lightgray; border-radius: 5px; box-sizing: border-box; height: 210px;">
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/cars">車両管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/users">会員管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; border-bottom: 1px solid lightgray; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/events">開催日管理</a></p>
+    <p><a style="display: flex; align-items: center; padding: 0px 20px; height: 50px; color: black; text-decoration: none; font-size: 16px; font-weight: 600;" href="/admin/sales">販売管理</a></p>
+  </div>
+  <div style=" width: 75%;">
+    <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px;">
+      <p><a style="display: flex; justify-content: center; align-items: center; width: 130px; padding: 10px 20px; color: #000; border: 1px solid lightgray; border-radius: 5px; background-color: #ffffff; text-decoration: none; font-weight: 600; font-size: 15px;" href="/admin/cars/">未出品車両一覧</a></p>
+      <p><a style="display: flex; justify-content: center; align-items: center; width: 130px; padding: 10px 20px; color: #FFF; background-color: #37358C; border-radius: 5px; text-decoration: none; font-weight: 600; font-size: 15px;" href="/admin/cars/register">車両登録</a></p>
     </div>
-  </a>
-
-  <% } %>
-    <form action="/admin/events/" method="post" style="display: flex; justify-content: center; padding-top: 10px;">
-      <input type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
-          Date().getMonth() + 1) + '-' + new Date().getDate() %>">
-      <button type="submit">新規登録</button>
-    </form>
-
+    <% for (let event of eventDateList ) {%>
+      <a href="/admin/events/<%= event.id %>" style="display: block; width: 100%; text-decoration: none;">
+        <div style="display: flex; box-sizing: border-box; color: black; font-size: 14px; border: 1px solid lightgray; align-items: center; justify-content: space-between; padding-left: 10px; padding-right: 10px; width: 100%; height: 40px; border-radius: 5px; margin-bottom: 10px;">
+          <p>
+            <%= event.event_date.toLocaleDateString() %>
+          </p>
+          <% if (event.event_date> new Date()) { %>
+            <form action="/admin/events/<%= event.id %>" method="POST"
+              onsubmit="return beforeSubmit(`<%= event.event_date.toLocaleDateString() %>`)">
+              <button style="font-size: 14px; padding: 5px 15px;">削除</button>
+            </form>
+            <% } else { %>
+              開催済み
+              <% } %>
+        </div>
+      </a>
+    
+      <% } %>
+        <form action="/admin/events/" method="post" style="display: flex; padding-top: 10px; justify-content: space-between;">
+          <input style="width: 78%; height: 40px;" type="date" name="event_date" id="event_date" min="<%= new Date().getFullYear() + '-' + (new
+              Date().getMonth() + 1) + '-' + new Date().getDate() %>">
+          <button style="width: 20%; height: 40px;" type="submit">新規登録</button>
+        </form>
+    </div>  
+  </section>  
     <script>
       function beforeSubmit(date) {
         if (window.confirm(date + 'を削除しますがよろしいでしょうか？')) {
