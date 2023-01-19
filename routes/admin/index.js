@@ -379,7 +379,7 @@ router.post('/cars/register/confirm/', (req, res) => {
               }
               for (let i = 0; i < carRegisterData.file.length; i++) {
                 const file = carRegisterData.file[i];
-                const filePath = dir + '/' + (i + 1) + '.jpg';
+                const filePath = dir + '/' + (i + 1) + '.png';
                 fs.renameSync(file.path, filePath);
               }
               // tmpフォルダの画像を削除
