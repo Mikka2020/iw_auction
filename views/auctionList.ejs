@@ -65,16 +65,29 @@
         <li class="c4">詳細</li>
       </ul>
       <ul class="tableContent">
+        <% var hour;var min;var end_date;var now_date;var diff;var calcHour;var calcMin; %>
         <% for (let i=0; i < exhibits.length; i++) { %>
           <li
             class="<% if (new Date() < exhibits[i].start_time) { } else if (exhibits[i].end_time <= new Date()) { %> closed <% } else { %> activated <% } %>">
             <div class="c1 tableTime">
               <% if (exhibits[i].start_time <=new Date() && new Date() < exhibits[i].end_time) { %>
+                <div id="hour"></div><div id="min"></div>
                 <!-- <span id="hour"></span>：<span id="min"></span>：<span id="sec"></span> -->
-                -
-                <% } else { %>
-                  -
-                  <% } %>
+                <%
+                end_date = new Date(exhibits[i].end_time);
+                diff = end_date.getTime() - new Date().getTime(); // 時間の差を取得（ミリ秒）
+                // ミリ秒から単位を修正
+                calcHour = Math.floor(diff / 1000 / 60 / 60);
+                calcMin = Math.floor(diff / 1000 / 60) % 60;
+                hour = calcHour < 10 ? '0' + calcHour : calcHour;
+                min = calcMin < 10 ? '0' + calcMin : calcMin;
+                
+                %><%=hour%>:<%=min%>
+                <% } else if(new Date() < exhibits[i].start_time) { %>
+                  未開催
+                  <% }else{ %>
+                    落札済
+                    <% }%>
             </div>
             <div class="c2 tableSchedule">
               <% var startHours = exhibits[i].start_time.getHours().toString().padStart(2, '0' ) %>
