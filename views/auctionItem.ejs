@@ -145,7 +145,7 @@
                                     <div class="productLogo"></div>
                                     <div class="productMakerName"><%=values.manufacture_name %></div>
                                 </div>
-                                <div class="productYear">2016</div>
+                                <div class="productYear"><%=values.model_year %></div>
                             </div>
                             <div class="productName"><%=values.car_model_name %></div>
                             <h3 class="productSpecHead">基本スペック</h3>
@@ -190,11 +190,11 @@
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">グレード名</div>
-                                    <div class="productTableCI">16GT ターボ</div>
+                                    <div class="productTableCI"><%=values.grade %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">排気量</div>
-                                    <div class="productTableCI"><%=values.exhaust %>cc</div>
+                                    <div class="productTableCI"><%=values.displacement %>cc</div>
                                 </div>
                             </div>
                             <div class="productTableContents">
@@ -230,7 +230,13 @@
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">車検有効期限</div>
-                                    <div class="productTableCI"><%=values.car_inspection_expiration_date %></div>
+                                    <div class="productTableCI"><%
+                                    var inspeYear;var inspeMonth;var inspeDate;
+                                    var inspeNum = values.car_inspection_expiration_date;
+                                    inspeYear = inspeNum.getFullYear();
+                                    inspeMonth = inspeNum.getMonth()+1;
+                                    inspeDate = inspeNum.getDate();
+                                     %><%= inspeYear %>年<%= inspeMonth%>月<%= inspeDate %>日</div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">ミッション</div>
@@ -240,7 +246,7 @@
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">ボディタイプ</div>
-                                    <div class="productTableCI"><%=values.body_type_id %></div>
+                                    <div class="productTableCI"><%=values.bodytype_name %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">型式</div>
@@ -251,17 +257,17 @@
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">ドア数</div>
-                                    <div class="productTableCI"><%=values.doors %></div>
+                                    <div class="productTableCI"><%=values.doors %>枚</div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">乗車定員数</div>
-                                    <div class="productTableCI"><%=values.drive_system %></div>
+                                    <div class="productTableCI"><%=values.drive_system %>人</div>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">駆動方式</div>
-                                    <div class="productTableCI"><%=values.drive_system %></div>
+                                    <div class="productTableCI"><% if(values.drive_system == 0){ %>FF<%}else if(values.drive_system == 1){%>FR<%}else if(values.drive_system == 2){%>4WD<%}else if(values.drive_system == 3){%>MR<%}else if(values.drive_system == 4){%>RR<%}%></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">燃料</div>
@@ -275,7 +281,7 @@
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">修復歴</div>
-                                    <div class="productTableCI"><%=values.manufacture_name %></div>
+                                    <div class="productTableCI"><%=values.repair_history %></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
@@ -285,17 +291,17 @@
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">リサイクル</div>
-                                    <div class="productTableCI"><%=values.resycling_deposit %> <span>円</span></div>
+                                    <div class="productTableCI"><%=values.recycling_deposit %> <span>円</span></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
                                 <div class="productTableContent">
                                     <div class="productTableCH">輸入経路</div>
-                                    <div class="productTableCI"><%=values.importe_route %></div>
+                                    <div class="productTableCI"><%=values.import_route %></div>
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">ハンドル</div>
-                                    <div class="productTableCI"><%=values.handle %></div>
+                                    <div class="productTableCI"><%if(values.handle == 0){%>右<%}else if(values.handle == 1){%>左<%}%> </div>
                                 </div>
                             </div>
                             <div class="productTableContents">
