@@ -240,7 +240,7 @@
                                 </div>
                                 <div class="productTableContent">
                                     <div class="productTableCH">ミッション</div>
-                                    <div class="productTableCI"><%=values.mission %></div>
+                                    <div class="productTableCI"><% if(values.mission == 0){%>AT<%}else if(values.mission == 1){%>MT<%}%></div>
                                 </div>
                             </div>
                             <div class="productTableContents">
